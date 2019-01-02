@@ -1,7 +1,6 @@
 import { GraphQL, preload } from 'graphql-react'
 import Head from 'next/head'
 import React from 'react'
-import getDisplayName from 'react-display-name'
 
 /**
  * A React higher-order component to decorate a Next.js `pages/_app.js` custom
@@ -59,7 +58,9 @@ export const withGraphQL = App => {
     ...appProps
   }) => <App {...appProps} graphql={graphql} />
 
-  AppWithGraphQL.displayName = `withGraphQL(${getDisplayName(App)})`
+  AppWithGraphQL.displayName = `withGraphQL(${App.displayName ||
+    App.name ||
+    'Unknown'})`
 
   /**
    * Gets the `App` component’s initial props. Implemented using `Promise`

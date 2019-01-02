@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
-    "object-assign": "^4.1.1",
-    "react-display-name": "^0.2.4"
+    "object-assign": "^4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
