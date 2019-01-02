@@ -74,24 +74,23 @@ export const withGraphQL = App => {
    * @returns {Object} `App` component props.
    * @ignore
    */
-  AppWithGraphQL.getInitialProps = ({ ctx, router, Component }) =>
+  AppWithGraphQL.getInitialProps = context =>
     new Promise(resolve => {
       Promise.resolve(
-        Component.getInitialProps
-          ? Component.getInitialProps(ctx).then(pageProps => ({ pageProps }))
-          : {}
+        App.getInitialProps ? App.getInitialProps(context) : {}
       ).then(props => {
-        if (!ctx.req)
+        if (!context.ctx.req)
           // Not SSR environment.
           return resolve(props)
 
         const graphql = new GraphQL()
+
         preload(
           <App
             {...props}
             graphql={graphql}
-            router={router}
-            Component={Component}
+            router={context.router}
+            Component={context.Component}
           />
         ).then(() => {
           Head.rewind()
