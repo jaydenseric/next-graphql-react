@@ -12,7 +12,7 @@ import React from 'react'
  * @kind function
  * @name withGraphQL
  * @param {Object} App Next.js custom `App` component.
- * @returns {WithGraphQL} Next.js custom `App` higher-order component.
+ * @returns {withGraphQL~AppWithGraphQL} Next.js custom `App` higher-order component.
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
  *
@@ -66,7 +66,7 @@ export const withGraphQL = App => {
    * Gets the `App` component’s initial props. Implemented using `Promise`
    * instead  of `async`/`await` for smaller bundle size.
    * @kind function
-   * @name WithGraphQL.getInitialProps
+   * @name withGraphQL~AppWithGraphQL.getInitialProps
    * @param {Object} context `App` context.
    * @param {Object} context.ctx Context for the route page component’s `getInitialProps`.
    * @param {Object} context.router Router instance.
