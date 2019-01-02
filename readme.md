@@ -42,7 +42,7 @@ A React higher-order component to decorate a Next.js `pages/_app.js` custom `App
 | :-------- | :------------------------------ | :------------------------------ |
 | `App`     | [Object](https://mdn.io/object) | Next.js custom `App` component. |
 
-**Returns:** withGraphQL~AppWithGraphQL — Next.js custom `App` higher-order component.
+**Returns:** WithGraphQL — Next.js custom `App` higher-order component.
 
 #### See
 

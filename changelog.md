@@ -4,8 +4,13 @@
 
 ### Patch
 
+- Fixed GraphQL cache clearing on route changes.
 - Fixed incorrect `getInitialProps` implementation.
-- Fixed JSDoc member names.
+- Higher-order component display name better follows [React conventions](https://reactjs.org/docs/higher-order-components#convention-wrap-the-display-name-for-easy-debugging):
+  - Uppercase first letter.
+  - Decorated component name falls back to `Component` instead of `Unknown`.
+- Renamed `cache` prop to `graphqlCache`.
+- Improved JSDoc.
 
 ## 1.0.0
 

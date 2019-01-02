@@ -12,7 +12,7 @@ import React from 'react'
  * @kind function
  * @name withGraphQL
  * @param {Object} App Next.js custom `App` component.
- * @returns {withGraphQL~AppWithGraphQL} Next.js custom `App` higher-order component.
+ * @returns {WithGraphQL} Next.js custom `App` higher-order component.
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
  *
@@ -38,67 +38,91 @@ import React from 'react'
  * export default withGraphQL(CustomApp)
  * ```
  */
-export const withGraphQL = App => {
+export const withGraphQL = App =>
   /**
    * React higher-order component.
-   * @kind function
-   * @name withGraphQL~AppWithGraphQL
+   * @kind class
+   * @name WithGraphQL
    * @param {Object} props Props.
-   * @param {Object} [props.cache] GraphQL cache; undefined for SSR, defined for client render.
+   * @param {Object} [props.graphqlCache] GraphQL cache; undefined for SSR, defined for client render.
    * @param {GraphQL} [props.graphql] GraphQL instance; undefined for SSR, undefined for client render.
    * @returns {ReactElement} React virtual DOM element.
    * @ignore
    */
-  const AppWithGraphQL = ({
-    // No prop type checks as the props are not exposed to consumers.
-    // eslint-disable-next-line react/prop-types
-    cache,
-    // eslint-disable-next-line react/prop-types
-    graphql = new GraphQL({ cache }),
-    ...appProps
-  }) => <App {...appProps} graphql={graphql} />
+  class WithGraphQL extends React.Component {
+    /**
+     * The higher-order component’s display name.
+     * @see [React display name conventions](https://reactjs.org/docs/higher-order-components#convention-wrap-the-display-name-for-easy-debugging).
+     * @kind member
+     * @name WithGraphQL.displayName
+     * @type {string}
+     * @ignore
+     */
+    static displayName = `WithGraphQL(${App.displayName ||
+      App.name ||
+      'Component'})`
 
-  AppWithGraphQL.displayName = `withGraphQL(${App.displayName ||
-    App.name ||
-    'Unknown'})`
+    /**
+     * Gets the higher-order component’s initial props. Implemented using
+     * `Promise` instead  of `async`/`await` for smaller bundle size.
+     * @kind function
+     * @name WithGraphQL.getInitialProps
+     * @param {Object} context App context.
+     * @param {Object} context.ctx Context for the route page component’s `getInitialProps`.
+     * @param {Object} context.router Router instance.
+     * @param {Object} context.component Route page component.
+     * @returns {Object} Props.
+     * @ignore
+     */
+    static getInitialProps = context =>
+      new Promise(resolve => {
+        Promise.resolve(
+          App.getInitialProps ? App.getInitialProps(context) : {}
+        ).then(props => {
+          if (!context.ctx.req)
+            // Not SSR environment.
+            return resolve(props)
 
-  /**
-   * Gets the `App` component’s initial props. Implemented using `Promise`
-   * instead  of `async`/`await` for smaller bundle size.
-   * @kind function
-   * @name withGraphQL~AppWithGraphQL.getInitialProps
-   * @param {Object} context `App` context.
-   * @param {Object} context.ctx Context for the route page component’s `getInitialProps`.
-   * @param {Object} context.router Router instance.
-   * @param {Object} context.component Route page component.
-   * @returns {Object} `App` component props.
-   * @ignore
-   */
-  AppWithGraphQL.getInitialProps = context =>
-    new Promise(resolve => {
-      Promise.resolve(
-        App.getInitialProps ? App.getInitialProps(context) : {}
-      ).then(props => {
-        if (!context.ctx.req)
-          // Not SSR environment.
-          return resolve(props)
+          const graphql = new GraphQL()
 
-        const graphql = new GraphQL()
-
-        preload(
-          <App
-            {...props}
-            graphql={graphql}
-            router={context.router}
-            Component={context.Component}
-          />
-        ).then(() => {
-          Head.rewind()
-          props.cache = graphql.cache
-          resolve(props)
+          preload(
+            <App
+              {...props}
+              graphql={graphql}
+              router={context.router}
+              Component={context.Component}
+            />
+          ).then(() => {
+            Head.rewind()
+            props.graphqlCache = graphql.cache
+            resolve(props)
+          })
         })
       })
-    })
 
-  return AppWithGraphQL
-}
+    /**
+     * The `GraphQL` instance.
+     * @kind member
+     * @name WithGraphQL#graphql
+     * @type {GraphQL}
+     * @ignore
+     */
+    graphql =
+      // No prop type checks as the props are not exposed to consumers.
+      // eslint-disable-next-line react/prop-types
+      this.props.graphql || new GraphQL({ cache: this.props.graphqlCache })
+
+    /**
+     * Renders the component.
+     * @kind function
+     * @name WithGraphQL#render
+     * @returns {ReactElement} React virtual DOM element.
+     * @ignore
+     */
+    render() {
+      const { ...appProps } = this.props
+      delete appProps.graphqlCache
+
+      return <App {...appProps} graphql={this.graphql} />
+    }
+  }
