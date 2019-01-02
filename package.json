@@ -1,6 +1,6 @@
 {
   "name": "next-graphql-react",
-  "version": "",
+  "version": "1.0.0",
   "description": "A React higher-order component to decorate a Next.js pages/_app.js custom App component for graphql-react, enabling descendant GraphQL queries with server side rendering and client side data hydration.",
   "license": "MIT",
   "author": {
