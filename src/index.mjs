@@ -92,11 +92,14 @@ export const withGraphQL = App =>
               router={context.router}
               Component={context.Component}
             />
-          ).then(() => {
-            Head.rewind()
-            props.graphqlCache = graphql.cache
-            resolve(props)
-          })
+          )
+            // eslint-disable-next-line no-console
+            .catch(console.error)
+            .then(() => {
+              Head.rewind()
+              props.graphqlCache = graphql.cache
+              resolve(props)
+            })
         })
       })
 

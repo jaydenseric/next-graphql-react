@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dev dependencies.
+- Catch and `console.log` GraphQL `preload` render errors.
 
 ## 1.0.1
 
