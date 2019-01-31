@@ -1,16 +1,17 @@
-import { GraphQL, preload } from 'graphql-react'
+import { GraphQL } from 'graphql-react'
+import { ssr } from 'graphql-react/lib/ssr'
 import Head from 'next/head'
 import React from 'react'
 
 /**
- * A React higher-order component to decorate a Next.js `pages/_app.js` custom
- * `App` component for [`graphql-react`](https://npm.im/graphql-react), enabling
- * descendant GraphQL queries with server side rendering and client side data
- * hydration.
- * @see [Next.js custom `<App>` docs](https://nextjs.org/docs#custom-app).
+ * A higher-order React component to decorate a Next.js custom `App` component
+ * in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react),
+ * enabling descendant GraphQL queries with server side rendering and client
+ * side data hydration.
+ * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @kind function
- * @name withGraphQL
+ * @name withGraphQLApp
  * @param {Object} App Next.js custom `App` component.
  * @returns {WithGraphQL} Next.js custom `App` higher-order component.
  * @example <caption>A custom `App`.</caption>
@@ -19,7 +20,7 @@ import React from 'react'
  * ```js
  * import 'cross-fetch/polyfill'
  * import { Provider } from 'graphql-react'
- * import { withGraphQL } from 'next-graphql-react'
+ * import { withGraphQLApp } from 'next-graphql-react'
  * import App, { Container } from 'next/app'
  *
  * class CustomApp extends App {
@@ -35,10 +36,10 @@ import React from 'react'
  *   }
  * }
  *
- * export default withGraphQL(CustomApp)
+ * export default withGraphQLApp(CustomApp)
  * ```
  */
-export const withGraphQL = App =>
+export const withGraphQLApp = App =>
   /**
    * React higher-order component.
    * @kind class
@@ -79,27 +80,29 @@ export const withGraphQL = App =>
         Promise.resolve(
           App.getInitialProps ? App.getInitialProps(context) : {}
         ).then(props => {
-          if (!context.ctx.req)
-            // Not SSR environment.
-            return resolve(props)
+          // Next.js webpack config uses process.browser to eliminate code from
+          // the relevant server/browser bundle.
+          if (process.browser) resolve(props)
+          else {
+            const graphql = new GraphQL()
 
-          const graphql = new GraphQL()
-
-          preload(
-            <App
-              {...props}
-              graphql={graphql}
-              router={context.router}
-              Component={context.Component}
-            />
-          )
-            // eslint-disable-next-line no-console
-            .catch(console.error)
-            .then(() => {
-              Head.rewind()
-              props.graphqlCache = graphql.cache
-              resolve(props)
-            })
+            ssr(
+              graphql,
+              <App
+                {...props}
+                graphql={graphql}
+                router={context.router}
+                Component={context.Component}
+              />
+            )
+              // eslint-disable-next-line no-console
+              .catch(console.error)
+              .then(() => {
+                Head.rewind()
+                props.graphqlCache = graphql.cache
+                resolve(props)
+              })
+          }
         })
       })
 

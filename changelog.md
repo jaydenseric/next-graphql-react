@@ -2,9 +2,17 @@
 
 ## Next
 
+### Major
+
+- Updated the [graphql-react](https://npm.im/graphql-react) peer dependency to `^7.0.0`.
+- Renamed `withGraphQL` to `withGraphQLApp`.
+- Added `withGraphQLConfig`, a Next.js custom config decorator that excludes server only `graphql-react/lib/ssr` imports from the client bundle.
+
 ### Patch
 
 - Updated dependencies.
+- New package description.
+- New project structure so server only and universal modules can have different Babel and Browserslist config.
 
 ## 1.0.2
 

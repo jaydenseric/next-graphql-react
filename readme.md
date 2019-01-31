@@ -4,7 +4,7 @@
 
 [![npm version](https://badgen.net/npm/v/next-graphql-react)](https://npm.im/next-graphql-react) [![Build status](https://travis-ci.org/jaydenseric/next-graphql-react.svg?branch=master)](https://travis-ci.org/jaydenseric/next-graphql-react)
 
-A [React higher-order component](https://reactjs.org/docs/higher-order-components) to decorate a [Next.js](https://nextjs.org) [`pages/_app.js` custom `App` component](https://github.com/zeit/next.js#custom-app) for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL queries with server side rendering and client side data hydration.
+[Next.js](https://nextjs.org) [config](https://nextjs.org/docs/#custom-configuration) and [`App`](https://nextjs.org/docs/#custom-app) decorators for [`graphql-react`](https://npm.im/graphql-react), enabling server side rendered GraphQL queries.
 
 ## Setup
 
@@ -14,7 +14,7 @@ To install [`next-graphql-react`](https://npm.im/next-graphql-react) and the [`g
 npm install next-graphql-react graphql-react
 ```
 
-See the [`withGraphQL`](#function-withgraphql) examples to get started.
+See the [`withGraphQLConfig`](#function-withgraphqlconfig) and [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
 
 ## Support
 
@@ -30,23 +30,26 @@ Consider polyfilling:
 
 ### Table of contents
 
-- [function withGraphQL](#function-withgraphql)
+- [function withGraphQLApp](#function-withgraphqlapp)
   - [See](#see)
   - [Examples](#examples)
+- [function withGraphQLConfig](#function-withgraphqlconfig)
+  - [See](#see-1)
+  - [Examples](#examples-1)
 
-### function withGraphQL
+### function withGraphQLApp
 
-A React higher-order component to decorate a Next.js `pages/_app.js` custom `App` component for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL queries with server side rendering and client side data hydration.
+A higher-order React component to decorate a Next.js custom `App` component in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL queries with server side rendering and client side data hydration.
 
-| Parameter | Type                            | Description                     |
-| :-------- | :------------------------------ | :------------------------------ |
-| `App`     | [Object](https://mdn.io/object) | Next.js custom `App` component. |
+| Parameter | Type   | Description                     |
+| :-------- | :----- | :------------------------------ |
+| `App`     | Object | Next.js custom `App` component. |
 
 **Returns:** WithGraphQL — Next.js custom `App` higher-order component.
 
 #### See
 
-- [Next.js custom `<App>` docs](https://nextjs.org/docs#custom-app).
+- [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
 - [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
 
 #### Examples
@@ -58,7 +61,7 @@ _A custom `App`._
 > ```js
 > import 'cross-fetch/polyfill'
 > import { Provider } from 'graphql-react'
-> import { withGraphQL } from 'next-graphql-react'
+> import { withGraphQLApp } from 'next-graphql-react'
 > import App, { Container } from 'next/app'
 >
 > class CustomApp extends App {
@@ -74,5 +77,34 @@ _A custom `App`._
 >   }
 > }
 >
-> export default withGraphQL(CustomApp)
+> export default withGraphQLApp(CustomApp)
+> ```
+
+### function withGraphQLConfig
+
+A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/lib/ssr` imports from the client bundle.
+
+| Parameter | Type   | Description            |
+| :-------- | :----- | :--------------------- |
+| `config`  | Object | Next.js custom config. |
+
+**Returns:** Object — Next.js custom config.
+
+#### See
+
+- [Next.js custom config docs](https://nextjs.org/docs/#custom-configuration).
+- [`graphql-react` `ssr` docs](https://github.com/jaydenseric/graphql-react#function-ssr).
+
+#### Examples
+
+_A custom config._
+
+> In `next.config.js`:
+>
+> ```js
+> const { withGraphQLConfig } = require('next-graphql-react/server')
+>
+> module.exports = withGraphQLConfig({
+>   // Custom config…
+> })
 > ```

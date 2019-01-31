@@ -1,0 +1,1 @@
+export { withGraphQLApp } from './withGraphQLApp'
