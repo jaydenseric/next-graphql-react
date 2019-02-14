@@ -71,7 +71,7 @@
     "test": "npm run test:eslint && npm run test:prettier",
     "test:eslint": "eslint . --ext mjs,js",
     "test:prettier": "prettier '**/*.{json,yml,md}' -l",
-    "prepublishOnly": "npm run prepare && npm test"
+    "prepublishOnly": "npm test"
   },
   "husky": {
     "hooks": {

@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Simplified the `prepublishOnly` script.
+
 ## 2.0.0
 
 ### Major
