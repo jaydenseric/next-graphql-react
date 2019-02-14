@@ -60,7 +60,7 @@ _A custom `App`._
 >
 > ```js
 > import 'cross-fetch/polyfill'
-> import { Provider } from 'graphql-react'
+> import { GraphQLContext } from 'graphql-react'
 > import { withGraphQLApp } from 'next-graphql-react'
 > import App, { Container } from 'next/app'
 >
@@ -69,9 +69,9 @@ _A custom `App`._
 >     const { Component, pageProps, graphql } = this.props
 >     return (
 >       <Container>
->         <Provider value={graphql}>
+>         <GraphQLContext.Provider value={graphql}>
 >           <Component {...pageProps} />
->         </Provider>
+>         </GraphQLContext.Provider>
 >       </Container>
 >     )
 >   }
@@ -84,7 +84,7 @@ _A custom `App`._
 
 ### function withGraphQLConfig
 
-A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/lib/ssr` imports from the client bundle.
+A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/server` imports from the client bundle.
 
 | Parameter | Type   | Description            |
 | :-------- | :----- | :--------------------- |

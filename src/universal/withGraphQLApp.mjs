@@ -1,5 +1,5 @@
 import { GraphQL } from 'graphql-react'
-import { ssr } from 'graphql-react/lib/ssr'
+import { ssr } from 'graphql-react/server'
 import Head from 'next/head'
 import React from 'react'
 
@@ -19,7 +19,7 @@ import React from 'react'
  *
  * ```js
  * import 'cross-fetch/polyfill'
- * import { Provider } from 'graphql-react'
+ * import { GraphQLContext } from 'graphql-react'
  * import { withGraphQLApp } from 'next-graphql-react'
  * import App, { Container } from 'next/app'
  *
@@ -28,9 +28,9 @@ import React from 'react'
  *     const { Component, pageProps, graphql } = this.props
  *     return (
  *       <Container>
- *         <Provider value={graphql}>
+ *         <GraphQLContext.Provider value={graphql}>
  *           <Component {...pageProps} />
- *         </Provider>
+ *         </GraphQLContext.Provider>
  *       </Container>
  *     )
  *   }
