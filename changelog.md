@@ -2,8 +2,13 @@
 
 ## Next
 
+### Minor
+
+- Updated the `next` peer dependency to `7 - 8`.
+
 ### Patch
 
+- Updated dev dependencies.
 - Simplified the `prepublishOnly` script.
 
 ## 2.0.0

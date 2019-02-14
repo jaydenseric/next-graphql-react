@@ -80,6 +80,8 @@ _A custom `App`._
 > export default withGraphQLApp(CustomApp)
 > ```
 
+---
+
 ### function withGraphQLConfig
 
 A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/lib/ssr` imports from the client bundle.
