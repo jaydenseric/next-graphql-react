@@ -4,7 +4,7 @@
 
 ### Minor
 
-- Updated the `next` peer dependency to `7 - 8`.
+- Updated the [`next`](https://npm.im/next) peer dependency to `7 - 8`.
 
 ### Patch
 
@@ -16,7 +16,7 @@
 
 ### Major
 
-- Updated the [graphql-react](https://npm.im/graphql-react) peer dependency to `^7.0.0`.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^7.0.0`.
 - Renamed `withGraphQL` to `withGraphQLApp`.
 - Added `withGraphQLConfig`, a Next.js custom config decorator that excludes server only `graphql-react/lib/ssr` imports from the client bundle.
 
