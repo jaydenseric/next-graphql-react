@@ -2,6 +2,11 @@
 
 ## Next
 
+### Major
+
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^8.0.0`, and updated the implementation for the new API.
+- Updated the [`react`](https://npm.im/react) peer dependency to `^16.8.0`.
+
 ### Minor
 
 - Updated the [`next`](https://npm.im/next) peer dependency to `7 - 8`.
@@ -10,7 +15,7 @@
 
 - Updated dev dependencies.
 - Simplified the `prepublishOnly` script.
-- Tweaked docs for the new [`graphql-react`](https://npm.im/graphql-react) API.
+- Updated docs for the new [`graphql-react`](https://npm.im/graphql-react) API.
 
 ## 2.0.0
 
