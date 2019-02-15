@@ -6,7 +6,7 @@ import React from 'react'
 /**
  * A higher-order React component to decorate a Next.js custom `App` component
  * in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react),
- * enabling descendant GraphQL queries with server side rendering and client
+ * enabling descendant GraphQL operations with server side rendering and client
  * side data hydration.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
@@ -45,8 +45,8 @@ export const withGraphQLApp = App =>
    * @kind class
    * @name WithGraphQL
    * @param {Object} props Props.
-   * @param {Object} [props.graphqlCache] GraphQL cache; undefined for SSR, defined for client render.
-   * @param {GraphQL} [props.graphql] GraphQL instance; undefined for SSR, undefined for client render.
+   * @param {Object} [props.graphqlCache] `GraphQL` cache; undefined for SSR, defined for client render.
+   * @param {GraphQL} [props.graphql] `GraphQL` instance; undefined for SSR, undefined for client render.
    * @returns {ReactElement} React virtual DOM element.
    * @ignore
    */

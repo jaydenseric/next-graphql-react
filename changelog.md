@@ -10,6 +10,7 @@
 
 - Updated dev dependencies.
 - Simplified the `prepublishOnly` script.
+- Tweaked docs for the new [`graphql-react`](https://npm.im/graphql-react) API.
 
 ## 2.0.0
 

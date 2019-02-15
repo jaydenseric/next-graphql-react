@@ -1,7 +1,7 @@
 {
   "name": "next-graphql-react",
   "version": "2.0.0",
-  "description": "Next.js config and App decorators for graphql-react, enabling server side rendered GraphQL queries.",
+  "description": "Next.js config and App decorators for graphql-react, enabling server side rendered GraphQL operations.",
   "license": "MIT",
   "author": {
     "name": "Jayden Seric",
