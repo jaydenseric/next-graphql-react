@@ -60,7 +60,7 @@ _A custom `App`._
 >
 > ```js
 > import 'cross-fetch/polyfill'
-> import { GraphQLContext } from 'graphql-react'
+> import { GraphQLProvider } from 'graphql-react'
 > import { withGraphQLApp } from 'next-graphql-react'
 > import App, { Container } from 'next/app'
 >
@@ -69,9 +69,9 @@ _A custom `App`._
 >     const { Component, pageProps, graphql } = this.props
 >     return (
 >       <Container>
->         <GraphQLContext.Provider value={graphql}>
+>         <GraphQLProvider graphql={graphql}>
 >           <Component {...pageProps} />
->         </GraphQLContext.Provider>
+>         </GraphQLProvider>
 >       </Container>
 >     )
 >   }

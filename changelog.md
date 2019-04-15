@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dependencies.
+- Updated examples for [`graphql-react`](https:npm.im/graphql-react) v8.2.0.
 
 ## 3.0.0
 
