@@ -4,7 +4,7 @@
 
 ### Patch
 
-- Updated dev dependencies.
+- Updated dependencies.
 
 ## 3.0.1
 
