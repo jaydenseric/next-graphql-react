@@ -73,30 +73,5 @@
     "test:eslint": "eslint . --ext mjs,js",
     "test:prettier": "prettier '**/*.{json,yml,md}' -l",
     "prepublishOnly": "npm test"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{mjs,js}": "eslint",
-    "*.{json,yml,md}": "prettier -l"
-  },
-  "eslintIgnore": [
-    "!.*",
-    "node_modules",
-    "/universal",
-    "/server"
-  ],
-  "eslintConfig": {
-    "extends": [
-      "env"
-    ]
-  },
-  "prettier": {
-    "proseWrap": "never",
-    "singleQuote": true,
-    "semi": false
   }
 }
