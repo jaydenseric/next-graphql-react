@@ -7,6 +7,7 @@
 - Updated dependencies.
 - Reduced the size of the published `package.json` by moving dev tool config to files. This also prevents editor extensions such as Prettier and ESLint from detecting config and attempting to operate when opening package files installed in `node_modules`.
 - Use `cjs` instead of `commonjs` for the [`@babel/preset-env`](https:npm.im/@babel/preset-env) `modules` option.
+- Use `>=` in the Browserslist `node` queries.
 
 ## 3.0.1
 
