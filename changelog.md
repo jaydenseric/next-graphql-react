@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dependencies.
+- Use `cjs` instead of `commonjs` for the [`@babel/preset-env`](https:npm.im/@babel/preset-env) `modules` option.
 
 ## 3.0.1
 

@@ -5,7 +5,7 @@ module.exports = {
       '@babel/env',
       {
         targets: 'node 8.5',
-        modules: process.env.BABEL_ESM ? false : 'commonjs',
+        modules: process.env.BABEL_ESM ? false : 'cjs',
         shippedProposals: true,
         loose: true
       }
