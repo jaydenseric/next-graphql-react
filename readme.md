@@ -43,7 +43,7 @@ A higher-order React component to decorate a Next.js custom `App` component in `
 
 | Parameter | Type   | Description                     |
 | :-------- | :----- | :------------------------------ |
-| `App`     | Object | Next.js custom `App` component. |
+| `App`     | object | Next.js custom `App` component. |
 
 **Returns:** WithGraphQL — Next.js custom `App` higher-order component.
 
@@ -88,9 +88,9 @@ A higher-order function to decorate a Next.js custom config in `next.config.js` 
 
 | Parameter | Type   | Description            |
 | :-------- | :----- | :--------------------- |
-| `config`  | Object | Next.js custom config. |
+| `config`  | object | Next.js custom config. |
 
-**Returns:** Object — Next.js custom config.
+**Returns:** object — Next.js custom config.
 
 #### See
 

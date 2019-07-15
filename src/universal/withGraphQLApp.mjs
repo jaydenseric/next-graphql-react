@@ -12,7 +12,7 @@ import React from 'react'
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @kind function
  * @name withGraphQLApp
- * @param {Object} App Next.js custom `App` component.
+ * @param {object} App Next.js custom `App` component.
  * @returns {WithGraphQL} Next.js custom `App` higher-order component.
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
@@ -44,8 +44,8 @@ export const withGraphQLApp = App =>
    * React higher-order component.
    * @kind class
    * @name WithGraphQL
-   * @param {Object} props Props.
-   * @param {Object} [props.graphqlCache] `GraphQL` cache; undefined for SSR, defined for client render.
+   * @param {object} props Props.
+   * @param {object} [props.graphqlCache] `GraphQL` cache; undefined for SSR, defined for client render.
    * @param {GraphQL} [props.graphql] `GraphQL` instance; undefined for SSR, undefined for client render.
    * @returns {ReactElement} React virtual DOM element.
    * @ignore
@@ -68,11 +68,11 @@ export const withGraphQLApp = App =>
      * `Promise` instead  of `async`/`await` for smaller bundle size.
      * @kind function
      * @name WithGraphQL.getInitialProps
-     * @param {Object} context App context.
-     * @param {Object} context.ctx Context for the route page component’s `getInitialProps`.
-     * @param {Object} context.router Router instance.
-     * @param {Object} context.component Route page component.
-     * @returns {Object} Props.
+     * @param {object} context App context.
+     * @param {object} context.ctx Context for the route page component’s `getInitialProps`.
+     * @param {object} context.router Router instance.
+     * @param {object} context.component Route page component.
+     * @returns {object} Props.
      * @ignore
      */
     static getInitialProps = context =>

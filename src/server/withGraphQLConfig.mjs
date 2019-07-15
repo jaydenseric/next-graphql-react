@@ -6,8 +6,8 @@
  * @see [`graphql-react` `ssr` docs](https://github.com/jaydenseric/graphql-react#function-ssr).
  * @kind function
  * @name withGraphQLConfig
- * @param {Object} config Next.js custom config.
- * @returns {Object} Next.js custom config.
+ * @param {object} config Next.js custom config.
+ * @returns {object} Next.js custom config.
  * @example <caption>A custom config.</caption>
  * In `next.config.js`:
  *
