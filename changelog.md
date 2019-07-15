@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Updated dependencies.
+
 ## 3.0.2
 
 ### Patch
