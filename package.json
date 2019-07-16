@@ -27,7 +27,7 @@
     "node": ">=8.5"
   },
   "peerDependencies": {
-    "graphql-react": "^8.0.0",
+    "graphql-react": "^8.3.0",
     "next": "7 - 9",
     "react": "^16.8.0"
   },
@@ -61,18 +61,20 @@
     "lint-staged": "^8.2.1",
     "next": "^9.0.1",
     "prettier": "^1.18.2",
-    "react": "^16.8.6"
+    "react": "^16.8.6",
+    "tap": "^14.4.1"
   },
   "scripts": {
     "prepare": "npm run prepare:clean && npm run prepare:mjs && npm run prepare:js && npm run prepare:jsdoc && npm run prepare:prettier",
-    "prepare:clean": "rm -rf universal server",
+    "prepare:clean": "rm -rf universal server test",
     "prepare:mjs": "BABEL_ESM=1 babel src -d . --keep-file-extension",
     "prepare:js": "babel src -d .",
     "prepare:jsdoc": "jsdoc-md",
-    "prepare:prettier": "prettier '{universal,server}/**/*.{mjs,js}' readme.md --write",
-    "test": "npm run test:eslint && npm run test:prettier",
+    "prepare:prettier": "prettier '{universal,server,test}/**/*.{mjs,js}' readme.md --write",
+    "test": "npm run test:eslint && npm run test:prettier && npm run test:tap",
     "test:eslint": "eslint . --ext mjs,js",
     "test:prettier": "prettier '**/*.{json,yml,md}' -l",
+    "test:tap": "tap test/*.{mjs,js}",
     "prepublishOnly": "npm test"
   }
 }

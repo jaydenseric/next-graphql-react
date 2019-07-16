@@ -1,5 +1,11 @@
 import { GraphQL } from 'graphql-react'
 import { ssr } from 'graphql-react/server'
+// These import paths are bare so that `withGraphQLConfig` can set resolve
+// aliases pointing to empty decoys for the browser bundle.
+// eslint-disable-next-line node/no-missing-import
+import { filterLinkHeader } from 'next-graphql-react/server/filterLinkHeader'
+// eslint-disable-next-line node/no-missing-import
+import { mergeLinkHeaders } from 'next-graphql-react/server/mergeLinkHeaders'
 import Head from 'next/head'
 import React from 'react'
 
@@ -84,7 +90,19 @@ export const withGraphQLApp = App =>
           // the relevant server/browser bundle.
           if (process.browser) resolve(props)
           else {
+            const preloadLinkHeaders = []
             const graphql = new GraphQL()
+
+            graphql.on('cache', ({ response }) => {
+              // The response may be undefined if there were fetch errors.
+              if (response) {
+                const linkHeader = response.headers.get('Link')
+                if (linkHeader)
+                  preloadLinkHeaders.push(
+                    filterLinkHeader(linkHeader, 'preload')
+                  )
+              }
+            })
 
             ssr(
               graphql,
@@ -99,6 +117,18 @@ export const withGraphQLApp = App =>
               .catch(console.error)
               .then(() => {
                 Head.rewind()
+
+                const mergedLinkHeader = mergeLinkHeaders([
+                  ...preloadLinkHeaders,
+
+                  // Next.js Link header links override conflicting ones being
+                  // forwarded from the GraphQL responses.
+                  context.ctx.res.getHeader('Link')
+                ])
+
+                if (mergedLinkHeader)
+                  context.ctx.res.setHeader('Link', mergedLinkHeader)
+
                 props.graphqlCache = graphql.cache
                 resolve(props)
               })

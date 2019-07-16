@@ -2,3 +2,5 @@
 node_modules
 /universal
 /server
+/test
+tap-snapshots

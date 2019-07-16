@@ -5,10 +5,12 @@
 ### Minor
 
 - Updated the [`next`](https://npm.im/next) peer dependency to `7 - 9`.
+- HTTP `Link` headers with `rel=preload` from GraphQL responses are now merged with the Next.js page response `Link` header (if present), allowing assets to be preloaded from GraphQL queries.
 
 ### Patch
 
 - Updated dependencies.
+- New `src/universal/decoys` directory structure for decoy server files.
 
 ## 3.0.2
 

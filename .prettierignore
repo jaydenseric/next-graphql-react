@@ -1,2 +1,4 @@
 package.json
 package-lock.json
+tap-snapshots
+.nyc_output

@@ -84,7 +84,7 @@ _A custom `App`._
 
 ### function withGraphQLConfig
 
-A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/server` imports from the client bundle.
+A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/server` and `next-graphql-react/server` imports from the client bundle.
 
 | Parameter | Type   | Description            |
 | :-------- | :----- | :--------------------- |
