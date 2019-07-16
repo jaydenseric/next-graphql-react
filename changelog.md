@@ -2,6 +2,10 @@
 
 ## Next
 
+### Minor
+
+- Updated the [`next`](https://npm.im/next) peer dependency to `7 - 9`.
+
 ### Patch
 
 - Updated dependencies.
