@@ -6,6 +6,7 @@
 
 - Fixed edge case HTTP `Link` header parsing bugs (e.g. an error when a URL contains `,`) by replacing the `filterLinkHeader` and `mergeLinkHeaders` functions with [`http-link-header`](https://npm.im/http-link-header).
 - Fixed `withGraphQLConfig` documentation.
+- Documented the HTTP `Link` `rel="preload"` header forwarding behavior of `withGraphQLApp`.
 
 ## 3.1.0
 

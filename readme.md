@@ -41,6 +41,8 @@ Consider polyfilling:
 
 A higher-order React component to decorate a Next.js custom `App` component in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL operations with server side rendering and client side data hydration.
 
+It also forwards HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) `rel="preload"` headers from GraphQL responses during SSR in the Next.js page response. Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQL server hosted on a different domain to the app.
+
 | Parameter | Type   | Description                     |
 | :-------- | :----- | :------------------------------ |
 | `App`     | object | Next.js custom `App` component. |
