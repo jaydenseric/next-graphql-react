@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.4",
+    "http-link-header": "^1.0.2",
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
@@ -61,20 +62,18 @@
     "lint-staged": "^8.2.1",
     "next": "^9.0.1",
     "prettier": "^1.18.2",
-    "react": "^16.8.6",
-    "tap": "^14.4.1"
+    "react": "^16.8.6"
   },
   "scripts": {
     "prepare": "npm run prepare:clean && npm run prepare:mjs && npm run prepare:js && npm run prepare:jsdoc && npm run prepare:prettier",
-    "prepare:clean": "rm -rf universal server test",
+    "prepare:clean": "rm -rf universal server",
     "prepare:mjs": "BABEL_ESM=1 babel src -d . --keep-file-extension",
     "prepare:js": "babel src -d .",
     "prepare:jsdoc": "jsdoc-md",
-    "prepare:prettier": "prettier '{universal,server,test}/**/*.{mjs,js}' readme.md --write",
-    "test": "npm run test:eslint && npm run test:prettier && npm run test:tap",
+    "prepare:prettier": "prettier '{universal,server}/**/*.{mjs,js}' readme.md --write",
+    "test": "npm run test:eslint && npm run test:prettier",
     "test:eslint": "eslint . --ext mjs,js",
     "test:prettier": "prettier '**/*.{json,yml,md}' -l",
-    "test:tap": "tap test/*.{mjs,js}",
     "prepublishOnly": "npm test"
   }
 }

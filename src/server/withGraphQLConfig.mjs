@@ -29,10 +29,8 @@ export const withGraphQLConfig = ({
     if (!options.isServer) {
       config.resolve.alias['graphql-react/server$'] =
         '../universal/decoys/graphql-react'
-      config.resolve.alias['next-graphql-react/server/filterLinkHeader$'] =
-        '../universal/decoys/filterLinkHeader'
-      config.resolve.alias['next-graphql-react/server/mergeLinkHeaders$'] =
-        '../universal/decoys/mergeLinkHeaders'
+      config.resolve.alias['next-graphql-react/server/LinkHeader$'] =
+        '../universal/decoys/LinkHeader'
     }
 
     return webpack(config, options)

@@ -1,11 +1,9 @@
 import { GraphQL } from 'graphql-react'
 import { ssr } from 'graphql-react/server'
-// These import paths are bare so that `withGraphQLConfig` can set resolve
-// aliases pointing to empty decoys for the browser bundle.
+// This import path is bare so that `withGraphQLConfig` can set resolve an alias
+// pointing to an empty decoy for the browser bundle.
 // eslint-disable-next-line node/no-missing-import
-import { filterLinkHeader } from 'next-graphql-react/server/filterLinkHeader'
-// eslint-disable-next-line node/no-missing-import
-import { mergeLinkHeaders } from 'next-graphql-react/server/mergeLinkHeaders'
+import { LinkHeader } from 'next-graphql-react/server/LinkHeader'
 import Head from 'next/head'
 import React from 'react'
 
@@ -90,17 +88,14 @@ export const withGraphQLApp = App =>
           // the relevant server/browser bundle.
           if (process.browser) resolve(props)
           else {
-            const preloadLinkHeaders = []
             const graphql = new GraphQL()
+            const graphqlLinkHeader = new LinkHeader()
 
             graphql.on('cache', ({ response }) => {
               // The response may be undefined if there were fetch errors.
               if (response) {
-                const linkHeader = response.headers.get('Link')
-                if (linkHeader)
-                  preloadLinkHeaders.push(
-                    filterLinkHeader(linkHeader, 'preload')
-                  )
+                const header = response.headers.get('Link')
+                if (header) graphqlLinkHeader.parse(header)
               }
             })
 
@@ -118,16 +113,29 @@ export const withGraphQLApp = App =>
               .then(() => {
                 Head.rewind()
 
-                const mergedLinkHeader = mergeLinkHeaders([
-                  ...preloadLinkHeaders,
-
-                  // Next.js Link header links override conflicting ones being
-                  // forwarded from the GraphQL responses.
+                const responseLinkHeader = new LinkHeader(
+                  // Might be undefined.
                   context.ctx.res.getHeader('Link')
-                ])
+                )
 
-                if (mergedLinkHeader)
-                  context.ctx.res.setHeader('Link', mergedLinkHeader)
+                graphqlLinkHeader.refs.forEach(graphqlLink => {
+                  if (
+                    graphqlLink.rel === 'preload' &&
+                    // Identical preload link not already set.
+                    !responseLinkHeader.refs.some(
+                      responseLink =>
+                        responseLink.rel === 'preload' &&
+                        responseLink.uri === graphqlLink.uri
+                    )
+                  )
+                    responseLinkHeader.set(graphqlLink)
+                })
+
+                if (responseLinkHeader.refs.length)
+                  context.ctx.res.setHeader(
+                    'Link',
+                    responseLinkHeader.toString()
+                  )
 
                 props.graphqlCache = graphql.cache
                 resolve(props)

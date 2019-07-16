@@ -4,5 +4,3 @@ npm-debug.log
 .DS_Store
 /universal
 /server
-/test
-.nyc_output

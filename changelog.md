@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Fixed edge case HTTP `Link` header parsing bugs (e.g. an error when a URL contains `,`) by replacing the `filterLinkHeader` and `mergeLinkHeaders` functions with [`http-link-header`](https://npm.im/http-link-header).
+
 ## 3.1.0
 
 ### Minor
