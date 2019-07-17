@@ -1,6 +1,6 @@
 # next-graphql-react changelog
 
-## Next
+## 3.2.0
 
 ### Minor
 
