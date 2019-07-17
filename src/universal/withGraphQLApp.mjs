@@ -127,8 +127,8 @@ export const withGraphQLApp = App =>
             graphql.on('cache', ({ response }) => {
               // The response may be undefined if there were fetch errors.
               if (response) {
-                const header = response.headers.get('Link')
-                if (header) graphqlLinkHeader.parse(header)
+                const linkHeader = response.headers.get('Link')
+                if (linkHeader) graphqlLinkHeader.parse(linkHeader)
               }
             })
 

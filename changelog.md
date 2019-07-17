@@ -14,6 +14,7 @@
 ### Patch
 
 - Updated dev dependencies.
+- Minor variable rename for clarity.
 
 ## 3.1.1
 
