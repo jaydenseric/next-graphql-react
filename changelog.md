@@ -2,6 +2,15 @@
 
 ## Next
 
+### Minor
+
+- In addition to `preload`, HTTP `Link` headers from GraphQL responses during SSR with the following `rel` parameters are forwarded in the Next.js page response:
+  - `dns-prefetch`
+  - `preconnect`
+  - `prefetch`
+  - `modulepreload`
+  - `prerender`
+
 ### Patch
 
 - Updated dev dependencies.

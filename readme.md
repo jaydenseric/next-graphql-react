@@ -41,7 +41,16 @@ Consider polyfilling:
 
 A higher-order React component to decorate a Next.js custom `App` component in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL operations with server side rendering and client side data hydration.
 
-It also forwards HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) `rel="preload"` headers from GraphQL responses during SSR in the Next.js page response. Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQL server hosted on a different domain to the app.
+It also forwards HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) headers with the following `rel` parameters from GraphQL responses received when [`ssr`](https://github.com/jaydenseric/graphql-react#function-ssr) runs to the Next.js page response:
+
+- [`dns-prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-dns-prefetch)
+- [`preconnect`](https://html.spec.whatwg.org/dev/links.html#link-type-preconnect)
+- [`prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-prefetch)
+- [`preload`](https://html.spec.whatwg.org/dev/links.html#link-type-preload)
+- [`modulepreload`](https://html.spec.whatwg.org/dev/links.html#link-type-modulepreload)
+- [`prerender`](https://html.spec.whatwg.org/dev/links.html#link-type-prerender)
+
+Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQL server hosted on a different domain to the app.
 
 | Parameter | Type   | Description                     |
 | :-------- | :----- | :------------------------------ |
