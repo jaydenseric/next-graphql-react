@@ -31,11 +31,7 @@ Consider polyfilling:
 ### Table of contents
 
 - [function withGraphQLApp](#function-withgraphqlapp)
-  - [See](#see)
-  - [Examples](#examples)
 - [function withGraphQLConfig](#function-withgraphqlconfig)
-  - [See](#see-1)
-  - [Examples](#examples-1)
 
 ### function withGraphQLApp
 
