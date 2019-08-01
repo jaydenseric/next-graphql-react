@@ -11,6 +11,7 @@
 
 - Updated dependencies.
 - Cleaner readme “API” section table of contents with “See” and “Examples” headings excluded, thanks to [`jsdoc-md` v3.1.0](https://github.com/jaydenseric/jsdoc-md/releases/tag/v3.1.0).
+- Removed a now redundant ESLint disable `no-console` comment in `withGraphQLApp`.
 
 ## 3.2.0
 

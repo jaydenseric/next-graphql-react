@@ -133,7 +133,6 @@ export const withGraphQLApp = App =>
             })
 
             ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
-              // eslint-disable-next-line no-console
               .catch(console.error)
               .then(() => {
                 Head.rewind()

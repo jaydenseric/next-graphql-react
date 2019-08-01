@@ -47,7 +47,7 @@
     "babel-eslint": "^10.0.2",
     "babel-plugin-transform-replace-object-assign": "^2.0.0",
     "eslint": "^6.1.0",
-    "eslint-config-env": "^8.0.0",
+    "eslint-config-env": "^9.0.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-import-order-alphabetical": "^0.0.2",
