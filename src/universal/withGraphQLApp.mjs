@@ -132,15 +132,7 @@ export const withGraphQLApp = App =>
               }
             })
 
-            ssr(
-              graphql,
-              <App
-                {...props}
-                graphql={graphql}
-                router={context.router}
-                Component={context.Component}
-              />
-            )
+            ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
               // eslint-disable-next-line no-console
               .catch(console.error)
               .then(() => {

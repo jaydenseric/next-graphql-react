@@ -2,6 +2,11 @@
 
 ## Next
 
+### Major
+
+- Updated the [`next`](https://npm.im/next) peer dependency to `^9.0.3`.
+- Use the new `AppTree` component available in [`next` v9.0.3](https://github.com/zeit/next.js/releases/tag/v9.0.3) in the `App.getInitialProps` static method `context` argument, with the `ssr` function in `withGraphQLApp`. This allows the use of Next.js React hook based APIs such as `useRouter` that previously had undefined context values in SSR (see [zeit/next.js#6042](https://github.com/zeit/next.js/issues/6042)).
+
 ### Patch
 
 - Updated dependencies.
