@@ -16,6 +16,11 @@ npm install next-graphql-react graphql-react
 
 See the [`withGraphQLConfig`](#function-withgraphqlconfig) and [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
 
+## Examples
+
+- [The official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react).
+- [The Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.now.sh](https://graphql-react.now.sh).
+
 ## Support
 
 - Node.js v8.10+
