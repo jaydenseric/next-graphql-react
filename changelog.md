@@ -13,6 +13,7 @@
 - Clarified that Opera Mini isn’t supported in the Browserslist queries and readme “Support” section.
 - Use GitHub Actions instead of Travis for CI.
 - Removed `package-lock.json` from `.gitignore` and `.prettierignore` as it’s disabled in `.npmrc` anyway.
+- Updated the `withGraphQLApp` example code for the current Next.js API, and mark it as JSX instead of JS for syntax highlighting.
 
 ## 4.0.0
 
