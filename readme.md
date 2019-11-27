@@ -2,7 +2,7 @@
 
 # next-graphql-react
 
-[![npm version](https://badgen.net/npm/v/next-graphql-react)](https://npm.im/next-graphql-react) [![Build status](https://travis-ci.org/jaydenseric/next-graphql-react.svg?branch=master)](https://travis-ci.org/jaydenseric/next-graphql-react)
+[![npm version](https://badgen.net/npm/v/next-graphql-react)](https://npm.im/next-graphql-react) [![CI status](https://github.com/jaydenseric/next-graphql-react/workflows/CI/badge.svg)](https://github.com/jaydenseric/next-graphql-react/actions)
 
 [Next.js](https://nextjs.org) [config](https://nextjs.org/docs/#custom-configuration) and [`App`](https://nextjs.org/docs/#custom-app) decorators for [`graphql-react`](https://npm.im/graphql-react), enabling server side rendered GraphQL operations.
 
