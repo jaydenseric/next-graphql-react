@@ -27,7 +27,7 @@
     "node": ">=8.5"
   },
   "peerDependencies": {
-    "graphql-react": "^8.3.0",
+    "graphql-react": "8.3.0 - 9",
     "next": "^9.0.3",
     "react": "^16.8.0"
   },
