@@ -12,6 +12,7 @@
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `8.3.0 - 9`.
 - Clarified that Opera Mini isn’t supported in the Browserslist queries and readme “Support” section.
 - Use GitHub Actions instead of Travis for CI.
+- Removed `package-lock.json` from `.gitignore` and `.prettierignore` as it’s disabled in `.npmrc` anyway.
 
 ## 4.0.0
 
