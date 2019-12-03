@@ -1,6 +1,6 @@
 # next-graphql-react changelog
 
-## Next
+## 5.1.0
 
 ### Minor
 
