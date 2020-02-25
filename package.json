@@ -25,7 +25,7 @@
   ],
   "main": "universal",
   "engines": {
-    "node": ">=8.10"
+    "node": ">=10"
   },
   "peerDependencies": {
     "graphql-react": "8.3.0 - 9",
