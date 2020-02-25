@@ -4,7 +4,6 @@ import { ssr } from 'graphql-react/server'
 // pointing to an empty decoy for the browser bundle.
 // eslint-disable-next-line node/no-missing-import
 import { LinkHeader } from 'next-graphql-react/server/LinkHeader'
-import Head from 'next/head'
 import React from 'react'
 
 /**
@@ -127,8 +126,6 @@ export const withGraphQLApp = App =>
             ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
               .catch(console.error)
               .then(() => {
-                Head.rewind()
-
                 const responseLinkHeader = new LinkHeader(
                   // Might be undefined.
                   context.ctx.res.getHeader('Link')

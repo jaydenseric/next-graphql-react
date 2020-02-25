@@ -58,7 +58,6 @@
     "eslint-plugin-react-hooks": "^2.4.0",
     "graphql-react": "^9.1.0",
     "jsdoc-md": "^5.0.1",
-    "next": "^9.2.2",
     "prettier": "^1.18.2",
     "react": "^16.8.6"
   },
