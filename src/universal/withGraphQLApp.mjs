@@ -4,6 +4,7 @@ import { ssr } from 'graphql-react/server'
 // pointing to an empty decoy for the browser bundle.
 // eslint-disable-next-line node/no-missing-import
 import { LinkHeader } from 'next-graphql-react/server/LinkHeader'
+import NextApp from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
@@ -107,7 +108,9 @@ export const withGraphQLApp = App =>
     static getInitialProps = context =>
       new Promise(resolve => {
         Promise.resolve(
-          App.getInitialProps ? App.getInitialProps(context) : {}
+          App.getInitialProps
+            ? App.getInitialProps(context)
+            : NextApp.getInitialProps(context)
         ).then(props => {
           // Next.js webpack config uses process.browser to eliminate code from
           // the relevant server/browser bundle.
