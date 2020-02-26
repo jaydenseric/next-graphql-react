@@ -13,7 +13,6 @@
 - Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
 - Stop using [`husky`](https://npm.im/husky) and [`lint-staged`](https://npm.im/lint-staged).
 - Use strict mode for scripts.
-- Removed the [`next`](https://npm.im/next) dev dependency and `Head.rewind()` in `withGraphQLApp`, as this has [apparently been unnecessary since `next@8.0.0-canary.7`](https://github.com/zeit/next.js/issues/9326#issuecomment-590702751).
 
 ## 5.1.0
 
