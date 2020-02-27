@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dev dependencies.
+- Fixed a bug relating to ESM/CJS interoperability and default imports.
 
 ## 6.0.0
 

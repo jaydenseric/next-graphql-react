@@ -21,7 +21,8 @@
   ],
   "files": [
     "universal",
-    "server"
+    "server",
+    "workarounds"
   ],
   "main": "universal",
   "engines": {

@@ -4,9 +4,11 @@ import { ssr } from 'graphql-react/server'
 // pointing to an empty decoy for the browser bundle.
 // eslint-disable-next-line node/no-missing-import
 import { LinkHeader } from 'next-graphql-react/server/LinkHeader'
-import NextApp from 'next/app'
-import Head from 'next/head'
 import React from 'react'
+// eslint-disable-next-line node/no-missing-import
+import { App as NextApp } from '../workarounds/next-app'
+// eslint-disable-next-line node/no-missing-import
+import { Head } from '../workarounds/next-head'
 
 /**
  * Link `rel` types that make sense to forward from a GraphQL responses during
