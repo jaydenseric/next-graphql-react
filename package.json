@@ -45,7 +45,7 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-transform-replace-object-assign": "^2.0.0",
     "eslint": "^6.8.0",
     "eslint-config-env": "^13.0.3",
@@ -55,12 +55,12 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.4.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "graphql-react": "^9.1.0",
     "jsdoc-md": "^5.0.1",
     "next": "^9.2.2",
     "prettier": "^1.18.2",
-    "react": "^16.8.6"
+    "react": "^16.13.0"
   },
   "scripts": {
     "prepare": "npm run prepare:clean && npm run prepare:mjs && npm run prepare:js && npm run prepare:jsdoc && npm run prepare:prettier",
