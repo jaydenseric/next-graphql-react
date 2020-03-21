@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Ensure GitHub Actions run on pull request.
+
 ## 6.0.1
 
 ### Patch
