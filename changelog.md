@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Reorder Babel config fields.
 - Ensure GitHub Actions run on pull request.
 
 ## 6.0.1

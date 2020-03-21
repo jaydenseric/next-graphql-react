@@ -2,6 +2,11 @@
 
 module.exports = {
   comments: false,
+  plugins: [
+    ['@babel/proposal-object-rest-spread', { loose: true, useBuiltIns: true }],
+    ['@babel/proposal-class-properties', { loose: true }],
+    '@babel/transform-runtime'
+  ],
   presets: [
     { plugins: ['babel-plugin-transform-replace-object-assign'] },
     [
@@ -14,10 +19,5 @@ module.exports = {
       }
     ],
     ['@babel/react', { useBuiltIns: true }]
-  ],
-  plugins: [
-    ['@babel/proposal-object-rest-spread', { loose: true, useBuiltIns: true }],
-    ['@babel/proposal-class-properties', { loose: true }],
-    '@babel/transform-runtime'
   ]
 }
