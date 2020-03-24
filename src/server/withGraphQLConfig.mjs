@@ -21,7 +21,7 @@
  * ```
  */
 export const withGraphQLConfig = ({
-  webpack = config => config,
+  webpack = (config) => config,
   ...config
 } = {}) => ({
   ...config,
@@ -34,5 +34,5 @@ export const withGraphQLConfig = ({
     }
 
     return webpack(config, options)
-  }
+  },
 })

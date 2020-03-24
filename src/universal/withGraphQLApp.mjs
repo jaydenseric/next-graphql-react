@@ -24,7 +24,7 @@ const FORWARDABLE_LINK_REL = [
   'prefetch',
   'preload',
   'modulepreload',
-  'prerender'
+  'prerender',
 ]
 
 /**
@@ -71,7 +71,7 @@ const FORWARDABLE_LINK_REL = [
  * export default withGraphQLApp(App)
  * ```
  */
-export const withGraphQLApp = App =>
+export const withGraphQLApp = (App) =>
   /**
    * React higher-order component.
    * @kind class
@@ -91,9 +91,9 @@ export const withGraphQLApp = App =>
      * @type {string}
      * @ignore
      */
-    static displayName = `WithGraphQL(${App.displayName ||
-      App.name ||
-      'Component'})`
+    static displayName = `WithGraphQL(${
+      App.displayName || App.name || 'Component'
+    })`
 
     /**
      * Gets the higher-order component’s initial props. Implemented using
@@ -107,13 +107,13 @@ export const withGraphQLApp = App =>
      * @returns {object} Props.
      * @ignore
      */
-    static getInitialProps = context =>
-      new Promise(resolve => {
+    static getInitialProps = (context) =>
+      new Promise((resolve) => {
         Promise.resolve(
           App.getInitialProps
             ? App.getInitialProps(context)
             : NextApp.getInitialProps(context)
-        ).then(props => {
+        ).then((props) => {
           // Next.js webpack config uses process.browser to eliminate code from
           // the relevant server/browser bundle.
           if (process.browser) resolve(props)
@@ -139,7 +139,7 @@ export const withGraphQLApp = App =>
                   context.ctx.res.getHeader('Link')
                 )
 
-                graphqlLinkHeader.refs.forEach(graphqlLink => {
+                graphqlLinkHeader.refs.forEach((graphqlLink) => {
                   if (
                     FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
                     // Similar link not already set.

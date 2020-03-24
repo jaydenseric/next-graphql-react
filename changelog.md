@@ -4,6 +4,8 @@
 
 ### Patch
 
+- Updated dependencies.
+- Lint fixes for [`prettier`](https://npm.im/prettier) v2.
 - Reorder Babel config fields.
 - Ensure GitHub Actions run on pull request.
 
