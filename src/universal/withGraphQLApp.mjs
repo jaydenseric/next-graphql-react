@@ -1,14 +1,14 @@
-import { GraphQL } from 'graphql-react'
-import { ssr } from 'graphql-react/server'
+import { GraphQL } from 'graphql-react';
+import { ssr } from 'graphql-react/server';
 // This import path is bare so that `withGraphQLConfig` can set resolve an alias
 // pointing to an empty decoy for the browser bundle.
 // eslint-disable-next-line node/no-missing-import
-import { LinkHeader } from 'next-graphql-react/server/LinkHeader'
-import React from 'react'
+import { LinkHeader } from 'next-graphql-react/server/LinkHeader';
+import React from 'react';
 // eslint-disable-next-line node/no-missing-import
-import { App as NextApp } from '../workarounds/next-app'
+import { App as NextApp } from '../workarounds/next-app';
 // eslint-disable-next-line node/no-missing-import
-import { Head } from '../workarounds/next-head'
+import { Head } from '../workarounds/next-head';
 
 /**
  * Link `rel` types that make sense to forward from a GraphQL responses during
@@ -25,7 +25,7 @@ const FORWARDABLE_LINK_REL = [
   'preload',
   'modulepreload',
   'prerender',
-]
+];
 
 /**
  * A higher-order React component to decorate a Next.js custom `App` component
@@ -93,7 +93,7 @@ export const withGraphQLApp = (App) =>
      */
     static displayName = `WithGraphQL(${
       App.displayName || App.name || 'Component'
-    })`
+    })`;
 
     /**
      * Gets the higher-order component’s initial props. Implemented using
@@ -116,28 +116,28 @@ export const withGraphQLApp = (App) =>
         ).then((props) => {
           // Next.js webpack config uses process.browser to eliminate code from
           // the relevant server/browser bundle.
-          if (process.browser) resolve(props)
+          if (process.browser) resolve(props);
           else {
-            const graphql = new GraphQL()
-            const graphqlLinkHeader = new LinkHeader()
+            const graphql = new GraphQL();
+            const graphqlLinkHeader = new LinkHeader();
 
             graphql.on('cache', ({ response }) => {
               // The response may be undefined if there were fetch errors.
               if (response) {
-                const linkHeader = response.headers.get('Link')
-                if (linkHeader) graphqlLinkHeader.parse(linkHeader)
+                const linkHeader = response.headers.get('Link');
+                if (linkHeader) graphqlLinkHeader.parse(linkHeader);
               }
-            })
+            });
 
             ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
               .catch(console.error)
               .then(() => {
-                Head.rewind()
+                Head.rewind();
 
                 const responseLinkHeader = new LinkHeader(
                   // Might be undefined.
                   context.ctx.res.getHeader('Link')
-                )
+                );
 
                 graphqlLinkHeader.refs.forEach((graphqlLink) => {
                   if (
@@ -148,21 +148,21 @@ export const withGraphQLApp = (App) =>
                         uri === graphqlLink.uri && rel === graphqlLink.rel
                     )
                   )
-                    responseLinkHeader.set(graphqlLink)
-                })
+                    responseLinkHeader.set(graphqlLink);
+                });
 
                 if (responseLinkHeader.refs.length)
                   context.ctx.res.setHeader(
                     'Link',
                     responseLinkHeader.toString()
-                  )
+                  );
 
-                props.graphqlCache = graphql.cache
-                resolve(props)
-              })
+                props.graphqlCache = graphql.cache;
+                resolve(props);
+              });
           }
-        })
-      })
+        });
+      });
 
     /**
      * The `GraphQL` instance.
@@ -174,7 +174,7 @@ export const withGraphQLApp = (App) =>
     graphql =
       // No prop type checks as the props are not exposed to consumers.
       // eslint-disable-next-line react/prop-types
-      this.props.graphql || new GraphQL({ cache: this.props.graphqlCache })
+      this.props.graphql || new GraphQL({ cache: this.props.graphqlCache });
 
     /**
      * Renders the component.
@@ -184,9 +184,9 @@ export const withGraphQLApp = (App) =>
      * @ignore
      */
     render() {
-      const { ...appProps } = this.props
-      delete appProps.graphqlCache
+      const { ...appProps } = this.props;
+      delete appProps.graphqlCache;
 
-      return <App {...appProps} graphql={this.graphql} />
+      return <App {...appProps} graphql={this.graphql} />;
     }
-  }
+  };

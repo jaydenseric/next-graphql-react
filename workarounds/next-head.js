@@ -1,3 +1,3 @@
-'use strict'
+'use strict';
 
-exports.Head = require('next/head').default
+exports.Head = require('next/head').default;

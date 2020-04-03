@@ -5,6 +5,9 @@
 ### Patch
 
 - Updated dependencies.
+- Improved the package `prepare:prettier` and `test:prettier` scripts.
+- Reordered the package `test:eslint` script args for consistency with `test:prettier`.
+- Configured Prettier option `semi` to the default, `true`.
 - Lint fixes for [`prettier`](https://npm.im/prettier) v2.
 - Reorder Babel config fields.
 - Ensure GitHub Actions run on pull request.

@@ -1,3 +1,3 @@
-import LinkHeader from 'http-link-header'
+import LinkHeader from 'http-link-header';
 
-export { LinkHeader }
+export { LinkHeader };

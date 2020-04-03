@@ -3,4 +3,4 @@
  * alias the server only module `next-graphql-react/server` for a client bundle.
  * @ignore
  */
-export let ssr
+export let ssr;

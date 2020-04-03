@@ -4,4 +4,4 @@
  * a client bundle.
  * @ignore
  */
-export let LinkHeader
+export let LinkHeader;

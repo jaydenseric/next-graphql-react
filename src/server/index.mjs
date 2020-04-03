@@ -1,1 +1,1 @@
-export { withGraphQLConfig } from './withGraphQLConfig'
+export { withGraphQLConfig } from './withGraphQLConfig';

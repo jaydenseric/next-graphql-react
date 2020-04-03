@@ -1,3 +1,3 @@
-import nextHead from 'next/app.js'
+import nextHead from 'next/app.js';
 
-export const Head = nextHead.default
+export const Head = nextHead.default;

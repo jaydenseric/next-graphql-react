@@ -71,17 +71,17 @@ _A custom `App`._
 > In `pages/_app.js`:
 >
 > ```jsx
-> import 'cross-fetch/polyfill'
-> import { GraphQLProvider } from 'graphql-react'
-> import { withGraphQLApp } from 'next-graphql-react'
+> import 'cross-fetch/polyfill';
+> import { GraphQLProvider } from 'graphql-react';
+> import { withGraphQLApp } from 'next-graphql-react';
 >
 > const App = ({ Component, pageProps, graphql }) => (
 >   <GraphQLProvider graphql={graphql}>
 >     <Component {...pageProps} />
 >   </GraphQLProvider>
-> )
+> );
 >
-> export default withGraphQLApp(App)
+> export default withGraphQLApp(App);
 > ```
 
 ---
@@ -108,9 +108,9 @@ _A custom config._
 > In `next.config.js`:
 >
 > ```js
-> const { withGraphQLConfig } = require('next-graphql-react/server')
+> const { withGraphQLConfig } = require('next-graphql-react/server');
 >
 > module.exports = withGraphQLConfig({
 >   // Custom config…
-> })
+> });
 > ```

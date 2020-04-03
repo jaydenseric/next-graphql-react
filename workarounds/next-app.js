@@ -1,3 +1,3 @@
-'use strict'
+'use strict';
 
-exports.App = require('next/app').default
+exports.App = require('next/app').default;

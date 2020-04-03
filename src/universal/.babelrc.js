@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = {
   comments: false,
@@ -20,4 +20,4 @@ module.exports = {
     ],
     ['@babel/react', { useBuiltIns: true }],
   ],
-}
+};

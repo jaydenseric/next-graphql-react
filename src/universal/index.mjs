@@ -1,1 +1,1 @@
-export { withGraphQLApp } from './withGraphQLApp'
+export { withGraphQLApp } from './withGraphQLApp';

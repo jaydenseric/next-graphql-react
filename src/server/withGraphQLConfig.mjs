@@ -28,11 +28,11 @@ export const withGraphQLConfig = ({
   webpack(config, options) {
     if (!options.isServer) {
       config.resolve.alias['graphql-react/server$'] =
-        '../universal/decoys/graphql-react'
+        '../universal/decoys/graphql-react';
       config.resolve.alias['next-graphql-react/server/LinkHeader$'] =
-        '../universal/decoys/LinkHeader'
+        '../universal/decoys/LinkHeader';
     }
 
-    return webpack(config, options)
+    return webpack(config, options);
   },
-})
+});
