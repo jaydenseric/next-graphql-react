@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dependencies.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `8.3.0 - 10`.
 - Improved the package `prepare:prettier` and `test:prettier` scripts.
 - Reordered the package `test:eslint` script args for consistency with `test:prettier`.
 - Configured Prettier option `semi` to the default, `true`.
