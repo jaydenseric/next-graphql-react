@@ -6,6 +6,7 @@
 
 - Updated dependencies.
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `8.3.0 - 10`.
+- Removed the [`@babel/plugin-proposal-object-rest-spread`](https://npm.im/@babel/plugin-proposal-object-rest-spread) and [`babel-plugin-transform-replace-object-assign`](https://npm.im/babel-plugin-transform-replace-object-assign) dev dependencies and simplified Babel config.
 - Improved the package `prepare:prettier` and `test:prettier` scripts.
 - Reordered the package `test:eslint` script args for consistency with `test:prettier`.
 - Configured Prettier option `semi` to the default, `true`.
