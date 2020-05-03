@@ -2,7 +2,6 @@
 
 const GraphQL = require('graphql-react/universal/GraphQL.js');
 const { default: NextApp } = require('next/app');
-const { default: Head } = require('next/head');
 const React = require('react');
 
 /**
@@ -109,57 +108,85 @@ module.exports = function withGraphQLApp(App) {
             ? App.getInitialProps(context)
             : NextApp.getInitialProps(context)
         ).then((props) => {
-          // Next.js webpack config uses process.browser to eliminate code from
-          // the relevant server/browser bundle.
+          // Next.js webpack config uses `process.browser` to eliminate code
+          // from the relevant server/browser bundle.
           if (process.browser) resolve(props);
-          else
-            Promise.all([
-              import('http-link-header'),
-              import('graphql-react/server/ssr.js'),
-            ]).then(([{ default: LinkHeader }, { default: ssr }]) => {
-              const graphql = new GraphQL();
-              const graphqlLinkHeader = new LinkHeader();
+          else {
+            const graphql = new GraphQL();
 
-              graphql.on('cache', ({ response }) => {
-                // The response may be undefined if there were fetch errors.
-                if (response) {
-                  const linkHeader = response.headers.get('Link');
-                  if (linkHeader) graphqlLinkHeader.parse(linkHeader);
-                }
-              });
+            // Check if this is a Next.js static HTML export. If it is, Next.js
+            // docs say `ctx.res` will be an empty object, although in reality a
+            // few header related properties are mimicked. That is why
+            // `statusCode` is checked here instead of something more relevant.
+            // See: https://nextjs.org/docs/advanced-features/static-html-export#caveats
+            if (context.ctx.res.statusCode)
+              Promise.all([
+                import('graphql-react/server/ssr.js'),
+                import('http-link-header'),
+                import('next/head'),
+              ]).then(
+                ([
+                  { default: ssr },
+                  { default: LinkHeader },
+                  { default: Head },
+                ]) => {
+                  const graphqlLinkHeader = new LinkHeader();
 
-              ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
-                .catch(console.error)
-                .then(() => {
-                  Head.rewind();
-
-                  const responseLinkHeader = new LinkHeader(
-                    // Might be undefined.
-                    context.ctx.res.getHeader('Link')
-                  );
-
-                  graphqlLinkHeader.refs.forEach((graphqlLink) => {
-                    if (
-                      FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
-                      // Similar link not already set.
-                      !responseLinkHeader.refs.some(
-                        ({ uri, rel }) =>
-                          uri === graphqlLink.uri && rel === graphqlLink.rel
-                      )
-                    )
-                      responseLinkHeader.set(graphqlLink);
+                  graphql.on('cache', ({ response }) => {
+                    // The response may be undefined if there were fetch errors.
+                    if (response) {
+                      const linkHeader = response.headers.get('Link');
+                      if (linkHeader) graphqlLinkHeader.parse(linkHeader);
+                    }
                   });
 
-                  if (responseLinkHeader.refs.length)
-                    context.ctx.res.setHeader(
-                      'Link',
-                      responseLinkHeader.toString()
-                    );
+                  ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
+                    .catch(console.error)
+                    .then(() => {
+                      Head.rewind();
 
-                  props.graphqlCache = graphql.cache;
-                  resolve(props);
-                });
-            });
+                      const responseLinkHeader = new LinkHeader(
+                        // Might be undefined.
+                        context.ctx.res.getHeader('Link')
+                      );
+
+                      graphqlLinkHeader.refs.forEach((graphqlLink) => {
+                        if (
+                          FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
+                          // Similar link not already set.
+                          !responseLinkHeader.refs.some(
+                            ({ uri, rel }) =>
+                              uri === graphqlLink.uri && rel === graphqlLink.rel
+                          )
+                        )
+                          responseLinkHeader.set(graphqlLink);
+                      });
+
+                      if (responseLinkHeader.refs.length)
+                        context.ctx.res.setHeader(
+                          'Link',
+                          responseLinkHeader.toString()
+                        );
+
+                      props.graphqlCache = graphql.cache;
+                      resolve(props);
+                    });
+                }
+              );
+            else
+              Promise.all([
+                import('graphql-react/server/ssr.js'),
+                import('next/head'),
+              ]).then(([{ default: ssr }, { default: Head }]) => {
+                ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
+                  .catch(console.error)
+                  .then(() => {
+                    Head.rewind();
+                    props.graphqlCache = graphql.cache;
+                    resolve(props);
+                  });
+              });
+          }
         });
       });
 

@@ -21,6 +21,7 @@
 - Reorder Babel config fields.
 - Ensure GitHub Actions run on pull request.
 - Also run GitHub Actions with Node.js v14.
+- Support Next.js static HTML export, fixing [#4](https://github.com/jaydenseric/next-graphql-react/issues/4).
 
 ## 6.0.1
 
