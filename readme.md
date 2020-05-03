@@ -73,6 +73,7 @@ _A custom `App`._
 > import 'cross-fetch/polyfill';
 > import { GraphQLProvider } from 'graphql-react';
 > import { withGraphQLApp } from 'next-graphql-react';
+> import React from 'react';
 >
 > const App = ({ Component, pageProps, graphql }) => (
 >   <GraphQLProvider graphql={graphql}>

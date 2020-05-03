@@ -52,17 +52,18 @@ const FORWARDABLE_LINK_REL = [
  * In `pages/_app.js`:
  *
  * ```jsx
- * import 'cross-fetch/polyfill'
- * import { GraphQLProvider } from 'graphql-react'
- * import { withGraphQLApp } from 'next-graphql-react'
+ * import 'cross-fetch/polyfill';
+ * import { GraphQLProvider } from 'graphql-react';
+ * import { withGraphQLApp } from 'next-graphql-react';
+ * import React from 'react';
  *
  * const App = ({ Component, pageProps, graphql }) => (
  *   <GraphQLProvider graphql={graphql}>
  *     <Component {...pageProps} />
  *   </GraphQLProvider>
- * )
+ * );
  *
- * export default withGraphQLApp(App)
+ * export default withGraphQLApp(App);
  * ```
  */
 module.exports = function withGraphQLApp(App) {

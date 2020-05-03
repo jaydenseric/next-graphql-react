@@ -5,6 +5,9 @@
 ### Patch
 
 - Corrected the package description to match the current API.
+- Updated JSDoc code examples:
+  - Prettier formatting.
+  - Import React in examples containing JSX.
 
 ## 7.0.0
 
