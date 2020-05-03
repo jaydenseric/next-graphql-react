@@ -20,6 +20,7 @@
 - Lint fixes for [`prettier`](https://npm.im/prettier) v2.
 - Reorder Babel config fields.
 - Ensure GitHub Actions run on pull request.
+- Also run GitHub Actions with Node.js v14.
 
 ## 6.0.1
 
