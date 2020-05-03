@@ -1,6 +1,6 @@
 # next-graphql-react changelog
 
-## Next
+## 7.0.1
 
 ### Patch
 
