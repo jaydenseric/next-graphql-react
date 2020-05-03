@@ -7,12 +7,12 @@
 - Added a [package `exports` field](https://nodejs.org/api/esm.html#esm_package_exports) to support native ESM in Node.js.
 - Some source and published files are now `.js` (CJS) instead of `.mjs` (ESM), so undocumented deep imports may no longer work. [This approach avoids the dual package hazard](https://nodejs.org/api/esm.html#esm_approach_1_use_an_es_module_wrapper).
 - Updated Node.js support from v10+ to `10 - 12 || >= 13.7` to reflect the package `exports` related breaking changes.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^11.0.0`.
 - Removed `withGraphQLConfig`; `withGraphQLApp` now uses dynamic `import` to only load certain dependencies in a server environment.
 
 ### Patch
 
 - Updated dependencies.
-- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `8.3.0 - 10`.
 - Removed the [`@babel/plugin-proposal-object-rest-spread`](https://npm.im/@babel/plugin-proposal-object-rest-spread) and [`babel-plugin-transform-replace-object-assign`](https://npm.im/babel-plugin-transform-replace-object-assign) dev dependencies and simplified Babel config.
 - Improved the package `prepare:prettier` and `test:prettier` scripts.
 - Reordered the package `test:eslint` script args for consistency with `test:prettier`.

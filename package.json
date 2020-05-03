@@ -41,7 +41,7 @@
   },
   "browserslist": "Node 10 - 12, Node >= 13.7, > 0.5%, not OperaMini all, not dead",
   "peerDependencies": {
-    "graphql-react": "8.3.0 - 10",
+    "graphql-react": "^11.0.0",
     "next": "^9.0.3",
     "react": "^16.8.0"
   },
@@ -69,7 +69,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
-    "graphql-react": "^10.0.0",
+    "graphql-react": "^11.0.0",
     "jsdoc-md": "^6.0.0",
     "next": "^9.3.6",
     "prettier": "^2.0.5",

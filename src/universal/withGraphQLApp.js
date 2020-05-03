@@ -115,7 +115,7 @@ module.exports = function withGraphQLApp(App) {
           else
             Promise.all([
               import('http-link-header'),
-              import('graphql-react/server/ssr.mjs'),
+              import('graphql-react/server/ssr.js'),
             ]).then(([{ default: LinkHeader }, { default: ssr }]) => {
               const graphql = new GraphQL();
               const graphqlLinkHeader = new LinkHeader();
