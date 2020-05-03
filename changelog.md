@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Corrected the package description to match the current API.
+
 ## 7.0.0
 
 ### Major
