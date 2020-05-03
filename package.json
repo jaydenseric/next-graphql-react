@@ -20,14 +20,26 @@
     "mjs"
   ],
   "files": [
-    "universal",
-    "server",
-    "workarounds"
+    "universal"
   ],
   "main": "universal",
-  "engines": {
-    "node": ">=10"
+  "exports": {
+    ".": {
+      "import": "./universal/index.mjs",
+      "require": "./universal/index.js"
+    },
+    "./universal": {
+      "import": "./universal/index.mjs",
+      "require": "./universal/index.js"
+    },
+    "./universal/": "./universal/",
+    "./package": "./package.json",
+    "./package.json": "./package.json"
   },
+  "engines": {
+    "node": "10 - 12 || >= 13.7"
+  },
+  "browserslist": "Node 10 - 12, Node >= 13.7, > 0.5%, not OperaMini all, not dead",
   "peerDependencies": {
     "graphql-react": "8.3.0 - 10",
     "next": "^9.0.3",
@@ -46,6 +58,8 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-transform-require-extensions": "^2.0.1",
+    "babel-plugin-transform-runtime-file-extensions": "^1.0.0",
     "eslint": "^6.8.0",
     "eslint-config-env": "^13.0.5",
     "eslint-config-prettier": "^6.11.0",
@@ -62,12 +76,12 @@
     "react": "^16.13.1"
   },
   "scripts": {
-    "prepare": "npm run prepare:clean && npm run prepare:mjs && npm run prepare:js && npm run prepare:jsdoc && npm run prepare:prettier",
-    "prepare:clean": "rm -rf universal server",
-    "prepare:mjs": "BABEL_ESM=1 babel src -d . --keep-file-extension",
-    "prepare:js": "babel src -d .",
+    "prepare": "npm run prepare:clean && npm run prepare:esm && npm run prepare:cjs && npm run prepare:jsdoc && npm run prepare:prettier",
+    "prepare:clean": "rm -rf universal",
+    "prepare:esm": "PREPARE_MODULE_TYPE=esm babel src -d . --keep-file-extension",
+    "prepare:cjs": "PREPARE_MODULE_TYPE=cjs babel src -d .",
     "prepare:jsdoc": "jsdoc-md",
-    "prepare:prettier": "prettier  --write universal server readme.md",
+    "prepare:prettier": "prettier --write universal readme.md",
     "test": "npm run test:eslint && npm run test:prettier",
     "test:eslint": "eslint --ext mjs,js .",
     "test:prettier": "prettier -c .",

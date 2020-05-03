@@ -14,7 +14,7 @@ To install [`next-graphql-react`](https://npm.im/next-graphql-react) and the [`g
 npm install next-graphql-react graphql-react
 ```
 
-See the [`withGraphQLConfig`](#function-withgraphqlconfig) and [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
+See the [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
 
 ## Examples
 
@@ -23,7 +23,7 @@ See the [`withGraphQLConfig`](#function-withgraphqlconfig) and [`withGraphQLApp`
 
 ## Support
 
-- Node.js v10+
+- Node.js `10 - 12 || >= 13.7`
 - Browsers [`> 0.5%, not OperaMini all, not dead`](https://browserl.ist/?q=%3E+0.5%25%2C+not+OperaMini+all%2C+not+dead)
 
 Consider polyfilling:
@@ -36,7 +36,6 @@ Consider polyfilling:
 ### Table of contents
 
 - [function withGraphQLApp](#function-withgraphqlapp)
-- [function withGraphQLConfig](#function-withgraphqlconfig)
 
 ### function withGraphQLApp
 
@@ -82,35 +81,4 @@ _A custom `App`._
 > );
 >
 > export default withGraphQLApp(App);
-> ```
-
----
-
-### function withGraphQLConfig
-
-A higher-order function to decorate a Next.js custom config in `next.config.js` for [`graphql-react`](https://npm.im/graphql-react), that excludes server only `graphql-react/server` and `next-graphql-react/server/LinkHeader` imports from the client bundle.
-
-| Parameter | Type   | Description            |
-| :-------- | :----- | :--------------------- |
-| `config`  | object | Next.js custom config. |
-
-**Returns:** object — Next.js custom config.
-
-#### See
-
-- [Next.js custom config docs](https://nextjs.org/docs/#custom-configuration).
-- [`graphql-react` `ssr` docs](https://github.com/jaydenseric/graphql-react#function-ssr).
-
-#### Examples
-
-_A custom config._
-
-> In `next.config.js`:
->
-> ```js
-> const { withGraphQLConfig } = require('next-graphql-react/server');
->
-> module.exports = withGraphQLConfig({
->   // Custom config…
-> });
 > ```

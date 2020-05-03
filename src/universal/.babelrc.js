@@ -1,17 +1,18 @@
 'use strict';
 
-module.exports = {
+const config = {
   comments: false,
   plugins: [
     ['@babel/proposal-class-properties', { loose: true }],
     '@babel/transform-runtime',
+    'transform-runtime-file-extensions',
+    'transform-require-extensions',
   ],
   presets: [
     [
       '@babel/env',
       {
-        targets: 'Node >= 10, > 0.5%, not OperaMini all, not dead',
-        modules: process.env.BABEL_ESM ? false : 'cjs',
+        modules: process.env.PREPARE_MODULE_TYPE === 'esm' ? false : 'cjs',
         shippedProposals: true,
         loose: true,
       },
@@ -19,3 +20,10 @@ module.exports = {
     '@babel/react',
   ],
 };
+
+if (process.env.PREPARE_MODULE_TYPE)
+  config.ignore = [
+    `./index.${process.env.PREPARE_MODULE_TYPE === 'esm' ? 'js' : 'mjs'}`,
+  ];
+
+module.exports = config;

@@ -1,14 +1,9 @@
-import { GraphQL } from 'graphql-react';
-import { ssr } from 'graphql-react/server';
-// This import path is bare so that `withGraphQLConfig` can set resolve an alias
-// pointing to an empty decoy for the browser bundle.
-// eslint-disable-next-line node/no-missing-import
-import { LinkHeader } from 'next-graphql-react/server/LinkHeader';
-import React from 'react';
-// eslint-disable-next-line node/no-missing-import
-import { App as NextApp } from '../workarounds/next-app';
-// eslint-disable-next-line node/no-missing-import
-import { Head } from '../workarounds/next-head';
+'use strict';
+
+const GraphQL = require('graphql-react/universal/GraphQL.js');
+const { default: NextApp } = require('next/app');
+const { default: Head } = require('next/head');
+const React = require('react');
 
 /**
  * Link `rel` types that make sense to forward from a GraphQL responses during
@@ -71,7 +66,7 @@ const FORWARDABLE_LINK_REL = [
  * export default withGraphQLApp(App)
  * ```
  */
-export const withGraphQLApp = (App) =>
+module.exports = function withGraphQLApp(App) {
   /**
    * React higher-order component.
    * @kind class
@@ -82,7 +77,7 @@ export const withGraphQLApp = (App) =>
    * @returns {ReactElement} React virtual DOM element.
    * @ignore
    */
-  class WithGraphQL extends React.Component {
+  return class WithGraphQL extends React.Component {
     /**
      * The higher-order component’s display name.
      * @see [React display name conventions](https://reactjs.org/docs/higher-order-components#convention-wrap-the-display-name-for-easy-debugging).
@@ -117,50 +112,54 @@ export const withGraphQLApp = (App) =>
           // Next.js webpack config uses process.browser to eliminate code from
           // the relevant server/browser bundle.
           if (process.browser) resolve(props);
-          else {
-            const graphql = new GraphQL();
-            const graphqlLinkHeader = new LinkHeader();
+          else
+            Promise.all([
+              import('http-link-header'),
+              import('graphql-react/server/ssr.mjs'),
+            ]).then(([{ default: LinkHeader }, { default: ssr }]) => {
+              const graphql = new GraphQL();
+              const graphqlLinkHeader = new LinkHeader();
 
-            graphql.on('cache', ({ response }) => {
-              // The response may be undefined if there were fetch errors.
-              if (response) {
-                const linkHeader = response.headers.get('Link');
-                if (linkHeader) graphqlLinkHeader.parse(linkHeader);
-              }
-            });
+              graphql.on('cache', ({ response }) => {
+                // The response may be undefined if there were fetch errors.
+                if (response) {
+                  const linkHeader = response.headers.get('Link');
+                  if (linkHeader) graphqlLinkHeader.parse(linkHeader);
+                }
+              });
 
-            ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
-              .catch(console.error)
-              .then(() => {
-                Head.rewind();
+              ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
+                .catch(console.error)
+                .then(() => {
+                  Head.rewind();
 
-                const responseLinkHeader = new LinkHeader(
-                  // Might be undefined.
-                  context.ctx.res.getHeader('Link')
-                );
-
-                graphqlLinkHeader.refs.forEach((graphqlLink) => {
-                  if (
-                    FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
-                    // Similar link not already set.
-                    !responseLinkHeader.refs.some(
-                      ({ uri, rel }) =>
-                        uri === graphqlLink.uri && rel === graphqlLink.rel
-                    )
-                  )
-                    responseLinkHeader.set(graphqlLink);
-                });
-
-                if (responseLinkHeader.refs.length)
-                  context.ctx.res.setHeader(
-                    'Link',
-                    responseLinkHeader.toString()
+                  const responseLinkHeader = new LinkHeader(
+                    // Might be undefined.
+                    context.ctx.res.getHeader('Link')
                   );
 
-                props.graphqlCache = graphql.cache;
-                resolve(props);
-              });
-          }
+                  graphqlLinkHeader.refs.forEach((graphqlLink) => {
+                    if (
+                      FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
+                      // Similar link not already set.
+                      !responseLinkHeader.refs.some(
+                        ({ uri, rel }) =>
+                          uri === graphqlLink.uri && rel === graphqlLink.rel
+                      )
+                    )
+                      responseLinkHeader.set(graphqlLink);
+                  });
+
+                  if (responseLinkHeader.refs.length)
+                    context.ctx.res.setHeader(
+                      'Link',
+                      responseLinkHeader.toString()
+                    );
+
+                  props.graphqlCache = graphql.cache;
+                  resolve(props);
+                });
+            });
         });
       });
 
@@ -190,3 +189,4 @@ export const withGraphQLApp = (App) =>
       return <App {...appProps} graphql={this.graphql} />;
     }
   };
+};
