@@ -2,6 +2,11 @@
 
 ## Next
 
+### Major
+
+- Updated supported Node.js versions to `^10.17.0 || ^12.0.0 || >= 13.7.0`.
+- Added integration tests. These use modern Node.js APIs, increasing the minimum supported Node.js version.
+
 ### Patch
 
 - Updated dependencies.
