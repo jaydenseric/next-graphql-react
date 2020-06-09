@@ -8,6 +8,7 @@
 - Stop testing with Node.js v13.
 - Added missing file extensions to dynamic imports from Next.js.
 - Removed documentation relating to polyfilling `Promise` and `fetch`, as they are automatically polyfilled by recent versions of Next.js.
+- Updated the `.editorconfig` file.
 
 ## 7.0.1
 
