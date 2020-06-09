@@ -52,7 +52,6 @@ const FORWARDABLE_LINK_REL = [
  * In `pages/_app.js`:
  *
  * ```jsx
- * import 'cross-fetch/polyfill';
  * import { GraphQLProvider } from 'graphql-react';
  * import { withGraphQLApp } from 'next-graphql-react';
  * import React from 'react';

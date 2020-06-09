@@ -26,11 +26,6 @@ See the [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
 - Node.js `10 - 12 || >= 13.7`
 - Browsers [`> 0.5%, not OperaMini all, not dead`](https://browserl.ist/?q=%3E+0.5%25%2C+not+OperaMini+all%2C+not+dead)
 
-Consider polyfilling:
-
-- [`Promise`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [`fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API)
-
 ## API
 
 ### Table of contents
@@ -70,7 +65,6 @@ _A custom `App`._
 > In `pages/_app.js`:
 >
 > ```jsx
-> import 'cross-fetch/polyfill';
 > import { GraphQLProvider } from 'graphql-react';
 > import { withGraphQLApp } from 'next-graphql-react';
 > import React from 'react';
