@@ -123,7 +123,7 @@ module.exports = function withGraphQLApp(App) {
               Promise.all([
                 import('graphql-react/server/ssr.js'),
                 import('http-link-header'),
-                import('next/head'),
+                import('next/head.js'),
               ]).then(
                 ([
                   { default: ssr },
@@ -176,7 +176,7 @@ module.exports = function withGraphQLApp(App) {
             else
               Promise.all([
                 import('graphql-react/server/ssr.js'),
-                import('next/head'),
+                import('next/head.js'),
               ]).then(([{ default: ssr }, { default: Head }]) => {
                 ssr(graphql, <context.AppTree {...props} graphql={graphql} />)
                   .catch(console.error)
