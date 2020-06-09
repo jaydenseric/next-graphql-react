@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Stop testing with Node.js v13.
+
 ## 7.0.1
 
 ### Patch
