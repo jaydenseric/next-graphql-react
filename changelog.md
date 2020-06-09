@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Updated dependencies.
 - Stop testing with Node.js v13.
 
 ## 7.0.1
