@@ -5,6 +5,7 @@
 const fs = require('fs');
 const { join, resolve } = require('path');
 const { installFrom } = require('install-from');
+const { devDependencies } = require('../package.json');
 const execFilePromise = require('./execFilePromise');
 
 const NEXT_GRAPHQL_REACT_PATH = resolve(__dirname, '..');
@@ -35,10 +36,10 @@ module.exports = async function createFixtureProject(tempDirPath, graphqlUrl) {
     `{
   "private": true,
   "dependencies": {
-    "graphql-react": "^11.0.1",
-    "next": "^9.4.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "graphql-react": "${devDependencies['graphql-react']}",
+    "next": "${devDependencies.next}",
+    "react": "${devDependencies.react}",
+    "react-dom": "${devDependencies['react-dom']}"
   }
 }`
   );

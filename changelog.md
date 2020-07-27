@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dependencies.
+- Derive fixture dependency versions from dev dependency versions.
 - Simplified the GitHub Actions CI config with the [`npm install-test`](https://docs.npmjs.com/cli/install-test.html) command.
 
 ## 8.0.0
