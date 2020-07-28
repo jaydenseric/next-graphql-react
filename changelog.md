@@ -10,6 +10,7 @@
 - Use `require` instead of dynamic `import` in `withGraphQLApp` source, as since v7.0.0 the module is only published as CJS.
 - Removed unnecessary `.js` file extensions from `require` paths.
 - Simplified the GitHub Actions CI config with the [`npm install-test`](https://docs.npmjs.com/cli/install-test.html) command.
+- Clearly documented ways to `import` and `require` the package exports.
 
 ## 8.0.0
 

@@ -48,6 +48,22 @@ const FORWARDABLE_LINK_REL = [
  * @name withGraphQLApp
  * @param {object} App Next.js custom `App` component.
  * @returns {WithGraphQL} Next.js custom `App` higher-order component.
+ * @example <caption>Ways to `import`.</caption>
+ * ```js
+ * import { withGraphQLApp } from 'next-graphql-react';
+ * ```
+ *
+ * ```js
+ * import withGraphQLApp from 'next-graphql-react/universal/withGraphQLApp.js';
+ * ```
+ * @example <caption>Ways to `require`.</caption>
+ * ```js
+ * const { withGraphQLApp } = require('next-graphql-react');
+ * ```
+ *
+ * ```js
+ * const withGraphQLApp = require('next-graphql-react/universal/withGraphQLApp');
+ * ```
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
  *

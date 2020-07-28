@@ -60,6 +60,26 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQ
 
 #### Examples
 
+_Ways to `import`._
+
+> ```js
+> import { withGraphQLApp } from 'next-graphql-react';
+> ```
+>
+> ```js
+> import withGraphQLApp from 'next-graphql-react/universal/withGraphQLApp.js';
+> ```
+
+_Ways to `require`._
+
+> ```js
+> const { withGraphQLApp } = require('next-graphql-react');
+> ```
+>
+> ```js
+> const withGraphQLApp = require('next-graphql-react/universal/withGraphQLApp');
+> ```
+
 _A custom `App`._
 
 > In `pages/_app.js`:
