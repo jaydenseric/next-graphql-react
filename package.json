@@ -69,7 +69,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "graphql": "^15.3.0",
     "graphql-api-koa": "^6.0.0",
-    "graphql-react": "^11.0.3",
+    "graphql-react": "^11.0.4",
     "hard-rejection": "^2.1.0",
     "install-from": "^2.0.1",
     "jsdoc-md": "^7.0.0",
