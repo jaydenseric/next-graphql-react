@@ -8,6 +8,7 @@
 - Derive fixture dependency versions from dev dependency versions.
 - No longer separately build ESM and CJS to simplify package scripts, Babel and ESLint config.
 - Use `require` instead of dynamic `import` in `withGraphQLApp` source, as since v7.0.0 the module is only published as CJS.
+- Removed unnecessary `.js` file extensions from `require` paths.
 - Simplified the GitHub Actions CI config with the [`npm install-test`](https://docs.npmjs.com/cli/install-test.html) command.
 
 ## 8.0.0

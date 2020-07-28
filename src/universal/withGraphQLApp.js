@@ -1,6 +1,6 @@
 'use strict';
 
-const GraphQL = require('graphql-react/universal/GraphQL.js');
+const GraphQL = require('graphql-react/universal/GraphQL');
 const { default: NextApp } = require('next/app');
 const React = require('react');
 
@@ -112,8 +112,8 @@ module.exports = function withGraphQLApp(App) {
           // from the relevant server/browser bundle.
           if (process.browser) resolve(props);
           else {
-            const ssr = require('graphql-react/server/ssr.js');
-            const { default: Head } = require('next/head.js');
+            const ssr = require('graphql-react/server/ssr');
+            const { default: Head } = require('next/head');
             const graphql = new GraphQL();
 
             // Check if this is a Next.js static HTML export. If it is, Next.js
