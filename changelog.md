@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dependencies.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `11 - 12`.
 
 ## 8.0.1
 
