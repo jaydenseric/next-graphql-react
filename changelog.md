@@ -7,6 +7,7 @@
 - Update the [`next`](https://npm.im/next) peer dependency to `9.0.3 - 10`.
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.8 - 17`.
 - Updated dependencies.
+- Also run GitHub Actions with Node.js v15.
 
 ## 8.0.2
 
