@@ -9,6 +9,7 @@
 - Updated dependencies.
 - Moved [`disposable-directory`](https://npm.im/disposable-directory) to dev dependencies.
 - Also run GitHub Actions with Node.js v15.
+- Fixed a test hanging in Node.js v15.
 
 ## 8.0.2
 

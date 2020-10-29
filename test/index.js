@@ -55,7 +55,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
 
       console.group('Starting Next.js…');
 
-      const { childProcess, url } = await startNext(tempDirPath);
+      const { stop, url } = await startNext(tempDirPath);
 
       console.groupEnd();
 
@@ -84,7 +84,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
           await browser.close();
         }
       } finally {
-        childProcess.kill();
+        await stop();
       }
 
       console.log('Testing static HTML export…');

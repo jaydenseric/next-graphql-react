@@ -1,13 +1,14 @@
 'use strict';
 
 const { spawn } = require('child_process');
+const treeKillPromise = require('./treeKillPromise');
 
 /**
  * Starts a Next.js server in a child process.
  * @kind function
  * @name startNext
  * @param {string} [cwd] Current working directory to run `npx next start` in (should be the Next.js project directory), defaulting to the process CWD.
- * @returns {Promise<{childProcess: ChildProcess, url: string}>} Resolves the Next.js server child process and URL once it’s ready to accept requests.
+ * @returns {Promise<{stop: Function, url: string}>} Resolves a function to stop the Next.js server process, and the URL once it’s ready to accept requests.
  * @ignore
  */
 module.exports = function startNext(cwd) {
@@ -16,22 +17,25 @@ module.exports = function startNext(cwd) {
       reject(new Error('Next.js failed to start.'));
     };
 
-    const childProcess = spawn('npx', ['next', 'start'], { cwd });
+    const nextProcess = spawn('npx', ['next', 'start'], { cwd });
 
-    childProcess.once('error', reject);
-    childProcess.once('close', onCloseEarly);
+    nextProcess.once('error', reject);
+    nextProcess.once('close', onCloseEarly);
 
-    childProcess.stderr.setEncoding('utf8');
-    childProcess.stderr.on('data', (data) => {
+    nextProcess.stderr.setEncoding('utf8');
+    nextProcess.stderr.on('data', (data) => {
       console.error(data);
     });
 
-    childProcess.stdout.setEncoding('utf8');
-    childProcess.stdout.on('data', (data) => {
+    nextProcess.stdout.setEncoding('utf8');
+    nextProcess.stdout.on('data', (data) => {
       const match = data.match(/^ready - started server on (.+)$/m);
       if (match) {
-        childProcess.off('close', onCloseEarly);
-        resolve({ childProcess, url: match[1] });
+        nextProcess.off('close', onCloseEarly);
+        resolve({
+          stop: () => treeKillPromise(nextProcess.pid),
+          url: match[1],
+        });
       }
     });
   });
