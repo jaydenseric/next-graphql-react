@@ -1,10 +1,16 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Tweaked the v8.0.3 changelog entry.
+
 ## 8.0.3
 
 ### Patch
 
-- Update the [`next`](https://npm.im/next) peer dependency to `9.0.3 - 10`.
+- Updated the [`next`](https://npm.im/next) peer dependency to `9.0.3 - 10`.
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.8 - 17`.
 - Updated dependencies.
 - Moved [`disposable-directory`](https://npm.im/disposable-directory) to dev dependencies.
