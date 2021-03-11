@@ -6,6 +6,7 @@
 
 - Updated dependencies.
 - Removed redundant dev dependencies.
+- Stop using [`hard-rejection`](https://npm.im/hard-rejection) to detect unhandled `Promise` rejections in tests, as Node.js v15+ does this natively.
 - Tweaked the v8.0.3 changelog entry.
 - Always use regex `u` mode.
 
