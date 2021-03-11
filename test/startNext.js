@@ -29,7 +29,8 @@ module.exports = function startNext(cwd) {
 
     nextProcess.stdout.setEncoding('utf8');
     nextProcess.stdout.on('data', (data) => {
-      const match = data.match(/^ready - started server on (.+)$/mu);
+      const match = data.match(/^ready - started server[^\n]* (.+)$/mu);
+
       if (match) {
         nextProcess.off('close', onCloseEarly);
         resolve({
