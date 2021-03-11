@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Removed redundant dev dependencies.
 - Tweaked the v8.0.3 changelog entry.
 
 ## 8.0.3
