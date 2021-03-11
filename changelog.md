@@ -10,6 +10,7 @@
 - Tweaked the v8.0.3 changelog entry.
 - Always use regex `u` mode.
 - Use the Next.js JS API instead of the CLI to start Next.js in tests, fixing Next.js start detection in tests broken since Next.js v10.0.6-canary.8.
+- Asynchronously create test fixture files.
 
 ## 8.0.3
 

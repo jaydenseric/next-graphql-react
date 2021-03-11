@@ -31,9 +31,10 @@ module.exports = async function createFixtureProject(tempDirPath, graphqlUrl) {
   const indexPagePath = join(pagesPath, 'index.js');
   const secondPagePath = join(pagesPath, 'second.js');
 
-  await fs.promises.writeFile(
-    packageJsonPath,
-    `{
+  await Promise.all([
+    fs.promises.writeFile(
+      packageJsonPath,
+      `{
   "private": true,
   "dependencies": {
     "graphql-react": "${devDependencies['graphql-react']}",
@@ -42,13 +43,12 @@ module.exports = async function createFixtureProject(tempDirPath, graphqlUrl) {
     "react-dom": "${devDependencies['react-dom']}"
   }
 }`
-  );
-
-  await fs.promises.mkdir(pagesPath);
-
-  await fs.promises.writeFile(
-    appPath,
-    `import { GraphQLProvider } from 'graphql-react';
+    ),
+    fs.promises.mkdir(pagesPath).then(() =>
+      Promise.all([
+        fs.promises.writeFile(
+          appPath,
+          `import { GraphQLProvider } from 'graphql-react';
 import { withGraphQLApp } from 'next-graphql-react';
 import Link from 'next/link'
 
@@ -62,11 +62,10 @@ const App = ({ Component, pageProps, graphql }) => (
 );
 
 export default withGraphQLApp(App);`
-  );
-
-  await fs.promises.writeFile(
-    indexPagePath,
-    `import { useGraphQL } from 'graphql-react';
+        ),
+        fs.promises.writeFile(
+          indexPagePath,
+          `import { useGraphQL } from 'graphql-react';
 
 export default function IndexPage() {
   const { loading, cacheValue = {} } = useGraphQL({
@@ -87,11 +86,10 @@ export default function IndexPage() {
     'Error!'
   );
 }`
-  );
-
-  await fs.promises.writeFile(
-    secondPagePath,
-    `import { useGraphQL } from 'graphql-react';
+        ),
+        fs.promises.writeFile(
+          secondPagePath,
+          `import { useGraphQL } from 'graphql-react';
 
 export default function SecondPage() {
   const { loading, cacheValue = {} } = useGraphQL({
@@ -112,13 +110,14 @@ export default function SecondPage() {
     'Error!'
   );
 }`
-  );
+        ),
+      ])
+    ),
+  ]);
 
   console.log('Installing dependencies…');
 
-  await execFilePromise('npm', ['install'], {
-    cwd: tempDirPath,
-  });
+  await execFilePromise('npm', ['install'], { cwd: tempDirPath });
 
   console.log('Installing next-graphql-react dependency…');
 
