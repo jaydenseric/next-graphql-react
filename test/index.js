@@ -39,11 +39,17 @@ const dummyGraphQLSever = createServer((request, response) => {
 const tests = new TestDirector();
 
 tests.add('Next.js production build and static HTML export.', async () => {
-  const { port, close } = await listen(dummyGraphQLSever);
+  const {
+    port: portDummyGraphQLSever,
+    close: closeDummyGraphQLSever,
+  } = await listen(dummyGraphQLSever);
 
   try {
     await disposableDirectory(async (tempDirPath) => {
-      await createFixtureProject(tempDirPath, `http://localhost:${port}`);
+      await createFixtureProject(
+        tempDirPath,
+        `http://localhost:${portDummyGraphQLSever}`
+      );
 
       console.log('Building Next.js…');
 
@@ -55,7 +61,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
 
       console.group('Starting Next.js…');
 
-      const { stop, url } = await startNext(tempDirPath);
+      const { port: portNext, close: closeNext } = await startNext(tempDirPath);
 
       console.groupEnd();
 
@@ -67,7 +73,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
 
           console.log('Testing server side page load…');
 
-          const response = await page.goto(url);
+          const response = await page.goto(`http://localhost:${portNext}`);
 
           ok(response.ok());
           ok(await page.$(`#${MARKER_A}`));
@@ -84,7 +90,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
           await browser.close();
         }
       } finally {
-        await stop();
+        closeNext();
       }
 
       console.log('Testing static HTML export…');
@@ -103,7 +109,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
       ok(html.includes(`id="${MARKER_A}"`));
     });
   } finally {
-    close();
+    closeDummyGraphQLSever();
   }
 });
 

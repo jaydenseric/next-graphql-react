@@ -9,7 +9,7 @@
 - Stop using [`hard-rejection`](https://npm.im/hard-rejection) to detect unhandled `Promise` rejections in tests, as Node.js v15+ does this natively.
 - Tweaked the v8.0.3 changelog entry.
 - Always use regex `u` mode.
-- Fixed Next.js server start detection in tests, broken since Next.js v10.0.6-canary.8.
+- Use the Next.js JS API instead of the CLI to start Next.js in tests, fixing Next.js start detection in tests broken since Next.js v10.0.6-canary.8.
 
 ## 8.0.3
 
