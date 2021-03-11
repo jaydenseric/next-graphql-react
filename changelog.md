@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Updated dependencies.
 - Removed redundant dev dependencies.
 - Tweaked the v8.0.3 changelog entry.
 - Always use regex `u` mode.
