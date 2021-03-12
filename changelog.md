@@ -11,6 +11,9 @@
 - Always use regex `u` mode.
 - Use the Next.js JS API instead of the CLI to start Next.js in tests, fixing Next.js start detection in tests broken since Next.js v10.0.6-canary.8.
 - Asynchronously create test fixture files.
+- Fixed incorrect console output indentation following certain test failures.
+- Added tests for SSR GraphQL response `Link` header forwarding to the client.
+- Fixed errors that can happen during a Next.js build or SSR due to unparsable `Link` headers.
 
 ## 8.0.3
 

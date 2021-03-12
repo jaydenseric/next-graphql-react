@@ -132,20 +132,25 @@ module.exports = function withGraphQLApp(App) {
             const { default: Head } = require('next/head');
             const graphql = new GraphQL();
 
-            // Check if this is a Next.js static HTML export. If it is, Next.js
+            // Check this is not a Next.js static HTML export. If it is, Next.js
             // docs say `ctx.res` will be an empty object, although in reality a
-            // few header related properties are mimicked. That is why
-            // `statusCode` is checked here instead of something more relevant.
+            // few header related properties are mocked. That’s why `statusCode`
+            // is checked here instead of something more relevant.
             // See: https://nextjs.org/docs/advanced-features/static-html-export#caveats
             if (context.ctx.res.statusCode) {
               const LinkHeader = require('http-link-header');
-              const graphqlLinkHeader = new LinkHeader();
+              const linkHeaderPlanGraphQLResponses = new LinkHeader();
 
               graphql.on('cache', ({ response }) => {
                 // The response may be undefined if there were fetch errors.
                 if (response) {
                   const linkHeader = response.headers.get('Link');
-                  if (linkHeader) graphqlLinkHeader.parse(linkHeader);
+                  if (linkHeader)
+                    try {
+                      linkHeaderPlanGraphQLResponses.parse(linkHeader);
+                    } catch (error) {
+                      // Ignore a parse error.
+                    }
                 }
               });
 
@@ -154,28 +159,66 @@ module.exports = function withGraphQLApp(App) {
                 .then(() => {
                   Head.rewind();
 
-                  const responseLinkHeader = new LinkHeader(
-                    // Might be undefined.
-                    context.ctx.res.getHeader('Link')
-                  );
+                  const linkHeaderPlanGraphQLForwardable = new LinkHeader();
 
-                  graphqlLinkHeader.refs.forEach((graphqlLink) => {
+                  linkHeaderPlanGraphQLResponses.refs.forEach((link) => {
                     if (
-                      FORWARDABLE_LINK_REL.includes(graphqlLink.rel) &&
-                      // Similar link not already set.
-                      !responseLinkHeader.refs.some(
-                        ({ uri, rel }) =>
-                          uri === graphqlLink.uri && rel === graphqlLink.rel
+                      // The link has a forwardable `rel`.
+                      FORWARDABLE_LINK_REL.includes(link.rel) &&
+                      // A similar link isn’t already set.
+                      !linkHeaderPlanGraphQLForwardable.refs.some(
+                        ({ uri, rel }) => uri === link.uri && rel === link.rel
                       )
                     )
-                      responseLinkHeader.set(graphqlLink);
+                      linkHeaderPlanGraphQLForwardable.set(link);
                   });
 
-                  if (responseLinkHeader.refs.length)
+                  if (linkHeaderPlanGraphQLForwardable.refs.length) {
+                    let linkHeaderPlanResponseFinal = linkHeaderPlanGraphQLForwardable;
+
+                    const linkHeaderResponseOriginal = context.ctx.res.getHeader(
+                      'Link'
+                    );
+
+                    if (linkHeaderResponseOriginal) {
+                      // The Node.js response `setHeader` API doesn’t do any
+                      // input validation, so project code using this API could
+                      // have set any type of unparsable value for the original
+                      // response `Link` header. If it’s parsable, merge in the
+                      // forwardable links from the GraphQL responses to create
+                      // the final response `Link` header.
+                      try {
+                        var linkHeaderPlanResponseOriginal = new LinkHeader(
+                          linkHeaderResponseOriginal
+                        );
+                      } catch (error) {
+                        // Ignore a parse error. It’s ok to exclude the original
+                        // unparsable `Link` header in the final response.
+                      }
+
+                      if (linkHeaderPlanResponseOriginal) {
+                        linkHeaderPlanResponseFinal = linkHeaderPlanResponseOriginal;
+
+                        linkHeaderPlanGraphQLForwardable.refs.forEach(
+                          (link) => {
+                            if (
+                              // A similar link isn’t already set.
+                              !linkHeaderPlanResponseFinal.refs.some(
+                                ({ uri, rel }) =>
+                                  uri === link.uri && rel === link.rel
+                              )
+                            )
+                              linkHeaderPlanResponseFinal.set(link);
+                          }
+                        );
+                      }
+                    }
+
                     context.ctx.res.setHeader(
                       'Link',
-                      responseLinkHeader.toString()
+                      linkHeaderPlanResponseFinal.toString()
                     );
+                  }
 
                   props.graphqlCache = graphql.cache;
                   resolve(props);
