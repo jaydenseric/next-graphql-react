@@ -15,6 +15,10 @@
 - Added tests for SSR GraphQL response `Link` header forwarding to the client.
 - Fixed errors that can happen during a Next.js build or SSR due to unparsable `Link` headers.
 - Internal JSDoc tweaks.
+- Updated GitHub Actions CI config:
+  - Updated `actions/checkout` to v2.
+  - Updated `actions/setup-node` to v2.
+  - Don’t specify the `CI` environment variable as it’s set by default.
 
 ## 8.0.3
 
