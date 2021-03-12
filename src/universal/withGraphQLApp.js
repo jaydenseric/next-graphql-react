@@ -10,6 +10,7 @@ const React = require('react');
  * @see [HTML Living Standard link types](https://html.spec.whatwg.org/dev/links.html#linkTypes).
  * @kind constant
  * @name FORWARDABLE_LINK_REL
+ * @type {Array<string>}
  * @ignore
  */
 const FORWARDABLE_LINK_REL = [

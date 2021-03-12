@@ -14,6 +14,7 @@
 - Fixed incorrect console output indentation following certain test failures.
 - Added tests for SSR GraphQL response `Link` header forwarding to the client.
 - Fixed errors that can happen during a Next.js build or SSR due to unparsable `Link` headers.
+- Internal JSDoc tweaks.
 
 ## 8.0.3
 
