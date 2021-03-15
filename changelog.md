@@ -11,6 +11,10 @@
 - Reorganized file structure. Deep import paths beginning with `next-graphql-react/universal` must be updated to `next-graphql-react/public`.
 - JSDoc comments are now published.
 
+### Minor
+
+- Allow React component `displayName` to be removed in production builds.
+
 ### Patch
 
 - Removed the redundant [`object-assign`](https://npm.im/object-assign) dependency.

@@ -248,17 +248,18 @@ module.exports = function withGraphQLApp(App) {
     return props;
   };
 
-  /**
-   * The higher-order component’s display name.
-   * @see [React display name conventions](https://reactjs.org/docs/higher-order-components#convention-wrap-the-display-name-for-easy-debugging).
-   * @kind member
-   * @name WithGraphQL.displayName
-   * @type {string}
-   * @ignore
-   */
-  WithGraphQL.displayName = `WithGraphQL(${
-    App.displayName || App.name || 'Component'
-  })`;
+  if (typeof process === 'object' && process.env.NODE_ENV !== 'production')
+    /**
+     * The higher-order component’s display name.
+     * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
+     * @kind member
+     * @name WithGraphQL.displayName
+     * @type {string}
+     * @ignore
+     */
+    WithGraphQL.displayName = `WithGraphQL(${
+      App.displayName || App.name || 'Component'
+    })`;
 
   return WithGraphQL;
 };
