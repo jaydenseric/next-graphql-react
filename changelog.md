@@ -7,6 +7,7 @@
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.14 - 17`.
 - Use [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
 - Dropped support for Internet Explorer.
+- Use async/await instead of `Promise` chains.
 - Reorganized file structure. Deep import paths beginning with `next-graphql-react/universal` must be updated to `next-graphql-react/public`.
 - JSDoc comments are now published.
 
