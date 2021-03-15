@@ -16,6 +16,7 @@
 - Refactored experimental syntax to what is supported for the Browserslist query.
 - Removed Babel from the project, simplifying `prepare` scripts.
 - Updated the readme “Support” section.
+- Internal JSDoc tweaks.
 
 ## 8.0.4
 

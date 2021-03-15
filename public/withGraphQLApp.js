@@ -135,7 +135,7 @@ module.exports = function withGraphQLApp(App) {
    * @param {object} context.ctx Context for the route page component’s `getInitialProps`.
    * @param {object} context.router Router instance.
    * @param {object} context.component Route page component.
-   * @returns {object} Props.
+   * @returns {Promise<object>} Initial props.
    * @ignore
    */
   WithGraphQL.getInitialProps = (context) =>
