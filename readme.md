@@ -67,7 +67,7 @@ _Ways to `import`._
 > ```
 >
 > ```js
-> import withGraphQLApp from 'next-graphql-react/universal/withGraphQLApp.js';
+> import withGraphQLApp from 'next-graphql-react/public/withGraphQLApp.js';
 > ```
 
 _Ways to `require`._
@@ -77,7 +77,7 @@ _Ways to `require`._
 > ```
 >
 > ```js
-> const withGraphQLApp = require('next-graphql-react/universal/withGraphQLApp');
+> const withGraphQLApp = require('next-graphql-react/public/withGraphQLApp');
 > ```
 
 _A custom `App`._

@@ -20,19 +20,15 @@
     "mjs"
   ],
   "files": [
-    "universal"
+    "public"
   ],
-  "main": "universal",
+  "main": "public",
   "exports": {
     ".": {
-      "import": "./universal/index.mjs",
-      "require": "./universal/index.js"
+      "import": "./public/index.mjs",
+      "require": "./public/index.js"
     },
-    "./universal": {
-      "import": "./universal/index.mjs",
-      "require": "./universal/index.js"
-    },
-    "./universal/": "./universal/",
+    "./public/": "./public/",
     "./package": "./package.json",
     "./package.json": "./package.json"
   },

@@ -56,7 +56,7 @@ const FORWARDABLE_LINK_REL = [
  * ```
  *
  * ```js
- * import withGraphQLApp from 'next-graphql-react/universal/withGraphQLApp.js';
+ * import withGraphQLApp from 'next-graphql-react/public/withGraphQLApp.js';
  * ```
  * @example <caption>Ways to `require`.</caption>
  * ```js
@@ -64,7 +64,7 @@ const FORWARDABLE_LINK_REL = [
  * ```
  *
  * ```js
- * const withGraphQLApp = require('next-graphql-react/universal/withGraphQLApp');
+ * const withGraphQLApp = require('next-graphql-react/public/withGraphQLApp');
  * ```
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
