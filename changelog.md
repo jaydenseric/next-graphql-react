@@ -8,6 +8,7 @@
 
 ### Patch
 
+- Removed the redundant [`object-assign`](https://npm.im/object-assign) dependency.
 - Updated the readme “Support” section.
 
 ## 8.0.4

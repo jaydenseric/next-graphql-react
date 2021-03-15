@@ -47,8 +47,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "http-link-header": "^1.0.3",
-    "object-assign": "^4.1.1"
+    "http-link-header": "^1.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
