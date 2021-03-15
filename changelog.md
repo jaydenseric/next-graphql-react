@@ -1,5 +1,15 @@
 # next-graphql-react changelog
 
+## Next
+
+### Major
+
+- Dropped support for Internet Explorer.
+
+### Patch
+
+- Updated the readme “Support” section.
+
 ## 8.0.4
 
 ### Patch
