@@ -43,23 +43,17 @@
   "peerDependencies": {
     "graphql-react": "11 - 12",
     "next": "9.0.3 - 10",
-    "react": "16.8 - 17"
+    "react": "16.14 - 17"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
     "http-link-header": "^1.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/eslint-parser": "^7.13.10",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-react": "^7.12.13",
     "disposable-directory": "^3.0.0",
     "eslint": "^7.21.0",
     "eslint-config-env": "^18.0.1",
     "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^31.6.1",
     "eslint-plugin-node": "^11.1.0",
@@ -78,11 +72,9 @@
     "test-director": "^5.0.0"
   },
   "scripts": {
-    "prepare": "npm run prepare:clean && npm run prepare:babel && npm run prepare:jsdoc && npm run prepare:prettier",
-    "prepare:clean": "rm -rf universal",
-    "prepare:babel": "babel src -d . --keep-file-extension",
+    "prepare": "npm run prepare:jsdoc && npm run prepare:prettier",
     "prepare:jsdoc": "jsdoc-md",
-    "prepare:prettier": "prettier --write universal readme.md",
+    "prepare:prettier": "prettier --write readme.md",
     "test": "npm run test:eslint && npm run test:prettier && npm run test:api",
     "test:eslint": "eslint --ext mjs,js .",
     "test:prettier": "prettier -c .",

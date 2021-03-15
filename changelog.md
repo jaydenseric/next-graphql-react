@@ -4,11 +4,16 @@
 
 ### Major
 
+- Updated the [`react`](https://npm.im/react) peer dependency to `16.14 - 17`.
+- Use [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
 - Dropped support for Internet Explorer.
+- JSDoc comments are now published.
 
 ### Patch
 
 - Removed the redundant [`object-assign`](https://npm.im/object-assign) dependency.
+- Refactored experimental syntax to what is supported for the Browserslist query.
+- Removed Babel from the project, simplifying `prepare` scripts.
 - Updated the readme “Support” section.
 
 ## 8.0.4
