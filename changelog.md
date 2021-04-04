@@ -17,6 +17,7 @@
 
 ### Patch
 
+- Updated dev dependencies.
 - Removed the redundant [`object-assign`](https://npm.im/object-assign) dependency.
 - Refactored experimental syntax to what is supported for the Browserslist query.
 - Removed Babel from the project, simplifying `prepare` scripts.
