@@ -49,7 +49,7 @@ const FORWARDABLE_LINK_REL = [
  * @kind function
  * @name withGraphQLReact
  * @param {object} App Next.js custom `App` component.
- * @returns {WithGraphQLReact} Next.js custom `App` higher-order component.
+ * @returns {withGraphQLReact~WithGraphQLReact} Next.js custom `App` higher-order component.
  * @example <caption>Ways to `import`.</caption>
  * ```js
  * import { withGraphQLReact } from 'next-graphql-react';
@@ -101,7 +101,7 @@ module.exports = function withGraphQLReact(App) {
       /**
        * The `GraphQL` instance.
        * @kind member
-       * @name WithGraphQLReact#graphql
+       * @name withGraphQLReact~WithGraphQLReact#graphql
        * @type {GraphQL}
        * @ignore
        */
@@ -114,7 +114,7 @@ module.exports = function withGraphQLReact(App) {
     /**
      * Renders the component.
      * @kind function
-     * @name WithGraphQLReact#render
+     * @name withGraphQLReact~WithGraphQLReact#render
      * @returns {ReactElement} React virtual DOM element.
      * @ignore
      */
@@ -129,7 +129,7 @@ module.exports = function withGraphQLReact(App) {
   /**
    * Gets the higher-order component’s initial props.
    * @kind function
-   * @name WithGraphQLReact.getInitialProps
+   * @name withGraphQLReact~WithGraphQLReact.getInitialProps
    * @param {object} context App context.
    * @param {object} context.ctx Context for the route page component’s `getInitialProps`.
    * @param {object} context.router Router instance.
@@ -253,7 +253,7 @@ module.exports = function withGraphQLReact(App) {
      * The higher-order component’s display name.
      * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
      * @kind member
-     * @name WithGraphQLReact.displayName
+     * @name withGraphQLReact~WithGraphQLReact.displayName
      * @type {string}
      * @ignore
      */

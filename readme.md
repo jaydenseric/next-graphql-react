@@ -51,7 +51,7 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQ
 | :-------- | :----- | :------------------------------ |
 | `App`     | object | Next.js custom `App` component. |
 
-**Returns:** WithGraphQLReact — Next.js custom `App` higher-order component.
+**Returns:** withGraphQLReact\~WithGraphQLReact — Next.js custom `App` higher-order component.
 
 #### See
 
