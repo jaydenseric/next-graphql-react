@@ -8,10 +8,10 @@ const { jsx } = require('react/jsx-runtime');
 /**
  * Link `rel` types that make sense to forward from a GraphQL responses during
  * SSR in the Next.js page response
- * @see [HTML Living Standard link types](https://html.spec.whatwg.org/dev/links.html#linkTypes).
  * @kind constant
  * @name FORWARDABLE_LINK_REL
  * @type {Array<string>}
+ * @see [HTML Living Standard link types](https://html.spec.whatwg.org/dev/links.html#linkTypes).
  * @ignore
  */
 const FORWARDABLE_LINK_REL = [
@@ -44,12 +44,12 @@ const FORWARDABLE_LINK_REL = [
  *
  * Link URLs are forwarded unmodified, so avoid sending relative URLs
  * from a GraphQL server hosted on a different domain to the app.
- * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
- * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @kind function
  * @name withGraphQLReact
  * @param {object} App Next.js custom `App` component.
  * @returns {withGraphQLReact~WithGraphQLReact} Next.js custom `App` higher-order component.
+ * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
+ * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @example <caption>Ways to `import`.</caption>
  * ```js
  * import { withGraphQLReact } from 'next-graphql-react';
@@ -251,10 +251,10 @@ module.exports = function withGraphQLReact(App) {
   if (typeof process === 'object' && process.env.NODE_ENV !== 'production')
     /**
      * The higher-order component’s display name.
-     * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
      * @kind member
      * @name withGraphQLReact~WithGraphQLReact.displayName
      * @type {string}
+     * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
      * @ignore
      */
     WithGraphQLReact.displayName = `WithGraphQLReact(${
