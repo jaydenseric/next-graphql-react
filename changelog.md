@@ -6,12 +6,15 @@
 
 - Updated Node.js version support to `^12.0.0 || >= 13.7.0`.
 - Stopped supporting Internet Explorer.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^13.0.0`.
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.14 - 17`.
 - Use [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
 - Reorganized file structure. Deep import paths beginning with `next-graphql-react/universal` must be updated to `next-graphql-react/public`.
 - The `withGraphQLApp` higher order function has changed:
   - It’s been renamed `withGraphQLReact`.
+  - It now automatically sets the context required for the new [`graphql-react`](https://npm.im/graphql-react) v13 API.
   - It now uses `async`/`await` instead of `Promise` chains.
+  - The React class component it returns has been refactored to a functional component using React hooks.
 - Published modules now contain JSDoc comments, which might affect TypeScript projects.
 
 ### Minor

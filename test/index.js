@@ -68,6 +68,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
         console.log('Creating files…');
 
         const packageJsonPath = join(tempDirPath, 'package.json');
+        const nodePolyfillsPath = join(tempDirPath, 'nodePolyfills.js');
         const pagesPath = join(tempDirPath, 'pages');
         const appPath = join(pagesPath, '_app.js');
         const indexPagePath = join(pagesPath, 'index.js');
@@ -79,6 +80,8 @@ tests.add('Next.js production build and static HTML export.', async () => {
             `{
   "private": true,
   "dependencies": {
+    "abort-controller": "${devDependencies['abort-controller']}",
+    "event-target-shim": "${devDependencies['event-target-shim']}",
     "graphql-react": "${devDependencies['graphql-react']}",
     "next": "${devDependencies.next}",
     "react": "${devDependencies.react}",
@@ -86,21 +89,47 @@ tests.add('Next.js production build and static HTML export.', async () => {
   }
 }`
           ),
+          fs.promises.writeFile(
+            nodePolyfillsPath,
+            `'use strict';
+
+if (typeof window === 'undefined') {
+  if (!('performance' in global))
+    global.performance = require('perf_hooks').performance;
+
+  if (!('EventTarget' in global))
+    global.EventTarget =
+      require('events').EventTarget || require('event-target-shim').EventTarget;
+
+  if (!('Event' in global))
+    global.Event = require('events').Event || require('event-target-shim').Event;
+
+  if (!('CustomEvent' in global))
+    global.CustomEvent = class CustomEvent extends Event {
+      constructor(eventName, { detail, ...eventOptions } = {}) {
+        super(eventName, eventOptions);
+        this.detail = detail;
+      }
+    };
+
+  require('abort-controller/polyfill');
+}`
+          ),
           fs.promises.mkdir(pagesPath).then(() =>
             Promise.all([
               fs.promises.writeFile(
                 appPath,
-                `import { GraphQLProvider } from 'graphql-react';
-import { withGraphQLReact } from 'next-graphql-react';
-import Link from 'next/link'
+                `import '${nodePolyfillsPath}';
+import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
+import Link from 'next/link';
 
-const App = ({ Component, pageProps, graphql }) => (
-  <GraphQLProvider graphql={graphql}>
+const App = ({ Component, pageProps }) => (
+  <>
     <Link href="/second" passHref>
       <a>Second</a>
     </Link>
     <Component {...pageProps} />
-  </GraphQLProvider>
+  </>
 );
 
 // This is for testing that an original response \`Link\` header is respected by
@@ -118,66 +147,103 @@ App.getInitialProps = async (context) => {
       decodeURIComponent(context.ctx.query.linkHeaderNext)
     );
 
-  return {}
+  return {};
 };
 
 export default withGraphQLReact(App);`
               ),
               fs.promises.writeFile(
                 indexPagePath,
-                `import { useGraphQL } from 'graphql-react';
+                `import useAutoLoad from 'graphql-react/public/useAutoLoad.js';
+import useCacheEntry from 'graphql-react/public/useCacheEntry.js';
+import useLoadGraphQL from 'graphql-react/public/useLoadGraphQL.js';
+import useWaterfallLoad from 'graphql-react/public/useWaterfallLoad.js';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+
+const cacheKey = 'a';
+const fetchOptions = {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+  },
+  body: JSON.stringify({
+    query: '{ a }',
+  }),
+};
 
 export default function IndexPage() {
   const {
     query: { linkHeaderGraphql }
   } = useRouter();
 
-  const { loading, cacheValue = {} } = useGraphQL({
-    loadOnMount: true,
-    fetchOptionsOverride(options) {
-      options.url = '${urlGraphql}';
+  const cacheValue = useCacheEntry(cacheKey);
 
-      if (linkHeaderGraphql)
-        options.url += \`?linkHeader=\${encodeURIComponent(
-          linkHeaderGraphql
-        )}\`;
-    },
-    operation: {
-      query: '{ a }',
-    },
-  });
+  let fetchUri = '${urlGraphql}';
 
-  return cacheValue.data ? (
+  if (linkHeaderGraphql)
+    fetchUri += \`?linkHeader=\${encodeURIComponent(
+      linkHeaderGraphql
+    )}\`;
+
+  const loadGraphQL = useLoadGraphQL();
+  const load = useCallback(
+    () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
+    [fetchUri]
+  );
+
+  useAutoLoad(cacheKey, load);
+
+  const isWaterfallLoading = useWaterfallLoad(cacheKey, load);
+
+  return isWaterfallLoading ? null : cacheValue?.data ? (
     <div id={cacheValue.data.a} />
-  ) : loading ? (
-    <div id="loading" />
-  ) : (
+  ) : cacheValue?.errors ? (
     'Error!'
+  ) : (
+    <div id="loading" />
   );
 }`
               ),
               fs.promises.writeFile(
                 secondPagePath,
-                `import { useGraphQL } from 'graphql-react';
+                `import useAutoLoad from 'graphql-react/public/useAutoLoad.js';
+import useCacheEntry from 'graphql-react/public/useCacheEntry.js';
+import useLoadGraphQL from 'graphql-react/public/useLoadGraphQL.js';
+import useWaterfallLoad from 'graphql-react/public/useWaterfallLoad.js';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+
+const cacheKey = 'b';
+const fetchUri = '${urlGraphql}';
+const fetchOptions = {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+  },
+  body: JSON.stringify({
+    query: '{ b }',
+  }),
+};
 
 export default function SecondPage() {
-  const { loading, cacheValue = {} } = useGraphQL({
-    loadOnMount: true,
-    fetchOptionsOverride(options) {
-      options.url = '${urlGraphql}';
-    },
-    operation: {
-      query: '{ b }',
-    },
-  });
+  const cacheValue = useCacheEntry(cacheKey);
+  const loadGraphQL = useLoadGraphQL();
+  const load = useCallback(
+    () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
+    [fetchUri]
+  );
 
-  return cacheValue.data ? (
+  useAutoLoad(cacheKey, load);
+
+  const isWaterfallLoading = useWaterfallLoad(cacheKey, load);
+
+  return isWaterfallLoading ? null : cacheValue?.data ? (
     <div id={cacheValue.data.b} />
-  ) : loading ? (
-    <div id="loading" />
-  ) : (
+  ) : cacheValue?.errors ? (
     'Error!'
+  ) : (
+    <div id="loading" />
   );
 }`
               ),

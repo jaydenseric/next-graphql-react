@@ -80,20 +80,13 @@ _Ways to `require`._
 > const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact');
 > ```
 
-_A custom `App`._
+_A Next.js custom `App`._
 
 > In `pages/_app.js`:
 >
 > ```jsx
-> import { GraphQLProvider } from 'graphql-react';
-> import { withGraphQLReact } from 'next-graphql-react';
-> import React from 'react';
->
-> const App = ({ Component, pageProps, graphql }) => (
->   <GraphQLProvider graphql={graphql}>
->     <Component {...pageProps} />
->   </GraphQLProvider>
-> );
+> import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
+> import App from 'next/app';
 >
 > export default withGraphQLReact(App);
 > ```
