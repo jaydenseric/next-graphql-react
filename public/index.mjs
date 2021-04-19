@@ -1,1 +1,1 @@
-export { default as withGraphQLApp } from './withGraphQLApp.js';
+export { default as withGraphQLReact } from './withGraphQLReact.js';

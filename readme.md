@@ -14,7 +14,7 @@ To install [`next-graphql-react`](https://npm.im/next-graphql-react) and the [`g
 npm install next-graphql-react graphql-react
 ```
 
-See the [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
+See the [`withGraphQLReact`](#function-withgraphqlapp) examples to get started.
 
 ## Examples
 
@@ -30,9 +30,9 @@ See the [`withGraphQLApp`](#function-withgraphqlapp) examples to get started.
 
 ### Table of contents
 
-- [function withGraphQLApp](#function-withgraphqlapp)
+- [function withGraphQLReact](#function-withgraphqlreact)
 
-### function withGraphQLApp
+### function withGraphQLReact
 
 A higher-order React component to decorate a Next.js custom `App` component in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL operations with server side rendering and client side data hydration.
 
@@ -51,7 +51,7 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQ
 | :-------- | :----- | :------------------------------ |
 | `App`     | object | Next.js custom `App` component. |
 
-**Returns:** WithGraphQL — Next.js custom `App` higher-order component.
+**Returns:** WithGraphQLReact — Next.js custom `App` higher-order component.
 
 #### See
 
@@ -63,21 +63,21 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQ
 _Ways to `import`._
 
 > ```js
-> import { withGraphQLApp } from 'next-graphql-react';
+> import { withGraphQLReact } from 'next-graphql-react';
 > ```
 >
 > ```js
-> import withGraphQLApp from 'next-graphql-react/public/withGraphQLApp.js';
+> import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
 > ```
 
 _Ways to `require`._
 
 > ```js
-> const { withGraphQLApp } = require('next-graphql-react');
+> const { withGraphQLReact } = require('next-graphql-react');
 > ```
 >
 > ```js
-> const withGraphQLApp = require('next-graphql-react/public/withGraphQLApp');
+> const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact');
 > ```
 
 _A custom `App`._
@@ -86,7 +86,7 @@ _A custom `App`._
 >
 > ```jsx
 > import { GraphQLProvider } from 'graphql-react';
-> import { withGraphQLApp } from 'next-graphql-react';
+> import { withGraphQLReact } from 'next-graphql-react';
 > import React from 'react';
 >
 > const App = ({ Component, pageProps, graphql }) => (
@@ -95,5 +95,5 @@ _A custom `App`._
 >   </GraphQLProvider>
 > );
 >
-> export default withGraphQLApp(App);
+> export default withGraphQLReact(App);
 > ```

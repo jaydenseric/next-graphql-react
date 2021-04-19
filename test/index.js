@@ -91,7 +91,7 @@ tests.add('Next.js production build and static HTML export.', async () => {
               fs.promises.writeFile(
                 appPath,
                 `import { GraphQLProvider } from 'graphql-react';
-import { withGraphQLApp } from 'next-graphql-react';
+import { withGraphQLReact } from 'next-graphql-react';
 import Link from 'next/link'
 
 const App = ({ Component, pageProps, graphql }) => (
@@ -104,7 +104,7 @@ const App = ({ Component, pageProps, graphql }) => (
 );
 
 // This is for testing that an original response \`Link\` header is respected by
-// \`withGraphQLApp\`.
+// \`withGraphQLReact\`.
 App.getInitialProps = async (context) => {
   if (
     !process.browser &&
@@ -121,7 +121,7 @@ App.getInitialProps = async (context) => {
   return {}
 };
 
-export default withGraphQLApp(App);`
+export default withGraphQLReact(App);`
               ),
               fs.promises.writeFile(
                 indexPagePath,

@@ -47,31 +47,31 @@ const FORWARDABLE_LINK_REL = [
  * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @kind function
- * @name withGraphQLApp
+ * @name withGraphQLReact
  * @param {object} App Next.js custom `App` component.
- * @returns {WithGraphQL} Next.js custom `App` higher-order component.
+ * @returns {WithGraphQLReact} Next.js custom `App` higher-order component.
  * @example <caption>Ways to `import`.</caption>
  * ```js
- * import { withGraphQLApp } from 'next-graphql-react';
+ * import { withGraphQLReact } from 'next-graphql-react';
  * ```
  *
  * ```js
- * import withGraphQLApp from 'next-graphql-react/public/withGraphQLApp.js';
+ * import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
  * ```
  * @example <caption>Ways to `require`.</caption>
  * ```js
- * const { withGraphQLApp } = require('next-graphql-react');
+ * const { withGraphQLReact } = require('next-graphql-react');
  * ```
  *
  * ```js
- * const withGraphQLApp = require('next-graphql-react/public/withGraphQLApp');
+ * const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact');
  * ```
  * @example <caption>A custom `App`.</caption>
  * In `pages/_app.js`:
  *
  * ```jsx
  * import { GraphQLProvider } from 'graphql-react';
- * import { withGraphQLApp } from 'next-graphql-react';
+ * import { withGraphQLReact } from 'next-graphql-react';
  * import React from 'react';
  *
  * const App = ({ Component, pageProps, graphql }) => (
@@ -80,28 +80,28 @@ const FORWARDABLE_LINK_REL = [
  *   </GraphQLProvider>
  * );
  *
- * export default withGraphQLApp(App);
+ * export default withGraphQLReact(App);
  * ```
  */
-module.exports = function withGraphQLApp(App) {
+module.exports = function withGraphQLReact(App) {
   /**
    * React higher-order component.
    * @kind class
-   * @name WithGraphQL
+   * @name WithGraphQLReact
    * @param {object} props Props.
    * @param {object} [props.graphqlCache] `GraphQL` cache; undefined for SSR, defined for client render.
    * @param {GraphQL} [props.graphql] `GraphQL` instance; undefined for SSR, undefined for client render.
    * @returns {ReactElement} React virtual DOM element.
    * @ignore
    */
-  class WithGraphQL extends Component {
+  class WithGraphQLReact extends Component {
     constructor(props) {
       super(props);
 
       /**
        * The `GraphQL` instance.
        * @kind member
-       * @name WithGraphQL#graphql
+       * @name WithGraphQLReact#graphql
        * @type {GraphQL}
        * @ignore
        */
@@ -114,7 +114,7 @@ module.exports = function withGraphQLApp(App) {
     /**
      * Renders the component.
      * @kind function
-     * @name WithGraphQL#render
+     * @name WithGraphQLReact#render
      * @returns {ReactElement} React virtual DOM element.
      * @ignore
      */
@@ -129,7 +129,7 @@ module.exports = function withGraphQLApp(App) {
   /**
    * Gets the higher-order component’s initial props.
    * @kind function
-   * @name WithGraphQL.getInitialProps
+   * @name WithGraphQLReact.getInitialProps
    * @param {object} context App context.
    * @param {object} context.ctx Context for the route page component’s `getInitialProps`.
    * @param {object} context.router Router instance.
@@ -137,7 +137,7 @@ module.exports = function withGraphQLApp(App) {
    * @returns {Promise<object>} Initial props.
    * @ignore
    */
-  WithGraphQL.getInitialProps = async (context) => {
+  WithGraphQLReact.getInitialProps = async (context) => {
     const props = await (App.getInitialProps
       ? App.getInitialProps(context)
       : NextApp.getInitialProps(context));
@@ -253,13 +253,13 @@ module.exports = function withGraphQLApp(App) {
      * The higher-order component’s display name.
      * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
      * @kind member
-     * @name WithGraphQL.displayName
+     * @name WithGraphQLReact.displayName
      * @type {string}
      * @ignore
      */
-    WithGraphQL.displayName = `WithGraphQL(${
+    WithGraphQLReact.displayName = `WithGraphQLReact(${
       App.displayName || App.name || 'Component'
     })`;
 
-  return WithGraphQL;
+  return WithGraphQLReact;
 };
