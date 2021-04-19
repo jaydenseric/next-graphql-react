@@ -5,13 +5,14 @@
 ### Major
 
 - Updated Node.js version support to `^12.0.0 || >= 13.7.0`.
+- Stopped supporting Internet Explorer.
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.14 - 17`.
 - Use [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
-- Dropped support for Internet Explorer.
-- Renamed the function `withGraphQLApp` to `withGraphQLReact`.
-- Use async/await instead of `Promise` chains.
 - Reorganized file structure. Deep import paths beginning with `next-graphql-react/universal` must be updated to `next-graphql-react/public`.
-- JSDoc comments are now published.
+- The `withGraphQLApp` higher order function has changed:
+  - It’s been renamed `withGraphQLReact`.
+  - It now uses `async`/`await` instead of `Promise` chains.
+- Published modules now contain JSDoc comments, which might affect TypeScript projects.
 
 ### Minor
 
@@ -21,8 +22,8 @@
 
 - Updated dev dependencies.
 - Removed the redundant [`object-assign`](https://npm.im/object-assign) dependency.
+- Removed Babel and related dependencies and config.
 - Refactored experimental syntax to what is supported for the Browserslist query.
-- Removed Babel from the project, simplifying `prepare` scripts.
 - Updated the readme “Support” section.
 - Internal JSDoc tweaks.
 
