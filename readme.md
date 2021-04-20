@@ -4,7 +4,7 @@
 
 [![npm version](https://badgen.net/npm/v/next-graphql-react)](https://npm.im/next-graphql-react) [![CI status](https://github.com/jaydenseric/next-graphql-react/workflows/CI/badge.svg)](https://github.com/jaydenseric/next-graphql-react/actions)
 
-A [`graphql-react`](https://npm.im/graphql-react) integration for [Next.js](https://nextjs.org) to enable server side rendered GraphQL operations.
+A [`graphql-react`](https://npm.im/graphql-react) integration for [Next.js](https://nextjs.org).
 
 ## Setup
 

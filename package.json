@@ -1,7 +1,7 @@
 {
   "name": "next-graphql-react",
   "version": "8.0.4",
-  "description": "A graphql-react integration for Next.js to enable server side rendered GraphQL operations.",
+  "description": "A graphql-react integration for Next.js.",
   "license": "MIT",
   "author": {
     "name": "Jayden Seric",

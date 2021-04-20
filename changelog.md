@@ -28,6 +28,7 @@
 - Removed Babel and related dependencies and config.
 - Refactored experimental syntax to what is supported for the Browserslist query.
 - Restructured tests to mirror the published file structure.
+- Updated the package description.
 - Updated the readme “Support” section.
 - Internal JSDoc tweaks.
 
