@@ -55,7 +55,7 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQ
 
 #### See
 
-- [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
+- [Next.js custom `App` docs](https://nextjs.org/docs/advanced-features/custom-app).
 - [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
 
 #### Examples
