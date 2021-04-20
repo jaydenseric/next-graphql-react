@@ -24,7 +24,7 @@ Then the [`graphql-react`](https://npm.im/graphql-react) React hooks can be used
 ## Examples
 
 - [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react).
-- [Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.now.sh](https://graphql-react.now.sh).
+- [Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.vercel.app](https://graphql-react.vercel.app).
 
 ## Support
 
