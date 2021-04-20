@@ -14,7 +14,7 @@ To install [`next-graphql-react`](https://npm.im/next-graphql-react) and the [`g
 npm install next-graphql-react graphql-react
 ```
 
-See the [`withGraphQLReact`](#function-withgraphqlapp) examples to get started.
+See the [`withGraphQLReact`](#function-withgraphqlreact) examples to get started.
 
 ## Examples
 
