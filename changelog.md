@@ -29,9 +29,11 @@
 - Refactored experimental syntax to what is supported for the Browserslist query.
 - Restructured tests to mirror the published file structure.
 - Updated the package description.
-- Updated the readme “Support” section.
 - Updated a Next.js docs link URL.
 - Internal JSDoc tweaks.
+- Readme edits, including:
+  - Updated the “Setup” section.
+  - Updated the “Support” section.
 
 ## 8.0.4
 
