@@ -7,8 +7,8 @@ const { useRef } = require('react');
 const { jsx } = require('react/jsx-runtime');
 
 /**
- * Link `rel` types that make sense to forward from a GraphQL responses during
- * SSR in the Next.js page response
+ * Link `rel` types that make sense to forward from loading responses during
+ * SSR in the Next.js page response.
  * @kind constant
  * @name FORWARDABLE_LINK_REL
  * @type {Array<string>}
@@ -25,16 +25,22 @@ const FORWARDABLE_LINK_REL = [
 ];
 
 /**
- * A higher-order React component to decorate a Next.js custom `App` component
- * in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react),
- * enabling descendant GraphQL operations with server side rendering and client
- * side data hydration.
+ * A Next.js custom `App` React component decorator that returns a higher-order
+ * React component that enables the
+ * [`graphql-react`](https://npm.im/graphql-react) React hooks within children
+ * for loading and caching data that can be server side rendered and hydrated on
+ * the client.
  *
- * It also forwards HTTP
+ * After
+ * [waterfall rendering](https://github.com/jaydenseric/react-waterfall-render)
+ * for a server side render, cache values are scanned for a `response` property
+ * (which should be non-enumerable so it won’t be included in the serialized
+ * JSON sent to the client for hydration) that is a
+ * [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+ * instance. Any of the following HTTP
  * [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link)
- * headers with the following `rel` parameters from GraphQL responses received
- * when [`ssr`](https://github.com/jaydenseric/graphql-react#function-ssr) runs
- * to the Next.js page response:
+ * headers found in the responses are deduped and forwarded to the client in the
+ * Next.js page response:
  *
  * - [`dns-prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-dns-prefetch)
  * - [`preconnect`](https://html.spec.whatwg.org/dev/links.html#link-type-preconnect)
@@ -47,8 +53,8 @@ const FORWARDABLE_LINK_REL = [
  * from a GraphQL server hosted on a different domain to the app.
  * @kind function
  * @name withGraphQLReact
- * @param {object} App Next.js custom `App` component.
- * @returns {withGraphQLReact~WithGraphQLReact} Next.js custom `App` higher-order component.
+ * @param {object} App Next.js custom `App` React component.
+ * @returns {withGraphQLReact~WithGraphQLReact} Next.js custom `App` higher-order React component.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs#custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @example <caption>Ways to `import`.</caption>
@@ -79,7 +85,7 @@ const FORWARDABLE_LINK_REL = [
  */
 module.exports = function withGraphQLReact(App) {
   /**
-   * React higher-order component.
+   * Next.js custom `App` higher-order React component.
    * @kind function
    * @name withGraphQLReact~WithGraphQLReact
    * @param {object} props Props.
@@ -115,13 +121,13 @@ module.exports = function withGraphQLReact(App) {
     const waterfallRender = require('react-waterfall-render/public/waterfallRender');
 
     /**
-     * Gets the higher-order component’s initial props.
+     * Gets the initial props.
      * @kind function
      * @name withGraphQLReact~WithGraphQLReact.getInitialProps
      * @param {object} context App context.
-     * @param {object} context.ctx Context for the route page component’s `getInitialProps`.
+     * @param {object} context.ctx Context for the route page React component’s `getInitialProps`.
      * @param {object} context.router Router instance.
-     * @param {object} context.component Route page component.
+     * @param {object} context.component Route page React component.
      * @returns {Promise<object>} Initial props.
      * @ignore
      */
@@ -245,7 +251,7 @@ module.exports = function withGraphQLReact(App) {
 
   if (typeof process === 'object' && process.env.NODE_ENV !== 'production')
     /**
-     * The higher-order component’s display name.
+     * The display name.
      * @kind member
      * @name withGraphQLReact~WithGraphQLReact.displayName
      * @type {string}

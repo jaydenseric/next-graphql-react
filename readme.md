@@ -34,9 +34,9 @@ See the [`withGraphQLReact`](#function-withgraphqlapp) examples to get started.
 
 ### function withGraphQLReact
 
-A higher-order React component to decorate a Next.js custom `App` component in `pages/_app.js` for [`graphql-react`](https://npm.im/graphql-react), enabling descendant GraphQL operations with server side rendering and client side data hydration.
+A Next.js custom `App` React component decorator that returns a higher-order React component that enables the [`graphql-react`](https://npm.im/graphql-react) React hooks within children for loading and caching data that can be server side rendered and hydrated on the client.
 
-It also forwards HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) headers with the following `rel` parameters from GraphQL responses received when [`ssr`](https://github.com/jaydenseric/graphql-react#function-ssr) runs to the Next.js page response:
+After [waterfall rendering](https://github.com/jaydenseric/react-waterfall-render) for a server side render, cache values are scanned for a `response` property (which should be non-enumerable so it won’t be included in the serialized JSON sent to the client for hydration) that is a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) instance. Any of the following HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) headers found in the responses are deduped and forwarded to the client in the Next.js page response:
 
 - [`dns-prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-dns-prefetch)
 - [`preconnect`](https://html.spec.whatwg.org/dev/links.html#link-type-preconnect)
@@ -47,11 +47,11 @@ It also forwards HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP
 
 Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQL server hosted on a different domain to the app.
 
-| Parameter | Type   | Description                     |
-| :-------- | :----- | :------------------------------ |
-| `App`     | object | Next.js custom `App` component. |
+| Parameter | Type   | Description                           |
+| :-------- | :----- | :------------------------------------ |
+| `App`     | object | Next.js custom `App` React component. |
 
-**Returns:** withGraphQLReact\~WithGraphQLReact — Next.js custom `App` higher-order component.
+**Returns:** withGraphQLReact\~WithGraphQLReact — Next.js custom `App` higher-order React component.
 
 #### See
 
