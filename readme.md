@@ -33,10 +33,6 @@ Then the [`graphql-react`](https://npm.im/graphql-react) React hooks can be used
 
 ## API
 
-### Table of contents
-
-- [function withGraphQLReact](#function-withgraphqlreact)
-
 ### function withGraphQLReact
 
 A Next.js custom `App` React component decorator that returns a higher-order React component that enables the [`graphql-react`](https://npm.im/graphql-react) React hooks within children for loading and caching data that can be server side rendered and hydrated on the client.
