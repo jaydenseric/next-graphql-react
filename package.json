@@ -37,14 +37,14 @@
   },
   "browserslist": "Node 12.20 - 13 and Node < 13, Node >= 14.13, > 0.5%, not OperaMini all, not IE > 0, not dead",
   "peerDependencies": {
-    "graphql-react": "^13.0.0",
+    "graphql-react": "^14.0.0",
     "next": "9.0.3 - 10",
     "react": "16.14 - 17",
     "react-dom": "16.14 - 17"
   },
   "dependencies": {
     "http-link-header": "^1.0.3",
-    "react-waterfall-render": "^1.0.0"
+    "react-waterfall-render": "^2.0.0"
   },
   "devDependencies": {
     "abort-controller": "^3.0.0",
@@ -61,7 +61,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "event-target-shim": "^6.0.2",
     "graphql": "^15.5.0",
-    "graphql-react": "^13.0.0",
+    "graphql-react": "^14.0.0",
     "install-from": "^2.0.1",
     "jsdoc-md": "^9.1.1",
     "next": "^10.1.3",

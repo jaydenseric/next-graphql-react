@@ -1,7 +1,7 @@
 'use strict';
 
-const Cache = require('graphql-react/public/Cache');
-const Provider = require('graphql-react/public/Provider');
+const Cache = require('graphql-react/public/Cache.js');
+const Provider = require('graphql-react/public/Provider.js');
 const { default: NextApp } = require('next/app');
 const { useRef } = require('react');
 const { jsx } = require('react/jsx-runtime');
@@ -118,7 +118,7 @@ module.exports = function withGraphQLReact(App) {
     const LinkHeader = require('http-link-header');
     const { default: Head } = require('next/head');
     const { renderToStaticMarkup } = require('react-dom/server');
-    const waterfallRender = require('react-waterfall-render/public/waterfallRender');
+    const waterfallRender = require('react-waterfall-render/public/waterfallRender.js');
 
     /**
      * Gets the initial props.
