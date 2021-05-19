@@ -15,6 +15,7 @@
 - Updated GitHub Actions CI config to run tests with Node.js v12, v14, v16.
 - Simplified JSDoc related package scripts now that [`jsdoc-md`](https://npm.im/jsdoc-md) v10+ automatically generates a Prettier formatted readme.
 - Added a package `test:jsdoc` script that checks the readme API docs are up to date with the source JSDoc.
+- Use the `.js` file extension in internal `require` paths.
 - Updated the [example Next.js app](https://graphql-react.vercel.app) URL in the readme.
 - Documentation tweaks.
 

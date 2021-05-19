@@ -1,3 +1,3 @@
 'use strict';
 
-exports.withGraphQLReact = require('./withGraphQLReact');
+exports.withGraphQLReact = require('./withGraphQLReact.js');
