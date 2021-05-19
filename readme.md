@@ -82,7 +82,7 @@ _Ways to `require`._
 > ```
 >
 > ```js
-> const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact');
+> const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
 > ```
 
 _A Next.js custom `App`._

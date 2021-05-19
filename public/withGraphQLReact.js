@@ -71,7 +71,7 @@ const FORWARDABLE_LINK_REL = [
  * ```
  *
  * ```js
- * const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact');
+ * const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
  * ```
  * @example <caption>A Next.js custom `App`.</caption>
  * In `pages/_app.js`:
