@@ -1,23 +1,23 @@
 /* eslint-disable no-console */
 
-'use strict';
+import { ok, strictEqual } from 'assert';
+import fs from 'fs';
+import { createServer } from 'http';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+import disposableDirectory from 'disposable-directory';
+import { installFrom } from 'install-from';
+import puppeteer from 'puppeteer';
+import TestDirector from 'test-director';
+import execFilePromise from '../execFilePromise.mjs';
+import listen from '../listen.mjs';
+import startNext from '../startNext.mjs';
 
-const { ok, strictEqual } = require('assert');
-const fs = require('fs');
-const { createServer } = require('http');
-const { join, resolve } = require('path');
-const { disposableDirectory } = require('disposable-directory');
-const { installFrom } = require('install-from');
-const puppeteer = require('puppeteer');
-const { TestDirector } = require('test-director');
-const { devDependencies } = require('../../package.json');
-const execFilePromise = require('../execFilePromise');
-const listen = require('../listen');
-const startNext = require('../startNext');
+const NEXT_GRAPHQL_REACT_PATH = fileURLToPath(
+  new URL('../..', import.meta.url)
+);
 
-const NEXT_GRAPHQL_REACT_PATH = resolve(__dirname, '../..');
-
-module.exports = (tests) => {
+export default (tests) => {
   tests.add(
     '`withGraphQLReact` with a Next.js production build and static HTML export.',
     async () => {
@@ -75,18 +75,25 @@ module.exports = (tests) => {
             const indexPagePath = join(pagesPath, 'index.js');
             const secondPagePath = join(pagesPath, 'second.js');
 
+            const pkg = JSON.parse(
+              await fs.promises.readFile(
+                new URL('../../package.json', import.meta.url),
+                'utf-8'
+              )
+            );
+
             await Promise.all([
               fs.promises.writeFile(
                 packageJsonPath,
                 `{
   "private": true,
   "dependencies": {
-    "abort-controller": "${devDependencies['abort-controller']}",
-    "event-target-shim": "${devDependencies['event-target-shim']}",
-    "graphql-react": "${devDependencies['graphql-react']}",
-    "next": "${devDependencies.next}",
-    "react": "${devDependencies.react}",
-    "react-dom": "${devDependencies['react-dom']}"
+    "abort-controller": "${pkg.devDependencies['abort-controller']}",
+    "event-target-shim": "${pkg.devDependencies['event-target-shim']}",
+    "graphql-react": "${pkg.devDependencies['graphql-react']}",
+    "next": "${pkg.devDependencies.next}",
+    "react": "${pkg.devDependencies.react}",
+    "react-dom": "${pkg.devDependencies['react-dom']}"
   }
 }`
               ),

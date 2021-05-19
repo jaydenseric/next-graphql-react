@@ -1,7 +1,8 @@
-'use strict';
+import { createServer } from 'http';
+import { createRequire } from 'module';
+import listen from './listen.mjs';
 
-const { createServer } = require('http');
-const listen = require('./listen');
+const require = createRequire(import.meta.url);
 
 /**
  * Starts Next.js.
@@ -11,7 +12,7 @@ const listen = require('./listen');
  * @returns {Promise<{port: string, close: Function}>} Resolves the port the Next.js server is listening on, and a function to close the Next.js server.
  * @ignore
  */
-module.exports = async function startNext(dir) {
+export default async function startNext(dir) {
   const next = require(require.resolve('next', { paths: [dir] }));
   const app = next({ dir, customServer: false });
 
@@ -20,4 +21,4 @@ module.exports = async function startNext(dir) {
   const server = createServer(app.getRequestHandler());
 
   return listen(server);
-};
+}
