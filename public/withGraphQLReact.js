@@ -8,7 +8,7 @@ const { jsx } = require('react/jsx-runtime');
 
 /**
  * Link `rel` types that make sense to forward from loading responses during
- * SSR in the Next.js page response.
+ * SSR in the [Next.js](https://nextjs.org) page response.
  * @kind constant
  * @name FORWARDABLE_LINK_REL
  * @type {Array<string>}
@@ -25,11 +25,11 @@ const FORWARDABLE_LINK_REL = [
 ];
 
 /**
- * A Next.js custom `App` React component decorator that returns a higher-order
- * React component that enables the
- * [`graphql-react`](https://npm.im/graphql-react) React hooks within children
- * for loading and caching data that can be server side rendered and hydrated on
- * the client.
+ * A [Next.js](https://nextjs.org) custom `App` [React](https://reactjs.org)
+ * component decorator that returns a higher-order [React](https://reactjs.org)
+ * component that enables the [`graphql-react`](https://npm.im/graphql-react)
+ * [React](https://reactjs.org) hooks within children for loading and caching
+ * data that can be server side rendered and hydrated on the client.
  *
  * After
  * [waterfall rendering](https://github.com/jaydenseric/react-waterfall-render)
@@ -40,7 +40,7 @@ const FORWARDABLE_LINK_REL = [
  * instance. Any of the following HTTP
  * [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link)
  * headers found in the responses are deduped and forwarded to the client in the
- * Next.js page response:
+ * [Next.js](https://nextjs.org) page response:
  *
  * - [`dns-prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-dns-prefetch)
  * - [`preconnect`](https://html.spec.whatwg.org/dev/links.html#link-type-preconnect)
@@ -49,12 +49,13 @@ const FORWARDABLE_LINK_REL = [
  * - [`modulepreload`](https://html.spec.whatwg.org/dev/links.html#link-type-modulepreload)
  * - [`prerender`](https://html.spec.whatwg.org/dev/links.html#link-type-prerender)
  *
- * Link URLs are forwarded unmodified, so avoid sending relative URLs
- * from a GraphQL server hosted on a different domain to the app.
+ * Link URLs are forwarded unmodified, so avoid sending relative URLs from a
+ * [GraphQL](https://graphql.org) server hosted on a different domain to the
+ * app.
  * @kind function
  * @name withGraphQLReact
- * @param {object} App Next.js custom `App` React component.
- * @returns {withGraphQLReact~WithGraphQLReact} Next.js custom `App` higher-order React component.
+ * @param {object} App [Next.js](https://nextjs.org) custom `App` [React](https://reactjs.org) component.
+ * @returns {withGraphQLReact~WithGraphQLReact} [Next.js](https://nextjs.org) custom `App` higher-order [React](https://reactjs.org) component.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs/advanced-features/custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
  * @example <caption>Ways to `import`.</caption>
@@ -85,13 +86,14 @@ const FORWARDABLE_LINK_REL = [
  */
 module.exports = function withGraphQLReact(App) {
   /**
-   * Next.js custom `App` higher-order React component.
+   * [Next.js](https://nextjs.org) custom `App` higher-order
+   * [React](https://reactjs.org) component.
    * @kind function
    * @name withGraphQLReact~WithGraphQLReact
    * @param {object} props Props.
    * @param {Cache} [props.cache] `Cache` instance; defined for SSR, undefined for client render.
    * @param {object} [props.initialCacheStore] Initial `Cache` store; undefined for SSR, defined for client render.
-   * @returns {ReactElement} React virtual DOM element.
+   * @returns {ReactElement} [React](https://reactjs.org) virtual DOM element.
    * @ignore
    */
   function WithGraphQLReact({ cache, initialCacheStore, ...appProps }) {
@@ -125,9 +127,9 @@ module.exports = function withGraphQLReact(App) {
      * @kind function
      * @name withGraphQLReact~WithGraphQLReact.getInitialProps
      * @param {object} context App context.
-     * @param {object} context.ctx Context for the route page React component’s `getInitialProps`.
+     * @param {object} context.ctx Context for the route page [React](https://reactjs.org) component’s `getInitialProps`.
      * @param {object} context.router Router instance.
-     * @param {object} context.component Route page React component.
+     * @param {object} context.component Route page [React](https://reactjs.org) component.
      * @returns {Promise<object>} Initial props.
      * @ignore
      */
@@ -156,7 +158,7 @@ module.exports = function withGraphQLReact(App) {
       // running `next export`. Although Next.js docs say for a static HTML
       // export `ctx.res` will be an empty object, actually Next.js mocks some
       // of the header related properties. Because `statusCode` is never mocked,
-      // it’s presence is used to detect if the request is real. See:
+      // its presence is used to detect if the request is real. See:
       // https://nextjs.org/docs/advanced-features/static-html-export#caveats
       if ('statusCode' in context.ctx.res) {
         // This will hold all the `Link` headers parsed from loaded cache value

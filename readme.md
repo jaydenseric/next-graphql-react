@@ -8,7 +8,7 @@ A [`graphql-react`](https://npm.im/graphql-react) integration for [Next.js](http
 
 ## Setup
 
-To install [`next-graphql-react`](https://npm.im/next-graphql-react) and the [`graphql-react`](https://npm.im/graphql-react) peer dependency from [npm](https://npmjs.com) run:
+To install [`next-graphql-react`](https://npm.im/next-graphql-react) and its [`graphql-react`](https://npm.im/graphql-react) peer dependency with [npm](https://npmjs.com/get-npm), run:
 
 ```sh
 npm install next-graphql-react graphql-react
@@ -19,7 +19,7 @@ Within `pages/_app.js`:
 1. Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#support).
 2. Use the [`withGraphQLReact`](#function-withgraphqlreact) decorator to setup a [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app).
 
-Then the [`graphql-react`](https://npm.im/graphql-react) React hooks can be used within your Next.js pages and components.
+Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs.org) hooks can be used within your [Next.js](https://nextjs.org) pages and components.
 
 ## Examples
 
@@ -35,9 +35,9 @@ Then the [`graphql-react`](https://npm.im/graphql-react) React hooks can be used
 
 ### function withGraphQLReact
 
-A Next.js custom `App` React component decorator that returns a higher-order React component that enables the [`graphql-react`](https://npm.im/graphql-react) React hooks within children for loading and caching data that can be server side rendered and hydrated on the client.
+A [Next.js](https://nextjs.org) custom `App` [React](https://reactjs.org) component decorator that returns a higher-order [React](https://reactjs.org) component that enables the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs.org) hooks within children for loading and caching data that can be server side rendered and hydrated on the client.
 
-After [waterfall rendering](https://github.com/jaydenseric/react-waterfall-render) for a server side render, cache values are scanned for a `response` property (which should be non-enumerable so it won’t be included in the serialized JSON sent to the client for hydration) that is a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) instance. Any of the following HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) headers found in the responses are deduped and forwarded to the client in the Next.js page response:
+After [waterfall rendering](https://github.com/jaydenseric/react-waterfall-render) for a server side render, cache values are scanned for a `response` property (which should be non-enumerable so it won’t be included in the serialized JSON sent to the client for hydration) that is a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) instance. Any of the following HTTP [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) headers found in the responses are deduped and forwarded to the client in the [Next.js](https://nextjs.org) page response:
 
 - [`dns-prefetch`](https://html.spec.whatwg.org/dev/links.html#link-type-dns-prefetch)
 - [`preconnect`](https://html.spec.whatwg.org/dev/links.html#link-type-preconnect)
@@ -46,13 +46,13 @@ After [waterfall rendering](https://github.com/jaydenseric/react-waterfall-rende
 - [`modulepreload`](https://html.spec.whatwg.org/dev/links.html#link-type-modulepreload)
 - [`prerender`](https://html.spec.whatwg.org/dev/links.html#link-type-prerender)
 
-Link URLs are forwarded unmodified, so avoid sending relative URLs from a GraphQL server hosted on a different domain to the app.
+Link URLs are forwarded unmodified, so avoid sending relative URLs from a [GraphQL](https://graphql.org) server hosted on a different domain to the app.
 
-| Parameter | Type   | Description                           |
-| :-------- | :----- | :------------------------------------ |
-| `App`     | object | Next.js custom `App` React component. |
+| Parameter | Type | Description |
+| :-- | :-- | :-- |
+| `App` | object | [Next.js](https://nextjs.org) custom `App` [React](https://reactjs.org) component. |
 
-**Returns:** withGraphQLReact\~WithGraphQLReact — Next.js custom `App` higher-order React component.
+**Returns:** withGraphQLReact\~WithGraphQLReact — [Next.js](https://nextjs.org) custom `App` higher-order [React](https://reactjs.org) component.
 
 #### See
 
