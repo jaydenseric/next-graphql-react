@@ -10,6 +10,10 @@
 - Replaced the the `package.json` `exports` field public [subpath folder mapping](https://nodejs.org/api/packages.html#packages_subpath_folder_mappings) (deprecated by Node.js) with a [subpath pattern](https://nodejs.org/api/packages.html#packages_subpath_patterns). Deep `require` paths within `next-graphql-react/public/` must now include the `.js` file extension.
 - The tests are now ESM in `.mjs` files instead of CJS in `.js` files.
 
+### Minor
+
+- Added a package `sideEffects` field.
+
 ### Patch
 
 - Updated GitHub Actions CI config to run tests with Node.js v12, v14, v16.

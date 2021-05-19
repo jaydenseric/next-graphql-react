@@ -22,6 +22,7 @@
   "files": [
     "public"
   ],
+  "sideEffects": false,
   "main": "public",
   "exports": {
     ".": {
