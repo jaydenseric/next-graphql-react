@@ -7,8 +7,8 @@ const { useRef } = require('react');
 const { jsx } = require('react/jsx-runtime');
 
 /**
- * Link `rel` types that make sense to forward from loading responses during
- * SSR in the [Next.js](https://nextjs.org) page response.
+ * Link `rel` types that make sense to forward from loading responses during SSR
+ * in the [Next.js](https://nextjs.org) page response.
  * @kind constant
  * @name FORWARDABLE_LINK_REL
  * @type {Array<string>}
