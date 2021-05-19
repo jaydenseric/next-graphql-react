@@ -28,7 +28,7 @@ Then the [`graphql-react`](https://npm.im/graphql-react) React hooks can be used
 
 ## Support
 
-- [Node.js](https://nodejs.org): `^12.0.0 || >= 13.7.0`
+- [Node.js](https://nodejs.org): `^12.20 || >= 14.13`
 - [Browsers](https://npm.im/browserslist): `> 0.5%, not OperaMini all, not IE > 0, not dead`
 
 ## API
