@@ -1,8 +1,8 @@
 import TestDirector from 'test-director';
-import testWithGraphQLReact from './public/withGraphQLReact.test.mjs';
+import test_withGraphQLReact from './public/withGraphQLReact.test.mjs';
 
 const tests = new TestDirector();
 
-testWithGraphQLReact(tests);
+test_withGraphQLReact(tests);
 
 tests.run();
