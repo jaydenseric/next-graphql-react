@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Amended the changelog entries for v3.0.1, v3.0.2, v7.0.0, v8.0.1, v9.0.0, and v10.0.0.
+
 ## 10.0.0
 
 ### Major
@@ -22,12 +28,13 @@
 - Use the `.js` file extension in internal `require` paths.
 - Updated the [example Next.js app](https://graphql-react.vercel.app) URL in the readme.
 - Documentation tweaks.
+- The file `changelog.md` is no longer published.
 
 ## 9.0.0
 
 ### Major
 
-- Updated Node.js version support to `^12.0.0 || >= 13.7.0`.
+- Updated Node.js support to `^12.0.0 || >= 13.7.0`.
 - Stopped supporting Internet Explorer.
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^13.0.0`.
 - Updated the [`react`](https://npm.im/react) peer dependency to `16.14 - 17`.
@@ -105,7 +112,7 @@
 - No longer separately build ESM and CJS to simplify package scripts, Babel and ESLint config.
 - Use `require` instead of dynamic `import` in `withGraphQLApp` source, as since v7.0.0 the module is only published as CJS.
 - Removed unnecessary `.js` file extensions from `require` paths.
-- Simplified the GitHub Actions CI config with the [`npm install-test`](https://docs.npmjs.com/cli/install-test.html) command.
+- Simplified the GitHub Actions CI config with the [`npm install-test`](https://docs.npmjs.com/cli/v7/commands/npm-install-test) command.
 - Clearly documented ways to `import` and `require` the package exports.
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 
@@ -137,8 +144,8 @@
 
 ### Major
 
-- Added a [package `exports` field](https://nodejs.org/api/esm.html#esm_package_exports) to support native ESM in Node.js.
-- Some source and published files are now `.js` (CJS) instead of `.mjs` (ESM), so undocumented deep imports may no longer work. [This approach avoids the dual package hazard](https://nodejs.org/api/esm.html#esm_approach_1_use_an_es_module_wrapper).
+- Added a package [`exports`](https://nodejs.org/api/packages.html#packages_exports) field to support native ESM in Node.js.
+- Some source and published files are now `.js` (CJS) instead of `.mjs` (ESM), so undocumented deep imports may no longer work. [This approach avoids the dual package hazard](https://nodejs.org/api/packages.html#packages_approach_1_use_an_es_module_wrapper).
 - Updated Node.js support from v10+ to `10 - 12 || >= 13.7` to reflect the package `exports` related breaking changes.
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^11.0.0`.
 - Removed `withGraphQLConfig`; `withGraphQLApp` now uses dynamic `import` to only load certain dependencies in a server environment.
@@ -261,7 +268,7 @@
 
 - Updated dependencies.
 - Reduced the size of the published `package.json` by moving dev tool config to files. This also prevents editor extensions such as Prettier and ESLint from detecting config and attempting to operate when opening package files installed in `node_modules`.
-- Use `cjs` instead of `commonjs` for the [`@babel/preset-env`](https:npm.im/@babel/preset-env) `modules` option.
+- Use `cjs` instead of `commonjs` for the [`@babel/preset-env`](https://npm.im/@babel/preset-env) `modules` option.
 - Use `>=` in the Browserslist `node` queries.
 
 ## 3.0.1
@@ -269,7 +276,7 @@
 ### Patch
 
 - Updated dependencies.
-- Updated examples for [`graphql-react`](https:npm.im/graphql-react) v8.2.0.
+- Updated examples for [`graphql-react`](https://npm.im/graphql-react) v8.2.0.
 
 ## 3.0.0
 
