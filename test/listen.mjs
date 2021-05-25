@@ -1,8 +1,8 @@
 /**
- * Starts a Node.js HTTP server.
+ * Starts a [Node.js](https://nodejs.org) HTTP server.
  * @kind function
  * @name listen
- * @param {object} server Node.js HTTP server.
+ * @param {object} server [Node.js](https://nodejs.org) HTTP server.
  * @returns {Promise<{port: number, close: Function}>} Resolves the port the server is listening on, and a server close function.
  * @ignore
  */

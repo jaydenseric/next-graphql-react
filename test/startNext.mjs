@@ -5,11 +5,11 @@ import listen from './listen.mjs';
 const require = createRequire(import.meta.url);
 
 /**
- * Starts Next.js.
+ * Starts [Next.js](https://nextjs.org).
  * @kind function
  * @name startNext
- * @param {string} [dir] Next.js project directory path.
- * @returns {Promise<{port: string, close: Function}>} Resolves the port the Next.js server is listening on, and a function to close the Next.js server.
+ * @param {string} [dir] [Next.js](https://nextjs.org) project directory path.
+ * @returns {Promise<{port: string, close: Function}>} Resolves the port the server is listening on, and a function to close the server.
  * @ignore
  */
 export default async function startNext(dir) {

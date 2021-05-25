@@ -81,7 +81,7 @@ _Ways to `require`._
 > const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
 > ```
 
-_A Next.js custom `App`._
+_A [Next.js](https://nextjs.org) custom `App`._
 
 > In `pages/_app.js`:
 >
