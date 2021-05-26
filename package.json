@@ -49,7 +49,6 @@
   },
   "devDependencies": {
     "abort-controller": "^3.0.0",
-    "disposable-directory": "^4.0.0",
     "eslint": "^7.27.0",
     "eslint-config-env": "^20.0.1",
     "eslint-config-prettier": "^8.3.0",
@@ -63,7 +62,6 @@
     "event-target-shim": "^6.0.2",
     "graphql": "^15.5.0",
     "graphql-react": "^14.0.0",
-    "install-from": "^2.0.1",
     "jsdoc-md": "^11.0.0",
     "next": "^10.1.3",
     "prettier": "^2.3.0",

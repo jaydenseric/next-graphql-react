@@ -3,19 +3,13 @@
 import { ok, strictEqual } from 'assert';
 import fs from 'fs';
 import { createServer } from 'http';
-import { join } from 'path';
 import { fileURLToPath } from 'url';
-import disposableDirectory from 'disposable-directory';
-import { installFrom } from 'install-from';
 import puppeteer from 'puppeteer';
 import TestDirector from 'test-director';
 import execFilePromise from '../execFilePromise.mjs';
+import fsPathRemove from '../fsPathRemove.mjs';
 import listen from '../listen.mjs';
 import startNext from '../startNext.mjs';
-
-const NEXT_GRAPHQL_REACT_PATH = fileURLToPath(
-  new URL('../..', import.meta.url)
-);
 
 export default (tests) => {
   tests.add(
@@ -60,232 +54,30 @@ export default (tests) => {
       );
 
       try {
-        const urlGraphql = `http://localhost:${portGraphqlSever}`;
+        process.env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${portGraphqlSever}`;
 
-        await disposableDirectory(async (tempDirPath) => {
-          console.group('Creating fixture project…');
+        const nextProjectUrl = new URL(
+          '../fixtures/next-project/',
+          import.meta.url
+        );
+        const nextProjectPath = fileURLToPath(nextProjectUrl);
 
-          try {
-            console.log('Creating files…');
+        console.log('Building Next.js…');
 
-            const packageJsonPath = join(tempDirPath, 'package.json');
-            const nodePolyfillsPath = join(tempDirPath, 'nodePolyfills.js');
-            const pagesPath = join(tempDirPath, 'pages');
-            const appPath = join(pagesPath, '_app.js');
-            const indexPagePath = join(pagesPath, 'index.js');
-            const secondPagePath = join(pagesPath, 'second.js');
+        const buildOutput = await execFilePromise('npx', ['next', 'build'], {
+          cwd: nextProjectPath,
+        });
 
-            const pkg = JSON.parse(
-              await fs.promises.readFile(
-                new URL('../../package.json', import.meta.url),
-                'utf-8'
-              )
-            );
+        ok(buildOutput.stdout.includes('Compiled successfully'));
 
-            await Promise.all([
-              fs.promises.writeFile(
-                packageJsonPath,
-                `{
-  "private": true,
-  "dependencies": {
-    "abort-controller": "${pkg.devDependencies['abort-controller']}",
-    "event-target-shim": "${pkg.devDependencies['event-target-shim']}",
-    "graphql-react": "${pkg.devDependencies['graphql-react']}",
-    "next": "${pkg.devDependencies.next}",
-    "react": "${pkg.devDependencies.react}",
-    "react-dom": "${pkg.devDependencies['react-dom']}"
-  }
-}`
-              ),
-              fs.promises.writeFile(
-                nodePolyfillsPath,
-                `'use strict';
-
-if (typeof window === 'undefined') {
-  if (!('performance' in global))
-    global.performance = require('perf_hooks').performance;
-
-  if (!('EventTarget' in global))
-    global.EventTarget =
-      require('events').EventTarget || require('event-target-shim').EventTarget;
-
-  if (!('Event' in global))
-    global.Event = require('events').Event || require('event-target-shim').Event;
-
-  if (!('CustomEvent' in global))
-    global.CustomEvent = class CustomEvent extends Event {
-      constructor(eventName, { detail, ...eventOptions } = {}) {
-        super(eventName, eventOptions);
-        this.detail = detail;
-      }
-    };
-
-  require('abort-controller/polyfill');
-}`
-              ),
-              fs.promises.mkdir(pagesPath).then(() =>
-                Promise.all([
-                  fs.promises.writeFile(
-                    appPath,
-                    `import '${nodePolyfillsPath}';
-import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
-import Link from 'next/link';
-
-const App = ({ Component, pageProps }) => (
-  <>
-    <Link href="/second" passHref>
-      <a>Second</a>
-    </Link>
-    <Component {...pageProps} />
-  </>
-);
-
-// This is for testing that an original response \`Link\` header is respected by
-// \`withGraphQLReact\`.
-App.getInitialProps = async (context) => {
-  if (
-    !process.browser &&
-    // This is SSR for a real request, and not a Next.js static HTML export that
-    // has a mock a Node.js response.
-    context.ctx.res.statusCode &&
-    context.ctx.query.linkHeaderNext
-  )
-    context.ctx.res.setHeader(
-      'Link',
-      decodeURIComponent(context.ctx.query.linkHeaderNext)
-    );
-
-  return {};
-};
-
-export default withGraphQLReact(App);`
-                  ),
-                  fs.promises.writeFile(
-                    indexPagePath,
-                    `import useAutoLoad from 'graphql-react/public/useAutoLoad.js';
-import useCacheEntry from 'graphql-react/public/useCacheEntry.js';
-import useLoadGraphQL from 'graphql-react/public/useLoadGraphQL.js';
-import useWaterfallLoad from 'graphql-react/public/useWaterfallLoad.js';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-
-const cacheKey = 'a';
-const fetchOptions = {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-  },
-  body: JSON.stringify({
-    query: '{ a }',
-  }),
-};
-
-export default function IndexPage() {
-  const {
-    query: { linkHeaderGraphql }
-  } = useRouter();
-
-  const cacheValue = useCacheEntry(cacheKey);
-
-  let fetchUri = '${urlGraphql}';
-
-  if (linkHeaderGraphql)
-  fetchUri += \`?linkHeader=\${encodeURIComponent(
-    linkHeaderGraphql
-  )}\`;
-
-  const loadGraphQL = useLoadGraphQL();
-  const load = useCallback(
-    () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
-    [fetchUri]
-  );
-
-  useAutoLoad(cacheKey, load);
-
-  const isWaterfallLoading = useWaterfallLoad(cacheKey, load);
-
-  return isWaterfallLoading ? null : cacheValue?.data ? (
-    <div id={cacheValue.data.a} />
-  ) : cacheValue?.errors ? (
-    'Error!'
-  ) : (
-    <div id="loading" />
-  );
-}`
-                  ),
-                  fs.promises.writeFile(
-                    secondPagePath,
-                    `import useAutoLoad from 'graphql-react/public/useAutoLoad.js';
-import useCacheEntry from 'graphql-react/public/useCacheEntry.js';
-import useLoadGraphQL from 'graphql-react/public/useLoadGraphQL.js';
-import useWaterfallLoad from 'graphql-react/public/useWaterfallLoad.js';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-
-const cacheKey = 'b';
-const fetchUri = '${urlGraphql}';
-const fetchOptions = {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-  },
-  body: JSON.stringify({
-    query: '{ b }',
-  }),
-};
-
-export default function SecondPage() {
-  const cacheValue = useCacheEntry(cacheKey);
-  const loadGraphQL = useLoadGraphQL();
-  const load = useCallback(
-    () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
-    [fetchUri]
-  );
-
-  useAutoLoad(cacheKey, load);
-
-  const isWaterfallLoading = useWaterfallLoad(cacheKey, load);
-
-  return isWaterfallLoading ? null : cacheValue?.data ? (
-    <div id={cacheValue.data.b} />
-  ) : cacheValue?.errors ? (
-  'Error!'
-  ) : (
-    <div id="loading" />
-  );
-}`
-                  ),
-                ])
-              ),
-            ]);
-
-            console.log('Installing dependencies…');
-
-            await execFilePromise('npm', ['install'], { cwd: tempDirPath });
-
-            console.log('Installing next-graphql-react dependency…');
-
-            await installFrom(NEXT_GRAPHQL_REACT_PATH, tempDirPath);
-          } finally {
-            console.groupEnd();
-          }
-
-          console.log('Building Next.js…');
-
-          const buildOutput = await execFilePromise('npx', ['next', 'build'], {
-            cwd: tempDirPath,
-          });
-
-          ok(buildOutput.stdout.includes('Compiled successfully'));
-
+        try {
           console.log('Starting Next.js…');
 
           const { port: portNext, close: closeNext } = await startNext(
-            tempDirPath
+            nextProjectPath
           );
 
           try {
-            const urlNext = `http://localhost:${portNext}`;
             const browser = await puppeteer.launch();
 
             try {
@@ -294,6 +86,7 @@ export default function SecondPage() {
               console.group('Testing server side page loads…');
 
               try {
+                const nextServerUrl = `http://localhost:${portNext}`;
                 const linkHeaderGraphqlForwardable =
                   '<https://github.com>; rel=dns-prefetch, <https://github.com>; rel=preconnect, <https://github.com>; rel=prefetch, <https://github.com>; rel=preload, <https://unpkg.com/next-graphql-react@8.0.3/universal/index.js>; rel=modulepreload, <https://github.com>; rel=prerender';
                 const linkHeaderGraphQLUnforwardable =
@@ -303,7 +96,7 @@ export default function SecondPage() {
                 serverSidePageLoadTests.add(
                   'Next.js original response `Link` header absent, GraphQL response `Link` header absent.',
                   async () => {
-                    const response = await page.goto(urlNext);
+                    const response = await page.goto(nextServerUrl);
 
                     ok(response.ok());
                     strictEqual(response.headers().link, undefined);
@@ -315,7 +108,7 @@ export default function SecondPage() {
                   'Next.js original response `Link` header absent, GraphQL response `Link` header parsable.',
                   async () => {
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderGraphql=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderGraphql=${encodeURIComponent(
                         `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
                       )}`
                     );
@@ -333,7 +126,7 @@ export default function SecondPage() {
                   'Next.js original response `Link` header absent, GraphQL response `Link` header unparsable.',
                   async () => {
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderGraphql=.`
+                      `${nextServerUrl}?linkHeaderGraphql=.`
                     );
 
                     ok(response.ok());
@@ -348,7 +141,7 @@ export default function SecondPage() {
                     const linkHeaderNext =
                       '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
                       )}`
                     );
@@ -365,7 +158,7 @@ export default function SecondPage() {
                     const linkHeaderNext =
                       '<https://github.com/jaydenseric>; rel=preconnect, <https://github.com/jaydenseric>; rel=nonsense';
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
                       )}&linkHeaderGraphql=${encodeURIComponent(
                         `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
@@ -388,7 +181,7 @@ export default function SecondPage() {
                       '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
                     const linkHeaderEncoded = encodeURIComponent(linkHeader);
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`
+                      `${nextServerUrl}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`
                     );
 
                     ok(response.ok());
@@ -403,7 +196,7 @@ export default function SecondPage() {
                     const linkHeaderNext =
                       '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
                       )}&linkHeaderGraphql=.`
                     );
@@ -419,7 +212,7 @@ export default function SecondPage() {
                   async () => {
                     const linkHeaderNext = '.';
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
                       )}`
                     );
@@ -434,7 +227,7 @@ export default function SecondPage() {
                   'Next.js original response `Link` header unparsable, GraphQL response `Link` header parsable.',
                   async () => {
                     const response = await page.goto(
-                      `${urlNext}?linkHeaderNext=.&linkHeaderGraphql=${encodeURIComponent(
+                      `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=${encodeURIComponent(
                         `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
                       )}`
                     );
@@ -454,7 +247,7 @@ export default function SecondPage() {
                     const response = await page.goto(
                       // The unparsable values have to be different so the
                       // can be separately identified in the final response.
-                      `${urlNext}?linkHeaderNext=.&linkHeaderGraphql=-`
+                      `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=-`
                     );
 
                     ok(response.ok());
@@ -492,21 +285,33 @@ export default function SecondPage() {
 
           console.log('Testing static HTML export…');
 
-          const exportOutput = await execFilePromise(
+          const nextExportOutDirName = '.next-export';
+          const nextExportOutput = await execFilePromise(
             'npx',
-            ['next', 'export'],
-            { cwd: tempDirPath }
+            ['next', 'export', '-o', nextExportOutDirName],
+            { cwd: nextProjectPath }
           );
 
-          ok(exportOutput.stdout.includes('Export successful'));
+          ok(nextExportOutput.stdout.includes('Export successful'));
 
-          const html = await fs.promises.readFile(
-            join(tempDirPath, 'out', 'index.html'),
-            'utf8'
+          const nextExportOutDirUrl = new URL(
+            `${nextExportOutDirName}/`,
+            nextProjectUrl
           );
 
-          ok(html.includes(`id="${markerA}"`));
-        });
+          try {
+            const html = await fs.promises.readFile(
+              new URL(`index.html`, nextExportOutDirUrl),
+              'utf8'
+            );
+
+            ok(html.includes(`id="${markerA}"`));
+          } finally {
+            fsPathRemove(fileURLToPath(nextExportOutDirUrl));
+          }
+        } finally {
+          fsPathRemove(fileURLToPath(new URL('.next', nextProjectUrl)));
+        }
       } finally {
         closeGraphqlSever();
       }
