@@ -76,7 +76,7 @@
     "test:eslint": "eslint --ext mjs,js .",
     "test:prettier": "prettier -c .",
     "test:jsdoc": "jsdoc-md -c",
-    "test:api": "node test/index.mjs",
+    "test:api": "NEXT_TELEMETRY_DISABLED=1 node test/index.mjs",
     "prepublishOnly": "npm test"
   }
 }

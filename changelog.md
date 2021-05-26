@@ -7,6 +7,7 @@
 - Updated dev dependencies.
 - Renamed variables in the test index module.
 - Use improved static fixtures instead of creating fixtures each test run, removing the [`disposable-directory`](https://npm.im/disposable-directory) and [`install-from`](https://npm.im/install-from) dev dependencies.
+- Use the `NEXT_TELEMETRY_DISABLED` environment variable to disable Next.js telemetry for tests.
 - Amended the changelog entries for v3.0.1, v3.0.2, v7.0.0, v8.0.1, v9.0.0, and v10.0.0.
 - Documentation tweaks.
 
