@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `14 - 15`.
 - Updated dev dependencies.
 - Renamed imports in the test index module.
 - Use improved static fixtures instead of creating fixtures each test run, removing the [`disposable-directory`](https://npm.im/disposable-directory) and [`install-from`](https://npm.im/install-from) dev dependencies.
