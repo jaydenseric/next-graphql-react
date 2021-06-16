@@ -1,5 +1,17 @@
 # next-graphql-react changelog
 
+## Next
+
+### Major
+
+- Updated the [`next`](https://npm.im/next) peer dependency to `9.5 - 11`.
+- Removed `Head.rewind()` within the function `withGraphQLReact`, as it was made a noop in Next.js v9.5 and was removed in Next.js v11.
+
+### Patch
+
+- Updated dev dependencies.
+- Added the [`eslint-config-next`](https://npm.im/eslint-config-next) dev dependency for [`next`](https://npm.im/next) v11.
+
 ## 10.0.1
 
 ### Patch

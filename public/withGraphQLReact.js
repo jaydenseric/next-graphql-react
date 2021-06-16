@@ -118,7 +118,6 @@ module.exports = function withGraphQLReact(App) {
     // The following code should be eliminated from client bundles.
 
     const LinkHeader = require('http-link-header');
-    const { default: Head } = require('next/head');
     const { renderToStaticMarkup } = require('react-dom/server');
     const waterfallRender = require('react-waterfall-render/public/waterfallRender.js');
 
@@ -147,8 +146,6 @@ module.exports = function withGraphQLReact(App) {
       } catch (error) {
         console.error(error);
       }
-
-      Head.rewind();
 
       props.initialCacheStore = cache.store;
 
