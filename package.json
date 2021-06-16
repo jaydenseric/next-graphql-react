@@ -1,6 +1,6 @@
 {
   "name": "next-graphql-react",
-  "version": "10.0.1",
+  "version": "11.0.0",
   "description": "A graphql-react integration for Next.js.",
   "license": "MIT",
   "author": {
