@@ -61,7 +61,6 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "event-target-shim": "^6.0.2",
-    "graphql": "^15.7.2",
     "graphql-react": "^15.0.0",
     "jsdoc-md": "^11.0.2",
     "next": "^11.1.2",
