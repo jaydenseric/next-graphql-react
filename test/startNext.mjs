@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
  * @kind function
  * @name startNext
  * @param {string} [dir] [Next.js](https://nextjs.org) project directory path.
- * @returns {Promise<{port: string, close: Function}>} Resolves the port the server is listening on, and a function to close the server.
+ * @returns {Promise<{port: number, close: Function}>} Resolves the port the server is listening on, and a function to close the server.
  * @ignore
  */
 export default async function startNext(dir) {
