@@ -9,6 +9,7 @@
 
 ### Patch
 
+- Updated the [`next`](https://npm.im/next) peer dependency to `9.5 - 12`.
 - Removed the redundant [`graphql`](https://npm.im/graphql) dev dependency.
 - Also run GitHub Actions CI with Node.js v17.
 - Fixed an internal JSDoc type.

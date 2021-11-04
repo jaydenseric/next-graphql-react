@@ -39,7 +39,7 @@
   "browserslist": "Node 12.20 - 13 and Node < 13, Node 14.13.1 - 15 and Node < 15, Node >= 16, > 0.5%, not OperaMini all, not IE > 0, not dead",
   "peerDependencies": {
     "graphql-react": "14 - 15",
-    "next": "9.5 - 11",
+    "next": "9.5 - 12",
     "react": "16.14 - 17",
     "react-dom": "16.14 - 17"
   },
@@ -51,7 +51,7 @@
     "abort-controller": "^3.0.0",
     "eslint": "^7.32.0",
     "eslint-config-env": "^22.0.0",
-    "eslint-config-next": "^11.1.2",
+    "eslint-config-next": "^12.0.2",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-compat": "^3.13.0",
     "eslint-plugin-import": "^2.25.2",
@@ -63,7 +63,7 @@
     "event-target-shim": "^6.0.2",
     "graphql-react": "^15.0.0",
     "jsdoc-md": "^11.0.2",
-    "next": "^11.1.2",
+    "next": "^12.0.2",
     "prettier": "^2.4.1",
     "puppeteer": "^11.0.0",
     "react": "^17.0.2",
