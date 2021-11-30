@@ -25,7 +25,6 @@
   "sideEffects": false,
   "exports": {
     "./public/*": "./public/*",
-    "./package": "./package.json",
     "./package.json": "./package.json"
   },
   "engines": {
