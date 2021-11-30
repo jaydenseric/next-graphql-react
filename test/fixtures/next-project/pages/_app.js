@@ -3,7 +3,7 @@
 require('../polyfills.js');
 const { default: Link } = require('next/link');
 const { Fragment, jsx, jsxs } = require('react/jsx-runtime');
-const withGraphQLReact = require('../../../../public/withGraphQLReact.js');
+const withGraphQLReact = require('../../../../withGraphQLReact.js');
 
 const App = ({ Component, pageProps = {} }) =>
   jsxs(Fragment, {

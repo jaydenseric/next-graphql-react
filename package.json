@@ -20,12 +20,12 @@
     "mjs"
   ],
   "files": [
-    "public"
+    "withGraphQLReact.js"
   ],
   "sideEffects": false,
   "exports": {
-    "./public/*": "./public/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./withGraphQLReact.js": "./withGraphQLReact.js"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >= 16.0.0"
@@ -70,7 +70,7 @@
     "test:eslint": "eslint --ext mjs,js .",
     "test:prettier": "prettier -c .",
     "test:jsdoc": "jsdoc-md -c",
-    "test:api": "NEXT_TELEMETRY_DISABLED=1 node test/index.mjs",
+    "test:api": "NEXT_TELEMETRY_DISABLED=1 node test.mjs",
     "prepublishOnly": "npm test"
   }
 }

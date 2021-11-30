@@ -64,13 +64,13 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a [Graph
 _How to `import`._
 
 > ```js
-> import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
+> import withGraphQLReact from 'next-graphql-react/withGraphQLReact.js';
 > ```
 
 _How to `require`._
 
 > ```js
-> const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
+> const withGraphQLReact = require('next-graphql-react/withGraphQLReact.js');
 > ```
 
 _A [Next.js](https://nextjs.org) custom `App`._
@@ -78,7 +78,7 @@ _A [Next.js](https://nextjs.org) custom `App`._
 > In `pages/_app.js`:
 >
 > ```jsx
-> import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
+> import withGraphQLReact from 'next-graphql-react/withGraphQLReact.js';
 > import App from 'next/app';
 >
 > export default withGraphQLReact(App);

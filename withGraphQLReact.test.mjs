@@ -6,10 +6,10 @@ import { createServer } from 'http';
 import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
 import TestDirector from 'test-director';
-import execFilePromise from '../execFilePromise.mjs';
-import fsPathRemove from '../fsPathRemove.mjs';
-import listen from '../listen.mjs';
-import startNext from '../startNext.mjs';
+import execFilePromise from './test/execFilePromise.mjs';
+import fsPathRemove from './test/fsPathRemove.mjs';
+import listen from './test/listen.mjs';
+import startNext from './test/startNext.mjs';
 
 export default (tests) => {
   tests.add(
@@ -57,7 +57,7 @@ export default (tests) => {
         process.env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${portGraphqlSever}`;
 
         const nextProjectUrl = new URL(
-          '../fixtures/next-project/',
+          './test/fixtures/next-project/',
           import.meta.url
         );
         const nextProjectPath = fileURLToPath(nextProjectUrl);
