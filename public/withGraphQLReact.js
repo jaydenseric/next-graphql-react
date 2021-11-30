@@ -57,19 +57,11 @@ const FORWARDABLE_LINK_REL = [
  * @returns {withGraphQLReact~WithGraphQLReact} [Next.js](https://nextjs.org) custom `App` higher-order [React](https://reactjs.org) component.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs/advanced-features/custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
- * @example <caption>Ways to `import`.</caption>
- * ```js
- * import { withGraphQLReact } from 'next-graphql-react';
- * ```
- *
+ * @example <caption>How to `import`.</caption>
  * ```js
  * import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
  * ```
- * @example <caption>Ways to `require`.</caption>
- * ```js
- * const { withGraphQLReact } = require('next-graphql-react');
- * ```
- *
+ * @example <caption>How to `require`.</caption>
  * ```js
  * const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
  * ```

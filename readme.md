@@ -61,22 +61,14 @@ Link URLs are forwarded unmodified, so avoid sending relative URLs from a [Graph
 
 #### Examples
 
-_Ways to `import`._
+_How to `import`._
 
-> ```js
-> import { withGraphQLReact } from 'next-graphql-react';
-> ```
->
 > ```js
 > import withGraphQLReact from 'next-graphql-react/public/withGraphQLReact.js';
 > ```
 
-_Ways to `require`._
+_How to `require`._
 
-> ```js
-> const { withGraphQLReact } = require('next-graphql-react');
-> ```
->
 > ```js
 > const withGraphQLReact = require('next-graphql-react/public/withGraphQLReact.js');
 > ```
