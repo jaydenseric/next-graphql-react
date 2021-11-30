@@ -3,8 +3,7 @@
 const Cache = require('graphql-react/public/Cache.js');
 const Provider = require('graphql-react/public/Provider.js');
 const { default: NextApp } = require('next/app');
-const { useRef } = require('react');
-const { jsx } = require('react/jsx-runtime');
+const React = require('react');
 
 /**
  * Link `rel` types that make sense to forward from loading responses during SSR
@@ -97,17 +96,18 @@ module.exports = function withGraphQLReact(App) {
    * @ignore
    */
   function WithGraphQLReact({ cache, initialCacheStore, ...appProps }) {
-    const cacheRef = useRef();
+    const cacheRef = React.useRef();
 
     // This avoids re-creating the React ref initial value, see:
     // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
     if (!cacheRef.current)
       cacheRef.current = cache || new Cache(initialCacheStore);
 
-    return jsx(Provider, {
-      cache: cacheRef.current,
-      children: jsx(App, appProps),
-    });
+    return React.createElement(
+      Provider,
+      { cache: cacheRef.current },
+      React.createElement(App, appProps)
+    );
   }
 
   // Next.js webpack config uses `process.browser` to eliminate code from the
@@ -140,7 +140,7 @@ module.exports = function withGraphQLReact(App) {
 
       try {
         await waterfallRender(
-          jsx(context.AppTree, { cache, ...props }),
+          React.createElement(context.AppTree, { cache, ...props }),
           renderToStaticMarkup
         );
       } catch (error) {
