@@ -1,5 +1,5 @@
-import TestDirector from 'test-director';
-import test_withGraphQLReact from './withGraphQLReact.test.mjs';
+import TestDirector from "test-director";
+import test_withGraphQLReact from "./withGraphQLReact.test.mjs";
 
 const tests = new TestDirector();
 

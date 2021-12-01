@@ -1,19 +1,19 @@
-import '../polyfills.js';
-import Link from 'next/link.js';
-import React from 'react';
-import JsxRuntime from 'react/jsx-runtime.js';
-import withGraphQLReact from '../../../../withGraphQLReact.mjs';
+import "../polyfills.js";
+import Link from "next/link.js";
+import React from "react";
+import JsxRuntime from "react/jsx-runtime.js";
+import withGraphQLReact from "../../../../withGraphQLReact.mjs";
 
-if (typeof CustomEvent === 'undefined') throw new Error('polyfill failed');
+if (typeof CustomEvent === "undefined") throw new Error("polyfill failed");
 
 const App = ({ Component, pageProps = {} }) =>
   JsxRuntime.jsxs(React.Fragment, {
     children: [
       JsxRuntime.jsx(Link, {
-        href: '/second',
+        href: "/second",
         passHref: true,
-        children: JsxRuntime.jsx('a', {
-          children: 'Second',
+        children: JsxRuntime.jsx("a", {
+          children: "Second",
         }),
       }),
       JsxRuntime.jsx(Component, pageProps),
@@ -31,7 +31,7 @@ App.getInitialProps = async (context) => {
     context.ctx.query.linkHeaderNext
   )
     context.ctx.res.setHeader(
-      'Link',
+      "Link",
       decodeURIComponent(context.ctx.query.linkHeaderNext)
     );
 

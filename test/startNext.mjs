@@ -1,6 +1,6 @@
-import { createServer } from 'http';
-import { createRequire } from 'module';
-import listen from './listen.mjs';
+import { createServer } from "http";
+import { createRequire } from "module";
+import listen from "./listen.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -13,7 +13,7 @@ const require = createRequire(import.meta.url);
  * @ignore
  */
 export default async function startNext(dir) {
-  const next = require(require.resolve('next', { paths: [dir] }));
+  const next = require(require.resolve("next", { paths: [dir] }));
   const nextServer = next({ dir });
   const server = createServer(nextServer.getRequestHandler());
 

@@ -1,4 +1,4 @@
-import execFilePromise from './execFilePromise.mjs';
+import execFilePromise from "./execFilePromise.mjs";
 
 /**
  * Removes a file or directory.
@@ -9,8 +9,8 @@ import execFilePromise from './execFilePromise.mjs';
  * @ignore
  */
 export default async function fsPathRemove(path) {
-  if (typeof path !== 'string')
-    throw new TypeError('Argument 1 `path` must be a string.');
+  if (typeof path !== "string")
+    throw new TypeError("Argument 1 `path` must be a string.");
 
-  await execFilePromise('rm', ['-rf', path]);
+  await execFilePromise("rm", ["-rf", path]);
 }

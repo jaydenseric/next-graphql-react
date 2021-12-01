@@ -1,32 +1,32 @@
 /* eslint-disable no-console */
 
-import { ok, strictEqual } from 'assert';
-import fs from 'fs';
-import { createServer } from 'http';
-import { fileURLToPath } from 'url';
-import puppeteer from 'puppeteer';
-import TestDirector from 'test-director';
-import execFilePromise from './test/execFilePromise.mjs';
-import fsPathRemove from './test/fsPathRemove.mjs';
-import listen from './test/listen.mjs';
-import startNext from './test/startNext.mjs';
+import { ok, strictEqual } from "assert";
+import fs from "fs";
+import { createServer } from "http";
+import { fileURLToPath } from "url";
+import puppeteer from "puppeteer";
+import TestDirector from "test-director";
+import execFilePromise from "./test/execFilePromise.mjs";
+import fsPathRemove from "./test/fsPathRemove.mjs";
+import listen from "./test/listen.mjs";
+import startNext from "./test/startNext.mjs";
 
 export default (tests) => {
   tests.add(
-    '`withGraphQLReact` with a Next.js production build and static HTML export.',
+    "`withGraphQLReact` with a Next.js production build and static HTML export.",
     async () => {
-      const markerA = 'MARKER_A';
-      const markerB = 'MARKER_B';
+      const markerA = "MARKER_A";
+      const markerB = "MARKER_B";
 
       // Dummy GraphQL server with a hardcoded response. The URL query string
       // parameter `linkHeader` can be used to set an arbitrary `Link` header in
       // the response.
       const graphqlSever = createServer((request, response) => {
         const responseHeaders = {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers':
-            'Origin, X-Requested-With, Content-Type, Accept',
-          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json",
         };
 
         const { searchParams } = new URL(
@@ -34,8 +34,8 @@ export default (tests) => {
           `http://${request.headers.host}`
         );
 
-        if (searchParams.has('linkHeader'))
-          responseHeaders.Link = searchParams.get('linkHeader');
+        if (searchParams.has("linkHeader"))
+          responseHeaders.Link = searchParams.get("linkHeader");
 
         response.writeHead(200, responseHeaders);
         response.write(
@@ -57,21 +57,21 @@ export default (tests) => {
         process.env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${portGraphqlSever}`;
 
         const nextProjectUrl = new URL(
-          './test/fixtures/next-project/',
+          "./test/fixtures/next-project/",
           import.meta.url
         );
         const nextProjectPath = fileURLToPath(nextProjectUrl);
 
-        console.log('Building Next.js…');
+        console.log("Building Next.js…");
 
-        const buildOutput = await execFilePromise('npx', ['next', 'build'], {
+        const buildOutput = await execFilePromise("npx", ["next", "build"], {
           cwd: nextProjectPath,
         });
 
-        ok(buildOutput.stdout.includes('Compiled successfully'));
+        ok(buildOutput.stdout.includes("Compiled successfully"));
 
         try {
-          console.log('Starting Next.js…');
+          console.log("Starting Next.js…");
 
           const { port: portNext, close: closeNext } = await startNext(
             nextProjectPath
@@ -83,18 +83,18 @@ export default (tests) => {
             try {
               const page = await browser.newPage();
 
-              console.group('Testing server side page loads…');
+              console.group("Testing server side page loads…");
 
               try {
                 const nextServerUrl = `http://localhost:${portNext}`;
                 const linkHeaderGraphqlForwardable =
-                  '<https://github.com>; rel=dns-prefetch, <https://github.com>; rel=preconnect, <https://github.com>; rel=prefetch, <https://github.com>; rel=preload, <https://unpkg.com/next-graphql-react@8.0.3/universal/index.js>; rel=modulepreload, <https://github.com>; rel=prerender';
+                  "<https://github.com>; rel=dns-prefetch, <https://github.com>; rel=preconnect, <https://github.com>; rel=prefetch, <https://github.com>; rel=preload, <https://unpkg.com/next-graphql-react@8.0.3/universal/index.js>; rel=modulepreload, <https://github.com>; rel=prerender";
                 const linkHeaderGraphQLUnforwardable =
-                  '<https://github.com>; rel=nonsense';
+                  "<https://github.com>; rel=nonsense";
                 const serverSidePageLoadTests = new TestDirector();
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header absent, GraphQL response `Link` header absent.',
+                  "Next.js original response `Link` header absent, GraphQL response `Link` header absent.",
                   async () => {
                     const response = await page.goto(nextServerUrl);
 
@@ -105,7 +105,7 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header absent, GraphQL response `Link` header parsable.',
+                  "Next.js original response `Link` header absent, GraphQL response `Link` header parsable.",
                   async () => {
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderGraphql=${encodeURIComponent(
@@ -123,7 +123,7 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header absent, GraphQL response `Link` header unparsable.',
+                  "Next.js original response `Link` header absent, GraphQL response `Link` header unparsable.",
                   async () => {
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderGraphql=.`
@@ -136,10 +136,10 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header parsable, GraphQL response `Link` header absent.',
+                  "Next.js original response `Link` header parsable, GraphQL response `Link` header absent.",
                   async () => {
                     const linkHeaderNext =
-                      '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
+                      "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
@@ -153,10 +153,10 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header parsable, GraphQL response `Link` header parsable, different.',
+                  "Next.js original response `Link` header parsable, GraphQL response `Link` header parsable, different.",
                   async () => {
                     const linkHeaderNext =
-                      '<https://github.com/jaydenseric>; rel=preconnect, <https://github.com/jaydenseric>; rel=nonsense';
+                      "<https://github.com/jaydenseric>; rel=preconnect, <https://github.com/jaydenseric>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
@@ -175,10 +175,10 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header parsable, GraphQL response `Link` header parsable, similar.',
+                  "Next.js original response `Link` header parsable, GraphQL response `Link` header parsable, similar.",
                   async () => {
                     const linkHeader =
-                      '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
+                      "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const linkHeaderEncoded = encodeURIComponent(linkHeader);
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`
@@ -191,10 +191,10 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header parsable, GraphQL response `Link` header unparsable.',
+                  "Next.js original response `Link` header parsable, GraphQL response `Link` header unparsable.",
                   async () => {
                     const linkHeaderNext =
-                      '<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense';
+                      "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
@@ -208,9 +208,9 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header unparsable, GraphQL response `Link` header absent.',
+                  "Next.js original response `Link` header unparsable, GraphQL response `Link` header absent.",
                   async () => {
-                    const linkHeaderNext = '.';
+                    const linkHeaderNext = ".";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
                         linkHeaderNext
@@ -224,7 +224,7 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header unparsable, GraphQL response `Link` header parsable.',
+                  "Next.js original response `Link` header unparsable, GraphQL response `Link` header parsable.",
                   async () => {
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=${encodeURIComponent(
@@ -242,7 +242,7 @@ export default (tests) => {
                 );
 
                 serverSidePageLoadTests.add(
-                  'Next.js original response `Link` header unparsable, GraphQL response `Link` header unparsable.',
+                  "Next.js original response `Link` header unparsable, GraphQL response `Link` header unparsable.",
                   async () => {
                     const response = await page.goto(
                       // The unparsable values have to be different so the
@@ -257,7 +257,7 @@ export default (tests) => {
                       // forward from the GraphQL response, the unparsable
                       // original Next.js one shouldn’t have been replaced
                       // in the final response.
-                      '.'
+                      "."
                     );
                     ok(await page.$(`#${markerA}`));
                   }
@@ -268,12 +268,12 @@ export default (tests) => {
                 console.groupEnd();
               }
 
-              console.log('Testing client side page load…');
+              console.log("Testing client side page load…");
 
               await Promise.all([
                 page.click('[href="/second"]'),
                 page.waitForNavigation(),
-                page.waitForSelector('#loading', { timeout: 1000 }),
+                page.waitForSelector("#loading", { timeout: 1000 }),
                 page.waitForSelector(`#${markerB}`, { timeout: 1000 }),
               ]);
             } finally {
@@ -283,16 +283,16 @@ export default (tests) => {
             closeNext();
           }
 
-          console.log('Testing static HTML export…');
+          console.log("Testing static HTML export…");
 
-          const nextExportOutDirName = '.next-export';
+          const nextExportOutDirName = ".next-export";
           const nextExportOutput = await execFilePromise(
-            'npx',
-            ['next', 'export', '-o', nextExportOutDirName],
+            "npx",
+            ["next", "export", "-o", nextExportOutDirName],
             { cwd: nextProjectPath }
           );
 
-          ok(nextExportOutput.stdout.includes('Export successful'));
+          ok(nextExportOutput.stdout.includes("Export successful"));
 
           const nextExportOutDirUrl = new URL(
             `${nextExportOutDirName}/`,
@@ -302,7 +302,7 @@ export default (tests) => {
           try {
             const html = await fs.promises.readFile(
               new URL(`index.html`, nextExportOutDirUrl),
-              'utf8'
+              "utf8"
             );
 
             ok(html.includes(`id="${markerA}"`));
@@ -310,7 +310,7 @@ export default (tests) => {
             fsPathRemove(fileURLToPath(nextExportOutDirUrl));
           }
         } finally {
-          fsPathRemove(fileURLToPath(new URL('.next', nextProjectUrl)));
+          fsPathRemove(fileURLToPath(new URL(".next", nextProjectUrl)));
         }
       } finally {
         closeGraphqlSever();

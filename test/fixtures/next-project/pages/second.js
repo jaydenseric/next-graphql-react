@@ -1,19 +1,19 @@
-import useAutoLoad from 'graphql-react/useAutoLoad.mjs';
-import useCacheEntry from 'graphql-react/useCacheEntry.mjs';
-import useLoadGraphQL from 'graphql-react/useLoadGraphQL.mjs';
-import useWaterfallLoad from 'graphql-react/useWaterfallLoad.mjs';
-import React from 'react';
-import JsxRuntime from 'react/jsx-runtime.js';
+import useAutoLoad from "graphql-react/useAutoLoad.mjs";
+import useCacheEntry from "graphql-react/useCacheEntry.mjs";
+import useLoadGraphQL from "graphql-react/useLoadGraphQL.mjs";
+import useWaterfallLoad from "graphql-react/useWaterfallLoad.mjs";
+import React from "react";
+import JsxRuntime from "react/jsx-runtime.js";
 
-const cacheKey = 'b';
+const cacheKey = "b";
 const fetchUri = process.env.NEXT_PUBLIC_GRAPHQL_URL;
 const fetchOptions = {
-  method: 'POST',
+  method: "POST",
   headers: {
-    Accept: 'application/json',
+    Accept: "application/json",
   },
   body: JSON.stringify({
-    query: '{ b }',
+    query: "{ b }",
   }),
 };
 
@@ -32,8 +32,8 @@ export default function SecondPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? JsxRuntime.jsx('div', { id: cacheValue.data.b })
+    ? JsxRuntime.jsx("div", { id: cacheValue.data.b })
     : cacheValue?.errors
-    ? 'Error!'
-    : JsxRuntime.jsx('div', { id: 'loading' });
+    ? "Error!"
+    : JsxRuntime.jsx("div", { id: "loading" });
 }

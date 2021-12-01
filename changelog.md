@@ -23,6 +23,7 @@
 - Workaround Next.js not gracefully closing in tests.
 - Removed a redundant prepare step that’s a no-op in current Next.js versions when programmatically starting Next.js in tests.
 - Fixed an internal JSDoc type.
+- Configured Prettier option `singleQuote` to the default, `false`.
 
 ## 11.0.0
 
