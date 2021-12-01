@@ -6,7 +6,7 @@
 
 A [`graphql-react`](https://npm.im/graphql-react) integration for [Next.js](https://nextjs.org).
 
-## Setup
+## Installation
 
 To install [`next-graphql-react`](https://npm.im/next-graphql-react) and its [`graphql-react`](https://npm.im/graphql-react) peer dependency with [npm](https://npmjs.com/get-npm), run:
 
@@ -16,17 +16,17 @@ npm install next-graphql-react graphql-react
 
 Within `pages/_app.js`:
 
-1. Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#support).
+1. Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#requirements).
 2. Use the [`withGraphQLReact`](#function-withgraphqlreact) decorator to setup a [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app).
 
 Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs.org) hooks can be used within your [Next.js](https://nextjs.org) pages and components.
 
 ## Examples
 
-- [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react).
 - [Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.vercel.app](https://graphql-react.vercel.app).
+- [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react) (often outdated as the Next.js team can be extremely slow to review and merge merge pull requests).
 
-## Support
+## Requirements
 
 - [Node.js](https://nodejs.org): `^12.22.0 || ^14.17.0 || >= 16.0.0`
 - [Browsers](https://npm.im/browserslist): `> 0.5%, not OperaMini all, not IE > 0, not dead`
