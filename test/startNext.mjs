@@ -14,11 +14,8 @@ const require = createRequire(import.meta.url);
  */
 export default async function startNext(dir) {
   const next = require(require.resolve('next', { paths: [dir] }));
-  const app = next({ dir, customServer: false });
-
-  await app.prepare();
-
-  const server = createServer(app.getRequestHandler());
+  const nextServer = next({ dir });
+  const server = createServer(nextServer.getRequestHandler());
 
   return listen(server);
 }

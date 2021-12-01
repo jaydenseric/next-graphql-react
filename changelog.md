@@ -19,6 +19,7 @@
 - Also run GitHub Actions CI with Node.js v17.
 - Reorganized the test file structure.
 - Workaround Next.js not gracefully closing in tests.
+- Removed a redundant prepare step that’s a no-op in current Next.js versions when programmatically starting Next.js in tests.
 - Fixed an internal JSDoc type.
 
 ## 11.0.0
