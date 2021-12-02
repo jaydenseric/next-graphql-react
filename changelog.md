@@ -5,16 +5,18 @@
 ### Major
 
 - Updated Node.js support to `^12.22.0 || ^14.17.0 || >= 16.0.0`.
-- Updated dev dependencies, some of which require newer Node.js versions than previously supported.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^16.0.0`.
+- Updated the [`next`](https://npm.im/next) peer dependency to `^12.0.0`.
+- Updated dependencies, some of which require newer Node.js versions than previously supported.
 - Public modules are now individually listed in the package `files` and `exports` fields.
 - Removed `./package` from the package `exports` field; the full `package.json` filename must be used in a `require` path.
 - Removed the package main index module; deep imports must be used.
 - Shortened public module deep import paths, removing the `/public/`.
+- The API is now ESM in `.mjs` files instead of CJS in `.js` files, [accessible via `import` but not `require`](https://nodejs.org/dist/latest/docs/api/esm.html#require).
 - Switched back to using `React.createElement` instead of the [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
 
 ### Patch
 
-- Updated the [`next`](https://npm.im/next) peer dependency to `9.5 - 12`.
 - Removed the redundant [`graphql`](https://npm.im/graphql) dev dependency.
 - Also run GitHub Actions CI with Node.js v17.
 - Reorganized the test file structure.

@@ -1,3 +1,17 @@
 {
-  "extends": ["env"]
+  "extends": ["env"],
+  "rules": {
+    "node/no-unsupported-features/es-syntax": "off"
+  },
+  "overrides": [
+    {
+      "files": ["test/fixtures/*/pages/**/*.js"],
+      "parserOptions": {
+        "sourceType": "module"
+      },
+      "rules": {
+        "jsdoc/require-jsdoc": "off"
+      }
+    }
+  ]
 }

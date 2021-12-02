@@ -1,21 +1,22 @@
-'use strict';
+import '../polyfills.js';
+import Link from 'next/link.js';
+import React from 'react';
+import JsxRuntime from 'react/jsx-runtime.js';
+import withGraphQLReact from '../../../../withGraphQLReact.mjs';
 
-require('../polyfills.js');
-const { default: Link } = require('next/link');
-const { Fragment, jsx, jsxs } = require('react/jsx-runtime');
-const withGraphQLReact = require('../../../../withGraphQLReact.js');
+if (typeof CustomEvent === 'undefined') throw new Error('polyfill failed');
 
 const App = ({ Component, pageProps = {} }) =>
-  jsxs(Fragment, {
+  JsxRuntime.jsxs(React.Fragment, {
     children: [
-      jsx(Link, {
+      JsxRuntime.jsx(Link, {
         href: '/second',
         passHref: true,
-        children: jsx('a', {
+        children: JsxRuntime.jsx('a', {
           children: 'Second',
         }),
       }),
-      jsx(Component, pageProps),
+      JsxRuntime.jsx(Component, pageProps),
     ],
   });
 
@@ -37,4 +38,4 @@ App.getInitialProps = async (context) => {
   return {};
 };
 
-module.exports = withGraphQLReact(App);
+export default withGraphQLReact(App);

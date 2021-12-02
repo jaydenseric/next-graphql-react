@@ -1,12 +1,10 @@
-'use strict';
-
-const useAutoLoad = require('graphql-react/public/useAutoLoad.js');
-const useCacheEntry = require('graphql-react/public/useCacheEntry.js');
-const useLoadGraphQL = require('graphql-react/public/useLoadGraphQL.js');
-const useWaterfallLoad = require('graphql-react/public/useWaterfallLoad.js');
-const { useRouter } = require('next/router');
-const { useCallback } = require('react');
-const { jsx } = require('react/jsx-runtime');
+import useAutoLoad from 'graphql-react/useAutoLoad.mjs';
+import useCacheEntry from 'graphql-react/useCacheEntry.mjs';
+import useLoadGraphQL from 'graphql-react/useLoadGraphQL.mjs';
+import useWaterfallLoad from 'graphql-react/useWaterfallLoad.mjs';
+import { useRouter } from 'next/router.js';
+import React from 'react';
+import JsxRuntime from 'react/jsx-runtime.js';
 
 const cacheKey = 'a';
 const fetchOptions = {
@@ -19,7 +17,7 @@ const fetchOptions = {
   }),
 };
 
-module.exports = function IndexPage() {
+export default function IndexPage() {
   const {
     query: { linkHeaderGraphql },
   } = useRouter();
@@ -32,7 +30,7 @@ module.exports = function IndexPage() {
     fetchUri += `?linkHeader=${encodeURIComponent(linkHeaderGraphql)}`;
 
   const loadGraphQL = useLoadGraphQL();
-  const load = useCallback(
+  const load = React.useCallback(
     () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
     [fetchUri, loadGraphQL]
   );
@@ -44,8 +42,8 @@ module.exports = function IndexPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? jsx('div', { id: cacheValue.data.a })
+    ? JsxRuntime.jsx('div', { id: cacheValue.data.a })
     : cacheValue?.errors
     ? 'Error!'
-    : jsx('div', { id: 'loading' });
-};
+    : JsxRuntime.jsx('div', { id: 'loading' });
+}

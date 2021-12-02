@@ -1,11 +1,9 @@
-'use strict';
-
-const useAutoLoad = require('graphql-react/public/useAutoLoad.js');
-const useCacheEntry = require('graphql-react/public/useCacheEntry.js');
-const useLoadGraphQL = require('graphql-react/public/useLoadGraphQL.js');
-const useWaterfallLoad = require('graphql-react/public/useWaterfallLoad.js');
-const { useCallback } = require('react');
-const { jsx } = require('react/jsx-runtime');
+import useAutoLoad from 'graphql-react/useAutoLoad.mjs';
+import useCacheEntry from 'graphql-react/useCacheEntry.mjs';
+import useLoadGraphQL from 'graphql-react/useLoadGraphQL.mjs';
+import useWaterfallLoad from 'graphql-react/useWaterfallLoad.mjs';
+import React from 'react';
+import JsxRuntime from 'react/jsx-runtime.js';
 
 const cacheKey = 'b';
 const fetchUri = process.env.NEXT_PUBLIC_GRAPHQL_URL;
@@ -19,10 +17,10 @@ const fetchOptions = {
   }),
 };
 
-module.exports = function SecondPage() {
+export default function SecondPage() {
   const cacheValue = useCacheEntry(cacheKey);
   const loadGraphQL = useLoadGraphQL();
-  const load = useCallback(
+  const load = React.useCallback(
     () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
     [loadGraphQL]
   );
@@ -34,8 +32,8 @@ module.exports = function SecondPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? jsx('div', { id: cacheValue.data.b })
+    ? JsxRuntime.jsx('div', { id: cacheValue.data.b })
     : cacheValue?.errors
     ? 'Error!'
-    : jsx('div', { id: 'loading' });
-};
+    : JsxRuntime.jsx('div', { id: 'loading' });
+}

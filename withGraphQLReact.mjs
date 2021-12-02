@@ -1,9 +1,7 @@
-'use strict';
-
-const Cache = require('graphql-react/public/Cache.js');
-const Provider = require('graphql-react/public/Provider.js');
-const { default: NextApp } = require('next/app');
-const React = require('react');
+import Cache from 'graphql-react/Cache.mjs';
+import Provider from 'graphql-react/Provider.mjs';
+import NextApp from 'next/app.js';
+import React from 'react';
 
 /**
  * Link `rel` types that make sense to forward from loading responses during SSR
@@ -57,25 +55,21 @@ const FORWARDABLE_LINK_REL = [
  * @returns {withGraphQLReact~WithGraphQLReact} [Next.js](https://nextjs.org) custom `App` higher-order [React](https://reactjs.org) component.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs/advanced-features/custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
- * @example <caption>How to `import`.</caption>
+ * @example <caption>How to import.</caption>
  * ```js
- * import withGraphQLReact from 'next-graphql-react/withGraphQLReact.js';
- * ```
- * @example <caption>How to `require`.</caption>
- * ```js
- * const withGraphQLReact = require('next-graphql-react/withGraphQLReact.js');
+ * import withGraphQLReact from 'next-graphql-react/withGraphQLReact.mjs';
  * ```
  * @example <caption>A [Next.js](https://nextjs.org) custom `App`.</caption>
  * In `pages/_app.js`:
  *
  * ```jsx
- * import withGraphQLReact from 'next-graphql-react/withGraphQLReact.js';
+ * import withGraphQLReact from 'next-graphql-react/withGraphQLReact.mjs';
  * import App from 'next/app';
  *
  * export default withGraphQLReact(App);
  * ```
  */
-module.exports = function withGraphQLReact(App) {
+export default function withGraphQLReact(App) {
   /**
    * [Next.js](https://nextjs.org) custom `App` higher-order
    * [React](https://reactjs.org) component.
@@ -106,12 +100,8 @@ module.exports = function withGraphQLReact(App) {
   // relevant server/browser bundles. `typeof window === 'undefined'` can’t be
   // used, because Next.js implements that using Babel, which doesn’t run on
   // `node_modules`.
-  if (!process.browser) {
+  if (!process.browser)
     // The following code should be eliminated from client bundles.
-
-    const LinkHeader = require('http-link-header');
-    const { renderToStaticMarkup } = require('react-dom/server');
-    const waterfallRender = require('react-waterfall-render/public/waterfallRender.js');
 
     /**
      * Gets the initial props.
@@ -125,15 +115,21 @@ module.exports = function withGraphQLReact(App) {
      * @ignore
      */
     WithGraphQLReact.getInitialProps = async (context) => {
-      const props = await (App.getInitialProps
-        ? App.getInitialProps(context)
-        : NextApp.getInitialProps(context));
+      const [props, { default: ReactDOMServer }, { default: waterfallRender }] =
+        await Promise.all([
+          App.getInitialProps
+            ? App.getInitialProps(context)
+            : NextApp.default.getInitialProps(context),
+          import('react-dom/server.js'),
+          import('react-waterfall-render/waterfallRender.mjs'),
+        ]);
+
       const cache = new Cache();
 
       try {
         await waterfallRender(
           React.createElement(context.AppTree, { cache, ...props }),
-          renderToStaticMarkup
+          ReactDOMServer.renderToStaticMarkup
         );
       } catch (error) {
         console.error(error);
@@ -150,6 +146,8 @@ module.exports = function withGraphQLReact(App) {
       // its presence is used to detect if the request is real. See:
       // https://nextjs.org/docs/advanced-features/static-html-export#caveats
       if ('statusCode' in context.ctx.res) {
+        const { default: LinkHeader } = await import('http-link-header');
+
         // This will hold all the `Link` headers parsed from loaded cache value
         // responses.
         const linkHeaderPlanLoadingResponses = new LinkHeader();
@@ -238,7 +236,6 @@ module.exports = function withGraphQLReact(App) {
 
       return props;
     };
-  }
 
   if (typeof process === 'object' && process.env.NODE_ENV !== 'production')
     /**
@@ -254,4 +251,4 @@ module.exports = function withGraphQLReact(App) {
     })`;
 
   return WithGraphQLReact;
-};
+}
