@@ -19,6 +19,7 @@
 
 - Removed the redundant [`graphql`](https://npm.im/graphql) dev dependency.
 - Also run GitHub Actions CI with Node.js v17.
+- Simplified package scripts.
 - Reorganized the test file structure.
 - Workaround Next.js not gracefully closing in tests.
 - Removed a redundant prepare step that’s a no-op in current Next.js versions when programmatically starting Next.js in tests.
