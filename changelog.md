@@ -17,8 +17,8 @@
 
 ### Patch
 
-- Removed the redundant [`graphql`](https://npm.im/graphql) dev dependency.
 - Also run GitHub Actions CI with Node.js v17.
+- Removed the redundant [`graphql`](https://npm.im/graphql) dev dependency.
 - Simplified package scripts.
 - Reorganized the test file structure.
 - Workaround Next.js not gracefully closing in tests.
