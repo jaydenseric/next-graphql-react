@@ -24,7 +24,7 @@ Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs
 ## Examples
 
 - [Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.vercel.app](https://graphql-react.vercel.app).
-- [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react) (often outdated as the Next.js team can be extremely slow to review and merge merge pull requests).
+- [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react) (often outdated as the Next.js team can be extremely slow to review and merge pull requests).
 
 ## Requirements
 

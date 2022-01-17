@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Fixed a readme typo.
+
 ## 12.0.0
 
 ### Major
