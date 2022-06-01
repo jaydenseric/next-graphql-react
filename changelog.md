@@ -5,6 +5,8 @@
 ### Major
 
 - Updated Node.js support to `^14.17.0 || ^16.0.0 || >= 18.0.0`.
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^18.0.0`.
+- Updated dependencies.
 
 ### Patch
 
