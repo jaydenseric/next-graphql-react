@@ -1,4 +1,5 @@
 import TestDirector from "test-director";
+
 import test_withGraphQLReact from "./withGraphQLReact.test.mjs";
 
 const tests = new TestDirector();
@@ -14,7 +15,6 @@ tests.run().then(() => {
   // IDs. To avoid going to all that trouble here, this process is forced to
   // exit after all the tests are done. The downside is a bug that causes a hung
   // process might not be noticed.
-  // eslint-disable-next-line no-process-exit
   process.exit(
     // Respect the original exit code.
     process.exitCode

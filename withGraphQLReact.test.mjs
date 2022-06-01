@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
-
 import { ok, strictEqual } from "assert";
 import fs from "fs";
 import { createServer } from "http";
-import { fileURLToPath } from "url";
 import puppeteer from "puppeteer";
 import TestDirector from "test-director";
+import { fileURLToPath } from "url";
+
 import execFilePromise from "./test/execFilePromise.mjs";
 import fsPathRemove from "./test/fsPathRemove.mjs";
 import listen from "./test/listen.mjs";

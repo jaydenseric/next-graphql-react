@@ -1,7 +1,9 @@
 import "../polyfills.js";
+
 import Link from "next/link.js";
 import React from "react";
 import JsxRuntime from "react/jsx-runtime.js";
+
 import withGraphQLReact from "../../../../withGraphQLReact.mjs";
 
 if (typeof CustomEvent === "undefined") throw new Error("polyfill failed");
