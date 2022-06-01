@@ -15,6 +15,7 @@
   - Run tests with Node.js v14, v16, v18.
   - Updated `actions/checkout` to v3.
   - Updated `actions/setup-node` to v3.
+- Use the `.mjs` file extension for Next.js pages in test fixtures.
 - Fixed a readme typo.
 
 ## 12.0.0

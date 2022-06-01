@@ -26,12 +26,6 @@
         "module": "off",
         "require": "off"
       }
-    },
-    {
-      "files": ["test/fixtures/*/pages/**/*.js"],
-      "parserOptions": {
-        "sourceType": "module"
-      }
     }
   ]
 }
