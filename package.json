@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "abort-controller": "^3.0.0",
-    "eslint": "^8.16.0",
+    "eslint": "^8.17.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "event-target-shim": "^6.0.2",
@@ -53,7 +53,7 @@
     "jsdoc-md": "^11.0.2",
     "next": "^12.1.6",
     "prettier": "^2.6.2",
-    "puppeteer": "^14.1.2",
+    "puppeteer": "^14.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "test-director": "^8.0.2"
