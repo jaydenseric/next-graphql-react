@@ -21,11 +21,6 @@ Within `pages/_app.js`:
 
 Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs.org) hooks can be used within your [Next.js](https://nextjs.org) pages and components.
 
-## Examples
-
-- [Next.js example](https://github.com/jaydenseric/graphql-react-examples) deployed at [graphql-react.vercel.app](https://graphql-react.vercel.app).
-- [Official Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-graphql-react) (often outdated as the Next.js team can be extremely slow to review and merge pull requests).
-
 ## Requirements
 
 - [Node.js](https://nodejs.org): `^14.17.0 || ^16.0.0 || >= 18.0.0`

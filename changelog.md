@@ -16,6 +16,7 @@
   - Updated `actions/checkout` to v3.
   - Updated `actions/setup-node` to v3.
 - Use the `.mjs` file extension for Next.js pages in test fixtures.
+- Removed the readme section “Examples”.
 - Fixed a readme typo.
 
 ## 12.0.0
