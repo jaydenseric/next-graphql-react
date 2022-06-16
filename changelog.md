@@ -23,6 +23,7 @@
 - Use the `.mjs` file extension for Next.js pages in test fixtures.
 - Removed the readme section “Examples”.
 - Fixed a readme typo.
+- Added a `license.md` MIT License file.
 
 ## 12.0.0
 
