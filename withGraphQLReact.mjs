@@ -1,3 +1,5 @@
+// @ts-check
+
 import Cache from "graphql-react/Cache.mjs";
 import Provider from "graphql-react/Provider.mjs";
 import NextApp from "next/app.js";
@@ -6,11 +8,8 @@ import React from "react";
 /**
  * Link `rel` types that make sense to forward from loading responses during SSR
  * in the [Next.js](https://nextjs.org) page response.
- * @kind constant
- * @name FORWARDABLE_LINK_REL
  * @type {Array<string>}
  * @see [HTML Living Standard link types](https://html.spec.whatwg.org/dev/links.html#linkTypes).
- * @ignore
  */
 const FORWARDABLE_LINK_REL = [
   "dns-prefetch",
@@ -49,20 +48,23 @@ const FORWARDABLE_LINK_REL = [
  * Link URLs are forwarded unmodified, so avoid sending relative URLs from a
  * [GraphQL](https://graphql.org) server hosted on a different domain to the
  * app.
- * @kind function
- * @name withGraphQLReact
- * @param {object} App [Next.js](https://nextjs.org) custom `App` [React](https://reactjs.org) component.
- * @returns {withGraphQLReact~WithGraphQLReact} [Next.js](https://nextjs.org) custom `App` higher-order [React](https://reactjs.org) component.
+ * @param {import("react").ComponentType<import("next/app.js").AppProps> & {
+ *   getInitialProps?: ({
+ *     Component,
+ *     ctx,
+ *   }: import("next/app.js").AppContext) =>
+ *     | import("next/app.js").AppInitialProps
+ *     | Promise<import("next/app.js").AppInitialProps>
+ * }} App [Next.js](https://nextjs.org) custom `App`
+ *   [React](https://reactjs.org) component.
+ * @returns [Next.js](https://nextjs.org) custom `App` higher-order
+ *   [React](https://reactjs.org) component.
  * @see [Next.js custom `App` docs](https://nextjs.org/docs/advanced-features/custom-app).
  * @see [React higher-order component docs](https://reactjs.org/docs/higher-order-components).
- * @example <caption>How to import.</caption>
- * ```js
- * import withGraphQLReact from "next-graphql-react/withGraphQLReact.mjs";
- * ```
- * @example <caption>A [Next.js](https://nextjs.org) custom `App`.</caption>
- * In `pages/_app.js`:
+ * @example
+ * A [Next.js](https://nextjs.org) custom `App` in `pages/_app.js`:
  *
- * ```jsx
+ * ```js
  * import withGraphQLReact from "next-graphql-react/withGraphQLReact.mjs";
  * import App from "next/app";
  *
@@ -73,16 +75,13 @@ export default function withGraphQLReact(App) {
   /**
    * [Next.js](https://nextjs.org) custom `App` higher-order
    * [React](https://reactjs.org) component.
-   * @kind function
-   * @name withGraphQLReact~WithGraphQLReact
-   * @param {object} props Props.
-   * @param {Cache} [props.cache] `Cache` instance; defined for SSR, undefined for client render.
-   * @param {object} [props.initialCacheStore] Initial `Cache` store; undefined for SSR, defined for client render.
-   * @returns {ReactElement} [React](https://reactjs.org) virtual DOM element.
-   * @ignore
+   * @param {import("next/app.js").AppProps & {
+   *   cache?: Cache,
+   *   initialCacheStore?: import("graphql-react/Cache.mjs").CacheStore
+   * }} props Props.
    */
   function WithGraphQLReact({ cache, initialCacheStore, ...appProps }) {
-    const cacheRef = React.useRef();
+    const cacheRef = React.useRef(/** @type {Cache | null} */ (null));
 
     // This avoids re-creating the React ref initial value, see:
     // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
@@ -100,42 +99,43 @@ export default function withGraphQLReact(App) {
   // relevant server/browser bundles. `typeof window === "undefined"` can’t be
   // used, because Next.js implements that using Babel, which doesn’t run on
   // `node_modules`.
-  if (!process.browser)
+  if (
+    // @ts-ignore This is defined by Next.js.
+    !process.browser
+  )
     // The following code should be eliminated from client bundles.
 
     /**
      * Gets the initial props.
-     * @kind function
-     * @name withGraphQLReact~WithGraphQLReact.getInitialProps
-     * @param {object} context App context.
-     * @param {object} context.ctx Context for the route page [React](https://reactjs.org) component’s `getInitialProps`.
-     * @param {object} context.router Router instance.
-     * @param {object} context.component Route page [React](https://reactjs.org) component.
-     * @returns {Promise<object>} Initial props.
-     * @ignore
+     * @param {import("next/app.js").AppContext} context App context.
+     * @returns {Promise<
+     *   import("next/app.js").AppInitialProps &
+     *     { initialCacheStore: import("graphql-react/Cache.mjs").CacheStore }
+     * >} Initial props.
      */
     WithGraphQLReact.getInitialProps = async (context) => {
-      const [props, { default: ReactDOMServer }, { default: waterfallRender }] =
-        await Promise.all([
-          App.getInitialProps
-            ? App.getInitialProps(context)
-            : NextApp.default.getInitialProps(context),
-          import("react-dom/server.js"),
-          import("react-waterfall-render/waterfallRender.mjs"),
-        ]);
+      const [
+        appProps,
+        { default: ReactDOMServer },
+        { default: waterfallRender },
+      ] = await Promise.all([
+        App.getInitialProps
+          ? App.getInitialProps(context)
+          : NextApp.default.getInitialProps(context),
+        import("react-dom/server.js"),
+        import("react-waterfall-render/waterfallRender.mjs"),
+      ]);
 
       const cache = new Cache();
 
       try {
         await waterfallRender(
-          React.createElement(context.AppTree, { cache, ...props }),
+          React.createElement(context.AppTree, { cache, ...appProps }),
           ReactDOMServer.renderToStaticMarkup
         );
       } catch (error) {
         console.error(error);
       }
-
-      props.initialCacheStore = cache.store;
 
       // Check this is a real, dynamic request and not a Next.js static HTML
       // export, either for the static HTML error pages generated by running
@@ -145,7 +145,12 @@ export default function withGraphQLReact(App) {
       // of the header related properties. Because `statusCode` is never mocked,
       // its presence is used to detect if the request is real. See:
       // https://nextjs.org/docs/advanced-features/static-html-export#caveats
-      if ("statusCode" in context.ctx.res) {
+      if (
+        // This is just for TypeScript; it should always be true due to the
+        // surrounding `process.browser` check.
+        context.ctx.res &&
+        "statusCode" in context.ctx.res
+      ) {
         const { default: LinkHeader } = await import("http-link-header");
 
         // This will hold all the `Link` headers parsed from loaded cache value
@@ -157,6 +162,8 @@ export default function withGraphQLReact(App) {
             // Potentially any type of data could be cached, not just objects
             // for fetched GraphQL.
             typeof cacheValue === "object" &&
+            // Not null.
+            cacheValue &&
             // The `fetch` API `Response` global should be polyfilled for
             // Node.js if there are cache values derived from `fetch` `Response`
             // instances. In case there are not, guard against the global being
@@ -167,9 +174,12 @@ export default function withGraphQLReact(App) {
             // to the cache value object so it can be inspected, but won’t
             // serialize to JSON when the cache store is exported for hydration
             // on the client after SSR.
-            cacheValue.response instanceof Response
+            /** @type {{ [key: string]: unknown }} */ (cacheValue)
+              .response instanceof Response
           ) {
-            const linkHeader = cacheValue.response.headers.get("Link");
+            const linkHeader = /** @type {{ [key: string]: unknown }} */ (
+              cacheValue
+            ).response.headers.get("Link");
             if (linkHeader)
               try {
                 linkHeaderPlanLoadingResponses.parse(linkHeader);
@@ -198,21 +208,34 @@ export default function withGraphQLReact(App) {
           const linkHeaderResponseOriginal = context.ctx.res.getHeader("Link");
 
           if (linkHeaderResponseOriginal) {
+            // Normalize the original header into an array, as it could have
+            // been set as either a string or an array of strings.
+            const linkHeaderResponseOriginalArray = Array.isArray(
+              linkHeaderResponseOriginal
+            )
+              ? linkHeaderResponseOriginal
+              : [linkHeaderResponseOriginal];
+
             // The Node.js response `setHeader` API doesn’t do any input
             // validation, so project code using this API could have set any
             // type of unparsable value for the original response `Link` header.
             // If it’s parsable, merge in the forwardable links from the GraphQL
             // responses to create the final response `Link` header.
-            try {
-              var linkHeaderPlanResponseOriginal = new LinkHeader(
-                linkHeaderResponseOriginal
-              );
-            } catch (error) {
-              // Ignore a parse error. It’s ok to exclude the original
-              // unparsable `Link` header in the final response.
+
+            const linkHeaderPlanResponseOriginal = new LinkHeader();
+
+            for (const linkHeaderResponseOriginal of linkHeaderResponseOriginalArray) {
+              try {
+                linkHeaderPlanResponseOriginal.parse(
+                  linkHeaderResponseOriginal
+                );
+              } catch (error) {
+                // Ignore a parse error. It’s ok to exclude the original
+                // unparsable `Link` header in the final response.
+              }
             }
 
-            if (linkHeaderPlanResponseOriginal) {
+            if (linkHeaderPlanResponseOriginal.refs.length) {
               linkHeaderPlanResponseFinal = linkHeaderPlanResponseOriginal;
 
               linkHeaderPlanForwardable.refs.forEach((link) => {
@@ -234,17 +257,17 @@ export default function withGraphQLReact(App) {
         }
       }
 
-      return props;
+      return {
+        ...appProps,
+        initialCacheStore: cache.store,
+      };
     };
 
   if (typeof process === "object" && process.env.NODE_ENV !== "production")
     /**
      * The display name.
-     * @kind member
-     * @name withGraphQLReact~WithGraphQLReact.displayName
      * @type {string}
      * @see [React display name conventions](https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging).
-     * @ignore
      */
     WithGraphQLReact.displayName = `WithGraphQLReact(${
       App.displayName || App.name || "Component"

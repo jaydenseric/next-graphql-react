@@ -1,12 +1,13 @@
+// @ts-check
+
 import useAutoLoad from "graphql-react/useAutoLoad.mjs";
 import useCacheEntry from "graphql-react/useCacheEntry.mjs";
 import useLoadGraphQL from "graphql-react/useLoadGraphQL.mjs";
 import useWaterfallLoad from "graphql-react/useWaterfallLoad.mjs";
 import React from "react";
-import JsxRuntime from "react/jsx-runtime.js";
 
 const cacheKey = "b";
-const fetchUri = process.env.NEXT_PUBLIC_GRAPHQL_URL;
+const fetchUri = /** @type {string} */ (process.env.NEXT_PUBLIC_GRAPHQL_URL);
 const fetchOptions = {
   method: "POST",
   headers: {
@@ -17,8 +18,15 @@ const fetchOptions = {
   }),
 };
 
+/** @typedef {{ b: string }} QueryData */
+
 export default function SecondPage() {
-  const cacheValue = useCacheEntry(cacheKey);
+  const cacheValue =
+    /**
+     * @type {import("graphql-react/fetchGraphQL.mjs").FetchGraphQLResult
+     *   & { data?: QueryData } | undefined}
+     */
+    (useCacheEntry(cacheKey));
   const loadGraphQL = useLoadGraphQL();
   const load = React.useCallback(
     () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
@@ -32,8 +40,8 @@ export default function SecondPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? JsxRuntime.jsx("div", { id: cacheValue.data.b })
+    ? React.createElement("div", { id: cacheValue.data.b })
     : cacheValue?.errors
     ? "Error!"
-    : JsxRuntime.jsx("div", { id: "loading" });
+    : React.createElement("div", { id: "loading" });
 }

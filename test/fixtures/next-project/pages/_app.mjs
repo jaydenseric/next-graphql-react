@@ -1,43 +1,54 @@
+// @ts-check
+
 import "../polyfills.js";
 
-import Link from "next/link.js";
+import NextApp from "next/app.js";
+import NextLink from "next/link.js";
 import React from "react";
-import JsxRuntime from "react/jsx-runtime.js";
 
 import withGraphQLReact from "../../../../withGraphQLReact.mjs";
 
 if (typeof CustomEvent === "undefined") throw new Error("polyfill failed");
 
+/**
+ * React component for the Next.js app.
+ * @param {import("next/app.js").AppProps} props Props.
+ */
 const App = ({ Component, pageProps = {} }) =>
-  JsxRuntime.jsxs(React.Fragment, {
-    children: [
-      JsxRuntime.jsx(Link, {
+  React.createElement(
+    React.Fragment,
+    null,
+    React.createElement(
+      NextLink.default,
+      {
         href: "/second",
         passHref: true,
-        children: JsxRuntime.jsx("a", {
-          children: "Second",
-        }),
-      }),
-      JsxRuntime.jsx(Component, pageProps),
-    ],
-  });
+      },
+      React.createElement("a", null, "Second")
+    ),
+    React.createElement(Component, pageProps)
+  );
 
 // This is for testing that an original response `Link` header is respected by
 // `withGraphQLReact`.
+/** @param {import("next/app.js").AppContext} context */
 App.getInitialProps = async (context) => {
   if (
+    // @ts-ignore This is defined by Next.js.
     !process.browser &&
-    // This is SSR for a real request, and not a Next.js static HTML export that
-    // has a mock a Node.js response.
-    context.ctx.res.statusCode &&
-    context.ctx.query.linkHeaderNext
+    // This is SSR for a real request, and not a Next.js static HTML export
+    // that has a mock a Node.js response.
+    context.ctx.res?.statusCode &&
+    typeof context.ctx.query.linkHeaderNext === "string"
   )
     context.ctx.res.setHeader(
       "Link",
+
+      // Todo: Also test setting a header array.
       decodeURIComponent(context.ctx.query.linkHeaderNext)
     );
 
-  return {};
+  return NextApp.default.getInitialProps(context);
 };
 
 export default withGraphQLReact(App);

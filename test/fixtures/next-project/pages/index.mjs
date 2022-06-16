@@ -1,10 +1,11 @@
+// @ts-check
+
 import useAutoLoad from "graphql-react/useAutoLoad.mjs";
 import useCacheEntry from "graphql-react/useCacheEntry.mjs";
 import useLoadGraphQL from "graphql-react/useLoadGraphQL.mjs";
 import useWaterfallLoad from "graphql-react/useWaterfallLoad.mjs";
 import { useRouter } from "next/router.js";
 import React from "react";
-import JsxRuntime from "react/jsx-runtime.js";
 
 const cacheKey = "a";
 const fetchOptions = {
@@ -17,16 +18,23 @@ const fetchOptions = {
   }),
 };
 
+/** @typedef {{ a: string }} QueryData */
+
 export default function IndexPage() {
   const {
     query: { linkHeaderGraphql },
   } = useRouter();
 
-  const cacheValue = useCacheEntry(cacheKey);
+  const cacheValue =
+    /**
+     * @type {import("graphql-react/fetchGraphQL.mjs").FetchGraphQLResult
+     *   & { data?: QueryData } | undefined}
+     */
+    (useCacheEntry(cacheKey));
 
-  let fetchUri = process.env.NEXT_PUBLIC_GRAPHQL_URL;
+  let fetchUri = /** @type {string} */ (process.env.NEXT_PUBLIC_GRAPHQL_URL);
 
-  if (linkHeaderGraphql)
+  if (typeof linkHeaderGraphql === "string")
     fetchUri += `?linkHeader=${encodeURIComponent(linkHeaderGraphql)}`;
 
   const loadGraphQL = useLoadGraphQL();
@@ -42,8 +50,8 @@ export default function IndexPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? JsxRuntime.jsx("div", { id: cacheValue.data.a })
+    ? React.createElement("div", { id: cacheValue.data.a })
     : cacheValue?.errors
     ? "Error!"
-    : JsxRuntime.jsx("div", { id: "loading" });
+    : React.createElement("div", { id: "loading" });
 }

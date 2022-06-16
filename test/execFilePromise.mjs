@@ -1,3 +1,5 @@
+// @ts-check
+
 import { execFile } from "child_process";
 import { promisify } from "util";
 

@@ -7,10 +7,15 @@
 - Updated Node.js support to `^14.17.0 || ^16.0.0 || >= 18.0.0`.
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^18.0.0`.
 - Updated dependencies.
+- Implemented TypeScript types via JSDoc comments.
 
 ### Patch
 
 - Simplified dev dependencies and config for ESLint.
+- Removed the [`jsdoc-md`](https://npm.im/jsdoc-md) dev dependency and the package `docs-update` and `docs-check` scripts, replacing the readme “API” section with a manually written “Exports” section.
+- Check TypeScript types via a new package `types` script.
+- Support Next.js page response `Link` header array values.
+- Use `React.createElement` instead of the [the new React JSX runtime](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) in tests.
 - Updated GitHub Actions CI config:
   - Run tests with Node.js v14, v16, v18.
   - Updated `actions/checkout` to v3.

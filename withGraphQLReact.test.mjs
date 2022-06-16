@@ -1,3 +1,5 @@
+// @ts-check
+
 import { ok, strictEqual } from "assert";
 import fs from "fs";
 import { createServer } from "http";
@@ -10,6 +12,10 @@ import fsPathRemove from "./test/fsPathRemove.mjs";
 import listen from "./test/listen.mjs";
 import startNext from "./test/startNext.mjs";
 
+/**
+ * Adds `withGraphQLReact` tests.
+ * @param {import("test-director").default} tests Test director.
+ */
 export default (tests) => {
   tests.add(
     "`withGraphQLReact` with a Next.js production build and static HTML export.",
@@ -21,6 +27,7 @@ export default (tests) => {
       // parameter `linkHeader` can be used to set an arbitrary `Link` header in
       // the response.
       const graphqlSever = createServer((request, response) => {
+        /** @type {{ [key: string]: string }} */
         const responseHeaders = {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers":
@@ -29,12 +36,13 @@ export default (tests) => {
         };
 
         const { searchParams } = new URL(
-          request.url,
+          /** @type {string} */ (request.url),
           `http://${request.headers.host}`
         );
 
-        if (searchParams.has("linkHeader"))
-          responseHeaders.Link = searchParams.get("linkHeader");
+        const linkHeader = searchParams.get("linkHeader");
+
+        if (linkHeader) responseHeaders.Link = linkHeader;
 
         response.writeHead(200, responseHeaders);
         response.write(
@@ -97,6 +105,7 @@ export default (tests) => {
                   async () => {
                     const response = await page.goto(nextServerUrl);
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, undefined);
                     ok(await page.$(`#${markerA}`));
@@ -112,6 +121,7 @@ export default (tests) => {
                       )}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
@@ -128,6 +138,7 @@ export default (tests) => {
                       `${nextServerUrl}?linkHeaderGraphql=.`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, undefined);
                     ok(await page.$(`#${markerA}`));
@@ -145,6 +156,7 @@ export default (tests) => {
                       )}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
@@ -164,6 +176,7 @@ export default (tests) => {
                       )}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
@@ -183,6 +196,7 @@ export default (tests) => {
                       `${nextServerUrl}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeader);
                     ok(await page.$(`#${markerA}`));
@@ -200,6 +214,7 @@ export default (tests) => {
                       )}&linkHeaderGraphql=.`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
@@ -216,6 +231,7 @@ export default (tests) => {
                       )}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
@@ -231,6 +247,7 @@ export default (tests) => {
                       )}`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
@@ -249,6 +266,7 @@ export default (tests) => {
                       `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=-`
                     );
 
+                    ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
