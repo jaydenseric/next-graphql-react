@@ -2,13 +2,11 @@
 
 # next-graphql-react
 
-[![npm version](https://badgen.net/npm/v/next-graphql-react)](https://npm.im/next-graphql-react) [![CI status](https://github.com/jaydenseric/next-graphql-react/workflows/CI/badge.svg)](https://github.com/jaydenseric/next-graphql-react/actions)
-
 A [`graphql-react`](https://npm.im/graphql-react) integration for [Next.js](https://nextjs.org).
 
 ## Installation
 
-To install [`next-graphql-react`](https://npm.im/next-graphql-react) and its [`graphql-react`](https://npm.im/graphql-react) peer dependency with [npm](https://npmjs.com/get-npm), run:
+Within an existing [Next.js](https://nextjs.org) project, to install [`next-graphql-react`](https://npm.im/next-graphql-react) and its [`graphql-react`](https://npm.im/graphql-react) peer dependency with [npm](https://npmjs.com/get-npm), run:
 
 ```sh
 npm install next-graphql-react graphql-react
@@ -19,15 +17,23 @@ Within `pages/_app.js`:
 1. Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#requirements).
 2. Use the [`withGraphQLReact`](./withGraphQLReact.mjs) decorator to setup a [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app).
 
-Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs.org) hooks can be used within your [Next.js](https://nextjs.org) pages and components.
+Then [React](https://reactjs.org) hooks imported from [`graphql-react`](https://npm.im/graphql-react) can be used within your [Next.js](https://nextjs.org) pages and components.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org): `^14.17.0 || ^16.0.0 || >= 18.0.0`
-- [Browsers](https://npm.im/browserslist): `> 0.5%, not OperaMini all, not dead`
+Supported runtime environments:
+
+- [Node.js](https://nodejs.org) versions `^14.17.0 || ^16.0.0 || >= 18.0.0`.
+- Browsers matching the [Browserslist](https://npm.im/browserslist) query `> 0.5%, not OperaMini all, not dead`.
+
+Projects must configure [TypeScript](https://typescriptlang.org) to use types from the ECMAScript modules that have a `// @ts-check` comment:
+
+- [`compilerOptions.allowJs`](https://typescriptlang.org/tsconfig#allowJs) should be `true`.
+- [`compilerOptions.maxNodeModuleJsDepth`](https://typescriptlang.org/tsconfig#maxNodeModuleJsDepth) should be reasonably large, e.g. `10`.
+- [`compilerOptions.module`](https://typescriptlang.org/tsconfig#module) should be `"node16"` or `"nodenext"`.
 
 ## Exports
 
-These ECMAScript modules are published to [npm](https://npmjs.com) and exported via the [`package.json`](./package.json) `exports` field:
+The [npm](https://npmjs.com) package [`next-graphql-react`](https://npm.im/next-graphql-react) features [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design). It doesn’t have a main index module, so use deep imports from the ECMAScript modules that are exported via the [`package.json`](./package.json) field [`exports`](https://nodejs.org/api/packages.html#exports):
 
 - [`withGraphQLReact.mjs`](./withGraphQLReact.mjs)

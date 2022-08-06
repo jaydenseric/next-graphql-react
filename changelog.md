@@ -13,6 +13,9 @@
 - Updated dependencies.
 - Removed the now redundant `not IE > 0` from the Browserslist query.
 - Use the TypeScript type for Next.js config in test fixtures.
+- Revamped the readme:
+  - Removed the badges.
+  - Added information about TypeScript config and [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design).
 
 ## 13.0.0
 
