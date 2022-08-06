@@ -12,10 +12,10 @@ Within an existing [Next.js](https://nextjs.org) project, to install [`next-grap
 npm install next-graphql-react graphql-react
 ```
 
-Within `pages/_app.js`:
+Setup the [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app) module:
 
-1. Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#requirements).
-2. Use the [`withGraphQLReact`](./withGraphQLReact.mjs) decorator to setup a [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app).
+- Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#requirements).
+- Decorate the default export with [`withGraphQLReact`](./withGraphQLReact.mjs).
 
 Then [React](https://reactjs.org) hooks imported from [`graphql-react`](https://npm.im/graphql-react) can be used within your [Next.js](https://nextjs.org) pages and components.
 

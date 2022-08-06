@@ -15,6 +15,7 @@
 - Use the TypeScript type for Next.js config in test fixtures.
 - Revamped the readme:
   - Removed the badges.
+  - Better installation instructions that don’t assume the Next.js custom app module has a `.js` file extension.
   - Added information about TypeScript config and [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design).
 
 ## 13.0.0
