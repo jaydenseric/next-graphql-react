@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Use the TypeScript type for Next.js config in test fixtures.
+
 ## 13.0.0
 
 ### Major
