@@ -2,8 +2,15 @@
 
 ## Next
 
+### Major
+
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^19.0.0`.
+- Updated the [`react`](https://npm.im/react) and [`react-dom`](https://npm.im/react) peer dependencies to `^18.0.0`.
+- Updated `react-dom/server` imports to suit React v18.
+
 ### Patch
 
+- Updated dependencies.
 - Removed the now redundant `not IE > 0` from the Browserslist query.
 - Use the TypeScript type for Next.js config in test fixtures.
 

@@ -34,32 +34,32 @@
   },
   "browserslist": "Node 14.17 - 15 and Node < 15, Node 16 - 17 and Node < 17, Node >= 18, > 0.5%, not OperaMini all, not dead",
   "peerDependencies": {
-    "graphql-react": "^18.0.0",
+    "graphql-react": "^19.0.0",
     "next": "^12.0.0",
-    "react": "16.14 - 17",
-    "react-dom": "16.14 - 17"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "http-link-header": "^1.0.4",
-    "react-waterfall-render": "^4.0.0"
+    "http-link-header": "^1.0.5",
+    "react-waterfall-render": "^4.0.1"
   },
   "devDependencies": {
-    "@types/node": "^17.0.45",
-    "@types/react": "^17.0.45",
-    "@types/react-dom": "^17.0.17",
+    "@types/node": "^18.6.4",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
     "abort-controller": "^3.0.0",
-    "eslint": "^8.17.0",
+    "eslint": "^8.21.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "event-target-shim": "^6.0.2",
-    "graphql-react": "^18.0.0",
-    "next": "^12.1.6",
+    "graphql-react": "^19.0.0",
+    "next": "^12.2.4",
     "prettier": "^2.7.1",
-    "puppeteer": "^14.4.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "puppeteer": "^16.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "test-director": "^8.0.2",
-    "typescript": "^4.7.3"
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "eslint": "eslint .",

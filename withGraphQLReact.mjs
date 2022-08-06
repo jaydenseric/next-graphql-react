@@ -122,7 +122,7 @@ export default function withGraphQLReact(App) {
         App.getInitialProps
           ? App.getInitialProps(context)
           : NextApp.default.getInitialProps(context),
-        import("react-dom/server.js"),
+        import("react-dom/server"),
         import("react-waterfall-render/waterfallRender.mjs"),
       ]);
 
