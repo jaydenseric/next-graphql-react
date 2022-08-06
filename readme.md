@@ -24,7 +24,7 @@ Then the [`graphql-react`](https://npm.im/graphql-react) [React](https://reactjs
 ## Requirements
 
 - [Node.js](https://nodejs.org): `^14.17.0 || ^16.0.0 || >= 18.0.0`
-- [Browsers](https://npm.im/browserslist): `> 0.5%, not OperaMini all, not IE > 0, not dead`
+- [Browsers](https://npm.im/browserslist): `> 0.5%, not OperaMini all, not dead`
 
 ## Exports
 
