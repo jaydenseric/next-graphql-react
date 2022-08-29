@@ -15,16 +15,16 @@ npm install next-graphql-react graphql-react
 Setup the [Next.js custom `App`](https://nextjs.org/docs/advanced-features/custom-app) module:
 
 - Polyfill the [required globals](https://github.com/jaydenseric/graphql-react#requirements).
-- Decorate the default export with [`withGraphQLReact`](./withGraphQLReact.mjs).
+- Decorate the default export with the function [`withGraphQLReact`](./withGraphQLReact.mjs).
 
-Then [React](https://reactjs.org) hooks imported from [`graphql-react`](https://npm.im/graphql-react) can be used within your [Next.js](https://nextjs.org) pages and components.
+Then [React](https://reactjs.org) hooks imported from [`graphql-react`](https://npm.im/graphql-react) can be used within the [Next.js](https://nextjs.org) project pages and components.
 
 ## Requirements
 
 Supported runtime environments:
 
 - [Node.js](https://nodejs.org) versions `^14.17.0 || ^16.0.0 || >= 18.0.0`.
-- Browsers matching the [Browserslist](https://npm.im/browserslist) query `> 0.5%, not OperaMini all, not dead`.
+- Browsers matching the [Browserslist](https://browsersl.ist) query [`> 0.5%, not OperaMini all, not dead`](https://browsersl.ist/?q=%3E+0.5%25%2C+not+OperaMini+all%2C+not+dead).
 
 Projects must configure [TypeScript](https://typescriptlang.org) to use types from the ECMAScript modules that have a `// @ts-check` comment:
 
