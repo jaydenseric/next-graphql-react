@@ -1,11 +1,11 @@
 // @ts-check
 
-import { ok, strictEqual } from "assert";
-import fs from "fs";
-import { createServer } from "http";
+import { ok, strictEqual } from "node:assert";
+import fs from "node:fs";
+import { createServer } from "node:http";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer";
 import TestDirector from "test-director";
-import { fileURLToPath } from "url";
 
 import execFilePromise from "./test/execFilePromise.mjs";
 import fsPathRemove from "./test/fsPathRemove.mjs";

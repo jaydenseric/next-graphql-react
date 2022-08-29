@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dev dependencies.
+- Use the `node:` URL scheme for Node.js builtin module imports in tests.
 
 ## 14.0.0
 

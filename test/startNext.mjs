@@ -1,7 +1,7 @@
 // @ts-check
 
-import { createServer } from "http";
-import { createRequire } from "module";
+import { createServer } from "node:http";
+import { createRequire } from "node:module";
 
 import listen from "./listen.mjs";
 
