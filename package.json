@@ -34,14 +34,14 @@
   },
   "browserslist": "Node 14.17 - 15 and Node < 15, Node 16 - 17 and Node < 17, Node >= 18, > 0.5%, not OperaMini all, not dead",
   "peerDependencies": {
-    "graphql-react": "^19.0.0",
+    "graphql-react": "^20.0.0",
     "next": "^12.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "dependencies": {
     "http-link-header": "^1.0.5",
-    "react-waterfall-render": "^4.0.1"
+    "react-waterfall-render": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.7.13",
@@ -52,7 +52,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "event-target-shim": "^6.0.2",
-    "graphql-react": "^19.0.0",
+    "graphql-react": "^20.0.0",
     "next": "^12.2.5",
     "prettier": "^2.7.1",
     "puppeteer": "^17.0.0",

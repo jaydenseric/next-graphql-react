@@ -2,6 +2,11 @@
 
 ## Next
 
+### Major
+
+- Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^20.0.0`.
+- Updated the [`react-waterfall-render`](https://npm.im/react-waterfall-render) dependency to v5.
+
 ### Patch
 
 - Updated dev dependencies.
