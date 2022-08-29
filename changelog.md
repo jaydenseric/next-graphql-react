@@ -7,6 +7,7 @@
 - Updated dev dependencies.
 - Use the `node:` URL scheme for Node.js builtin module imports in tests.
 - Migrated from the Node.js builtin module `fs` to `node:fs/promises` in tests.
+- Replaced the test helper function `fsPathRemove` with the function `rm` from the Node.js builtin module `node:fs/promises`.
 
 ## 14.0.0
 

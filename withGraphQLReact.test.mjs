@@ -1,14 +1,13 @@
 // @ts-check
 
 import { ok, strictEqual } from "node:assert";
-import { readFile } from "node:fs/promises";
+import { readFile, rm } from "node:fs/promises";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer";
 import TestDirector from "test-director";
 
 import execFilePromise from "./test/execFilePromise.mjs";
-import fsPathRemove from "./test/fsPathRemove.mjs";
 import listen from "./test/listen.mjs";
 import startNext from "./test/startNext.mjs";
 
@@ -324,10 +323,16 @@ export default (tests) => {
 
             ok(html.includes(`id="${markerA}"`));
           } finally {
-            fsPathRemove(fileURLToPath(nextExportOutDirUrl));
+            await rm(nextExportOutDirUrl, {
+              force: true,
+              recursive: true,
+            });
           }
         } finally {
-          fsPathRemove(fileURLToPath(new URL(".next", nextProjectUrl)));
+          await rm(new URL(".next", nextProjectUrl), {
+            force: true,
+            recursive: true,
+          });
         }
       } finally {
         closeGraphqlSever();
