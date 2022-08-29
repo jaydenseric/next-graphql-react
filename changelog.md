@@ -6,6 +6,7 @@
 
 - Updated dev dependencies.
 - Use the `node:` URL scheme for Node.js builtin module imports in tests.
+- Migrated from the Node.js builtin module `fs` to `node:fs/promises` in tests.
 
 ## 14.0.0
 

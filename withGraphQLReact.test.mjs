@@ -1,7 +1,7 @@
 // @ts-check
 
 import { ok, strictEqual } from "node:assert";
-import fs from "node:fs";
+import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer";
@@ -317,7 +317,7 @@ export default (tests) => {
           );
 
           try {
-            const html = await fs.promises.readFile(
+            const html = await readFile(
               new URL(`index.html`, nextExportOutDirUrl),
               "utf8"
             );
