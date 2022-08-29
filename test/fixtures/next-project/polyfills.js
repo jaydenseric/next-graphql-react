@@ -23,10 +23,12 @@ if (typeof window === "undefined") {
       class CustomEvent extends Event {
         /**
          * @param {string} eventName
-         * @param {object} [options]
-         * @param {T} [options.detail]
+         * @param {CustomEventInit<T>} [options]
          */
-        constructor(eventName, { detail, ...eventOptions } = {}) {
+        constructor(eventName, options = {}) {
+          // Workaround a TypeScript bug:
+          // https://github.com/microsoft/TypeScript/issues/50286
+          const { detail, ...eventOptions } = options;
           super(eventName, eventOptions);
           if (detail) this.detail = detail;
         }

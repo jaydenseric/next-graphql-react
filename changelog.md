@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Updated dev dependencies.
+
 ## 14.0.0
 
 ### Major
