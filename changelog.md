@@ -1,5 +1,11 @@
 # next-graphql-react changelog
 
+## Next
+
+### Patch
+
+- Fixed a link in the v14.0.0 changelog entry.
+
 ## 15.0.0
 
 ### Major
@@ -20,7 +26,7 @@
 ### Major
 
 - Updated the [`graphql-react`](https://npm.im/graphql-react) peer dependency to `^19.0.0`.
-- Updated the [`react`](https://npm.im/react) and [`react-dom`](https://npm.im/react) peer dependencies to `^18.0.0`.
+- Updated the [`react`](https://npm.im/react) and [`react-dom`](https://npm.im/react-dom) peer dependencies to `^18.0.0`.
 - Updated `react-dom/server` imports to suit React v18.
 
 ### Patch
