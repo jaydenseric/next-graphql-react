@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Updated the [`next`](https://npm.im/next) peer dependency to `12 - 13`.
 - Updated dev dependencies.
 - Fixed a link in the v14.0.0 changelog entry.
 
