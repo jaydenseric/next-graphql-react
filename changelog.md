@@ -4,6 +4,7 @@
 
 ### Patch
 
+- Updated dev dependencies.
 - Fixed a link in the v14.0.0 changelog entry.
 
 ## 15.0.0
