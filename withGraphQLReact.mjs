@@ -2,8 +2,12 @@
 
 import Cache from "graphql-react/Cache.mjs";
 import Provider from "graphql-react/Provider.mjs";
-import NextApp from "next/app.js";
+import nextApp from "next/app.js";
 import React from "react";
+
+import cjsDefaultImport from "./cjsDefaultImport.mjs";
+
+const NextApp = cjsDefaultImport(nextApp);
 
 /**
  * Link `rel` types that make sense to forward from loading responses during SSR
@@ -121,7 +125,7 @@ export default function withGraphQLReact(App) {
       ] = await Promise.all([
         App.getInitialProps
           ? App.getInitialProps(context)
-          : NextApp.default.getInitialProps(context),
+          : NextApp.getInitialProps(context),
         import("react-dom/server"),
         import("react-waterfall-render/waterfallRender.mjs"),
       ]);

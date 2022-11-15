@@ -20,6 +20,7 @@
     "mjs"
   ],
   "files": [
+    "cjsDefaultImport.mjs",
     "withGraphQLReact.mjs"
   ],
   "sideEffects": [
