@@ -8,6 +8,7 @@
 
 ### Patch
 
+- Updated the `package.json` field `repository` to conform to new npm requirements.
 - Updated GitHub Actions CI config:
 - The workflow still triggers on push, but no longer on pull request.
   - The workflow can now be manually triggered.
