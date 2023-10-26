@@ -5,6 +5,7 @@
 ### Major
 
 - Updated Node.js support to `^18.15.0 || >=20.4.0`.
+- Refactored tests to no longer polyfill the standard `AbortController`, `AbortSignal`, `Event`, `EventTarget`, and `performance` APIs available in modern Node.js and removed the dev dependencies [`abort-controller`](https://npm.im/abort-controller) and [`event-target-shim`](https://npm.im/event-target-shim).
 
 ### Patch
 

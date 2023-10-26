@@ -3,16 +3,6 @@
 "use strict";
 
 if (typeof window === "undefined") {
-  if (!("performance" in globalThis))
-    // @ts-ignore This isn’t a perfect polyfill.
-    globalThis.performance = require("perf_hooks").performance;
-
-  if (!("EventTarget" in globalThis))
-    globalThis.EventTarget = require("event-target-shim").EventTarget;
-
-  if (!("Event" in globalThis))
-    globalThis.Event = require("event-target-shim").Event;
-
   if (!("CustomEvent" in globalThis))
     // @ts-ignore This isn’t a perfect polyfill.
     globalThis.CustomEvent =
@@ -33,6 +23,4 @@ if (typeof window === "undefined") {
           if (detail) this.detail = detail;
         }
       };
-
-  require("abort-controller/polyfill");
 }
