@@ -1,5 +1,16 @@
 # next-graphql-react changelog
 
+## Next
+
+### Major
+
+- Updated Node.js support to `^18.15.0 || >=20.4.0`.
+
+### Patch
+
+- Updated GitHub Actions CI config:
+  - Run tests with Node.js v18, v20, v21.
+
 ## 15.0.2
 
 ### Patch
