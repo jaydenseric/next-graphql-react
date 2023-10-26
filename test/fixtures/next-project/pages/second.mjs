@@ -30,7 +30,7 @@ export default function SecondPage() {
   const loadGraphQL = useLoadGraphQL();
   const load = React.useCallback(
     () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
-    [loadGraphQL]
+    [loadGraphQL],
   );
 
   useAutoLoad(cacheKey, load);

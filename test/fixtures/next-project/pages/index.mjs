@@ -40,7 +40,7 @@ export default function IndexPage() {
   const loadGraphQL = useLoadGraphQL();
   const load = React.useCallback(
     () => loadGraphQL(cacheKey, fetchUri, fetchOptions),
-    [fetchUri, loadGraphQL]
+    [fetchUri, loadGraphQL],
   );
 
   useAutoLoad(cacheKey, load);

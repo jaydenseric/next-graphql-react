@@ -19,6 +19,6 @@ tests.run().then(() => {
   // process might not be noticed.
   process.exit(
     // Respect the original exit code.
-    process.exitCode
+    process.exitCode,
   );
 });

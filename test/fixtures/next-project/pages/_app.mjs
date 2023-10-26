@@ -24,9 +24,9 @@ const App = ({ Component, pageProps = {} }) =>
         href: "/second",
         passHref: true,
       },
-      React.createElement("a", null, "Second")
+      React.createElement("a", null, "Second"),
     ),
-    React.createElement(Component, pageProps)
+    React.createElement(Component, pageProps),
   );
 
 // This is for testing that an original response `Link` header is respected by
@@ -45,7 +45,7 @@ App.getInitialProps = async (context) => {
       "Link",
 
       // Todo: Also test setting a header array.
-      decodeURIComponent(context.ctx.query.linkHeaderNext)
+      decodeURIComponent(context.ctx.query.linkHeaderNext),
     );
 
   return NextApp.default.getInitialProps(context);

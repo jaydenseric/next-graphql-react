@@ -37,7 +37,7 @@ export default (tests) => {
 
         const { searchParams } = new URL(
           /** @type {string} */ (request.url),
-          `http://${request.headers.host}`
+          `http://${request.headers.host}`,
         );
 
         const linkHeader = searchParams.get("linkHeader");
@@ -51,21 +51,20 @@ export default (tests) => {
               a: markerA,
               b: markerB,
             },
-          })
+          }),
         );
         response.end();
       });
 
-      const { port: portGraphqlSever, close: closeGraphqlSever } = await listen(
-        graphqlSever
-      );
+      const { port: portGraphqlSever, close: closeGraphqlSever } =
+        await listen(graphqlSever);
 
       try {
         process.env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${portGraphqlSever}`;
 
         const nextProjectUrl = new URL(
           "./test/fixtures/next-project/",
-          import.meta.url
+          import.meta.url,
         );
         const nextProjectPath = fileURLToPath(nextProjectUrl);
 
@@ -80,9 +79,8 @@ export default (tests) => {
         try {
           console.log("Starting Next.js…");
 
-          const { port: portNext, close: closeNext } = await startNext(
-            nextProjectPath
-          );
+          const { port: portNext, close: closeNext } =
+            await startNext(nextProjectPath);
 
           try {
             const browser = await puppeteer.launch();
@@ -109,7 +107,7 @@ export default (tests) => {
                     ok(response.ok());
                     strictEqual(response.headers().link, undefined);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -117,32 +115,32 @@ export default (tests) => {
                   async () => {
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderGraphql=${encodeURIComponent(
-                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
-                      )}`
+                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`,
+                      )}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
-                      linkHeaderGraphqlForwardable
+                      linkHeaderGraphqlForwardable,
                     );
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
                   "Next.js original response `Link` header absent, GraphQL response `Link` header unparsable.",
                   async () => {
                     const response = await page.goto(
-                      `${nextServerUrl}?linkHeaderGraphql=.`
+                      `${nextServerUrl}?linkHeaderGraphql=.`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, undefined);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -152,15 +150,15 @@ export default (tests) => {
                       "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
-                        linkHeaderNext
-                      )}`
+                        linkHeaderNext,
+                      )}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -170,20 +168,20 @@ export default (tests) => {
                       "<https://github.com/jaydenseric>; rel=preconnect, <https://github.com/jaydenseric>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
-                        linkHeaderNext
+                        linkHeaderNext,
                       )}&linkHeaderGraphql=${encodeURIComponent(
-                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
-                      )}`
+                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`,
+                      )}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
-                      `${linkHeaderNext}, ${linkHeaderGraphqlForwardable}`
+                      `${linkHeaderNext}, ${linkHeaderGraphqlForwardable}`,
                     );
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -193,14 +191,14 @@ export default (tests) => {
                       "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const linkHeaderEncoded = encodeURIComponent(linkHeader);
                     const response = await page.goto(
-                      `${nextServerUrl}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`
+                      `${nextServerUrl}?linkHeaderNext=${linkHeaderEncoded}&linkHeaderGraphql=${linkHeaderEncoded}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeader);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -210,15 +208,15 @@ export default (tests) => {
                       "<https://github.com>; rel=preconnect, <https://github.com>; rel=nonsense";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
-                        linkHeaderNext
-                      )}&linkHeaderGraphql=.`
+                        linkHeaderNext,
+                      )}&linkHeaderGraphql=.`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -227,15 +225,15 @@ export default (tests) => {
                     const linkHeaderNext = ".";
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=${encodeURIComponent(
-                        linkHeaderNext
-                      )}`
+                        linkHeaderNext,
+                      )}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(response.headers().link, linkHeaderNext);
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -243,18 +241,18 @@ export default (tests) => {
                   async () => {
                     const response = await page.goto(
                       `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=${encodeURIComponent(
-                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`
-                      )}`
+                        `${linkHeaderGraphqlForwardable}, ${linkHeaderGraphQLUnforwardable}`,
+                      )}`,
                     );
 
                     ok(response);
                     ok(response.ok());
                     strictEqual(
                       response.headers().link,
-                      linkHeaderGraphqlForwardable
+                      linkHeaderGraphqlForwardable,
                     );
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 serverSidePageLoadTests.add(
@@ -263,7 +261,7 @@ export default (tests) => {
                     const response = await page.goto(
                       // The unparsable values have to be different so the
                       // can be separately identified in the final response.
-                      `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=-`
+                      `${nextServerUrl}?linkHeaderNext=.&linkHeaderGraphql=-`,
                     );
 
                     ok(response);
@@ -274,10 +272,10 @@ export default (tests) => {
                       // forward from the GraphQL response, the unparsable
                       // original Next.js one shouldn’t have been replaced
                       // in the final response.
-                      "."
+                      ".",
                     );
                     ok(await page.$(`#${markerA}`));
-                  }
+                  },
                 );
 
                 await serverSidePageLoadTests.run(true);
@@ -306,20 +304,20 @@ export default (tests) => {
           const nextExportOutput = await execFilePromise(
             "npx",
             ["next", "export", "-o", nextExportOutDirName],
-            { cwd: nextProjectPath }
+            { cwd: nextProjectPath },
           );
 
           ok(nextExportOutput.stdout.includes("Export successful"));
 
           const nextExportOutDirUrl = new URL(
             `${nextExportOutDirName}/`,
-            nextProjectUrl
+            nextProjectUrl,
           );
 
           try {
             const html = await readFile(
               new URL(`index.html`, nextExportOutDirUrl),
-              "utf8"
+              "utf8",
             );
 
             ok(html.includes(`id="${markerA}"`));
@@ -338,6 +336,6 @@ export default (tests) => {
       } finally {
         closeGraphqlSever();
       }
-    }
+    },
   );
 };

@@ -95,7 +95,7 @@ export default function withGraphQLReact(App) {
     return React.createElement(
       Provider,
       { cache: cacheRef.current },
-      React.createElement(App, appProps)
+      React.createElement(App, appProps),
     );
   }
 
@@ -135,7 +135,7 @@ export default function withGraphQLReact(App) {
       try {
         await waterfallRender(
           React.createElement(context.AppTree, { cache, ...appProps }),
-          ReactDOMServer.renderToStaticMarkup
+          ReactDOMServer.renderToStaticMarkup,
         );
       } catch (error) {
         console.error(error);
@@ -200,7 +200,7 @@ export default function withGraphQLReact(App) {
             FORWARDABLE_LINK_REL.includes(link.rel) &&
             // A similar link isn’t already set.
             !linkHeaderPlanForwardable.refs.some(
-              ({ uri, rel }) => uri === link.uri && rel === link.rel
+              ({ uri, rel }) => uri === link.uri && rel === link.rel,
             )
           )
             linkHeaderPlanForwardable.set(link);
@@ -215,7 +215,7 @@ export default function withGraphQLReact(App) {
             // Normalize the original header into an array, as it could have
             // been set as either a string or an array of strings.
             const linkHeaderResponseOriginalArray = Array.isArray(
-              linkHeaderResponseOriginal
+              linkHeaderResponseOriginal,
             )
               ? linkHeaderResponseOriginal
               : [linkHeaderResponseOriginal];
@@ -231,7 +231,7 @@ export default function withGraphQLReact(App) {
             for (const linkHeaderResponseOriginal of linkHeaderResponseOriginalArray) {
               try {
                 linkHeaderPlanResponseOriginal.parse(
-                  linkHeaderResponseOriginal
+                  linkHeaderResponseOriginal,
                 );
               } catch (error) {
                 // Ignore a parse error. It’s ok to exclude the original
@@ -246,7 +246,7 @@ export default function withGraphQLReact(App) {
                 if (
                   // A similar link isn’t already set.
                   !linkHeaderPlanResponseFinal.refs.some(
-                    ({ uri, rel }) => uri === link.uri && rel === link.rel
+                    ({ uri, rel }) => uri === link.uri && rel === link.rel,
                   )
                 )
                   linkHeaderPlanResponseFinal.set(link);
@@ -256,7 +256,7 @@ export default function withGraphQLReact(App) {
 
           context.ctx.res.setHeader(
             "Link",
-            linkHeaderPlanResponseFinal.toString()
+            linkHeaderPlanResponseFinal.toString(),
           );
         }
       }
