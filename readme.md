@@ -23,7 +23,7 @@ Then [React](https://reactjs.org) hooks imported from [`graphql-react`](https://
 
 Supported runtime environments:
 
-- [Node.js](https://nodejs.org) versions `^18.15.0 || >=20.4.0`.
+- [Node.js](https://nodejs.org) versions `^18.17.0 || >=20.4.0`.
 - Browsers matching the [Browserslist](https://browsersl.ist) query [`> 0.5%, not OperaMini all, not dead`](https://browsersl.ist/?q=%3E+0.5%25%2C+not+OperaMini+all%2C+not+dead).
 
 Projects must configure [TypeScript](https://typescriptlang.org) to use types from the ECMAScript modules that have a `// @ts-check` comment:
