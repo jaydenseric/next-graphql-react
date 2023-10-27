@@ -19,6 +19,7 @@
   - Updated `actions/setup-node` to v4.
 - Fixed the types for test fixture Next.js config.
 - In tests, use the new Puppeteer headless mode.
+- Fixed bugs in the test helper function `startNext`.
 
 ## 15.0.2
 
