@@ -18,6 +18,7 @@
   - Updated `actions/checkout` to v4.
   - Updated `actions/setup-node` to v4.
 - Fixed the types for test fixture Next.js config.
+- In tests, use the new Puppeteer headless mode.
 
 ## 15.0.2
 

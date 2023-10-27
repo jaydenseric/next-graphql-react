@@ -83,7 +83,9 @@ export default (tests) => {
             await startNext(nextProjectPath);
 
           try {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+              headless: "new",
+            });
 
             try {
               const page = await browser.newPage();
