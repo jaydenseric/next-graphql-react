@@ -1,6 +1,8 @@
 // @ts-check
 
-/** @type {import("next").NextConfig} */
-export default {
+/** @satisfies {import("next").NextConfig} */
+const nextConfig = {
   pageExtensions: ["mjs"],
 };
+
+export default nextConfig;
