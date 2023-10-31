@@ -1,5 +1,9 @@
 {
-  "extends": ["eslint:recommended", "plugin:react-hooks/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:optimal-modules/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "env": {
     "es2022": true,
     "node": true,

@@ -11,6 +11,7 @@
 ### Patch
 
 - Updated the `package.json` field `repository` to conform to new npm requirements.
+- Integrated the ESLint plugin [`eslint-plugin-optimal-modules`](https://npm.im/eslint-plugin-optimal-modules).
 - Updated GitHub Actions CI config:
 - The workflow still triggers on push, but no longer on pull request.
   - The workflow can now be manually triggered.
