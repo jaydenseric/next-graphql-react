@@ -310,7 +310,10 @@ describe("Function `withGraphQLReact`.", { concurrency: true }, async () => {
       const page = await browser.newPage();
 
       try {
-        const response = await page.goto(nextServerUrl);
+        const response = await page.goto(nextServerUrl, {
+          // Wait until the JS has loaded and the React app has mounted.
+          waitUntil: "networkidle0",
+        });
 
         ok(response);
         ok(response.ok());
