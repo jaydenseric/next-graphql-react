@@ -50,8 +50,8 @@ export default function IndexPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? React.createElement("div", { id: cacheValue.data.a })
-    : cacheValue?.errors
-    ? "Error!"
-    : React.createElement("div", { id: "loading" });
+      ? React.createElement("div", { id: cacheValue.data.a })
+      : cacheValue?.errors
+        ? "Error!"
+        : React.createElement("div", { id: "loading" });
 }

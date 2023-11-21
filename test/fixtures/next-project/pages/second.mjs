@@ -40,8 +40,8 @@ export default function SecondPage() {
   return isWaterfallLoading
     ? null
     : cacheValue?.data
-    ? React.createElement("div", { id: cacheValue.data.b })
-    : cacheValue?.errors
-    ? "Error!"
-    : React.createElement("div", { id: "loading" });
+      ? React.createElement("div", { id: cacheValue.data.b })
+      : cacheValue?.errors
+        ? "Error!"
+        : React.createElement("div", { id: "loading" });
 }
