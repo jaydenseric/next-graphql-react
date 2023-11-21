@@ -11,6 +11,7 @@
 
 ### Patch
 
+- Updated the [`next`](https://npm.im/next) peer dependency to `12 - 14`.
 - Updated the `package.json` field `repository` to conform to new npm requirements.
 - Integrated the ESLint plugin [`eslint-plugin-optimal-modules`](https://npm.im/eslint-plugin-optimal-modules).
 - Updated GitHub Actions CI config:
@@ -20,7 +21,9 @@
   - Updated `actions/checkout` to v4.
   - Updated `actions/setup-node` to v4.
 - Fixed the types for test fixture Next.js config.
-- In tests, use the new Puppeteer headless mode.
+- In tests:
+  - Use the new Puppeteer headless mode.
+  - Migrated use of the deprecated Next.js CLI `next export` to the new Next.js static export API.
 - Fixed bugs in the test helper function `startNext`.
 
 ## 15.0.2

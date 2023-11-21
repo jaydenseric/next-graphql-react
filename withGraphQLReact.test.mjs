@@ -343,19 +343,17 @@ describe("Function `withGraphQLReact`.", { concurrency: true }, async () => {
   });
 
   it("Static HTML export.", async () => {
-    const nextExportOutDirName = ".next-export";
-    const nextExportOutput = await execFilePromise(
-      "npx",
-      ["next", "export", "-o", nextExportOutDirName],
-      { cwd: nextProjectPath },
-    );
+    const nextExportOutput = await execFilePromise("npx", ["next", "build"], {
+      cwd: nextProjectPath,
+      env: {
+        ...process.env,
+        TEST_FIXTURE_NEXT_CONFIG_OUTPUT: "export",
+      },
+    });
 
-    ok(nextExportOutput.stdout.includes("Export successful"));
+    ok(nextExportOutput.stdout.includes("Compiled successfully"));
 
-    const nextExportOutDirUrl = new URL(
-      `${nextExportOutDirName}/`,
-      nextProjectUrl,
-    );
+    const nextExportOutDirUrl = new URL("out/", nextProjectUrl);
 
     try {
       const html = await readFile(
