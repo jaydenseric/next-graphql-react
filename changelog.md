@@ -26,6 +26,7 @@
   - Use the new Puppeteer headless mode.
   - For the client side page load test, simulate fast 3G network conditions to ensure GraphQL query loading state can render and be asserted.
   - Migrated use of the deprecated Next.js CLI `next export` to the new Next.js static export API.
+  - Removed an apparently no longer necessary workaround that forced the process to exit after tests; older Next.js used to stay running after closing it’s server.
 - Fixed bugs in the test helper function `startNext`.
 
 ## 15.0.2
