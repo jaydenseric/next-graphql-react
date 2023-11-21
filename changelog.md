@@ -22,7 +22,8 @@
   - Updated `actions/checkout` to v4.
   - Updated `actions/setup-node` to v4.
 - Fixed the types for test fixture Next.js config.
-- In tests:
+- For the function `withGraphQLReact` tests:
+  - Temporarily disabled the tests for Node.js v18 due to the Node.js test runner bug [nodejs/node#48845](https://github.com/nodejs/node/issues/48845) that will be fixed in a future Node.js v18 release.
   - Use the new Puppeteer headless mode.
   - For the client side page load test:
     - Attempt to wait until the JS has loaded and the React app has mounted before clicking the navigation link.
