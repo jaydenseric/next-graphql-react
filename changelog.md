@@ -11,7 +11,7 @@
 
 ### Patch
 
-- Updated the [`next`](https://npm.im/next) peer dependency to `12 - 14`.
+- Updated the [`next`](https://npm.im/next) peer dependency to `12 - 14`, fixing [#7](https://github.com/jaydenseric/next-graphql-react/issues/7).
 - Updated dependencies.
 - Updated the `package.json` field `repository` to conform to new npm requirements.
 - Integrated the ESLint plugin [`eslint-plugin-optimal-modules`](https://npm.im/eslint-plugin-optimal-modules).
