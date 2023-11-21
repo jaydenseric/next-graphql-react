@@ -67,7 +67,7 @@
     "eslint": "eslint .",
     "prettier": "prettier -c .",
     "types": "tsc -p jsconfig.json",
-    "tests": "NEXT_TELEMETRY_DISABLED=1 node --test-reporter=spec --test **/*.test.mjs",
+    "tests": "NEXT_TELEMETRY_DISABLED=1 node --test-reporter=spec --test *.test.mjs",
     "test": "npm run eslint && npm run prettier && npm run types && npm run tests",
     "prepublishOnly": "npm test"
   }
