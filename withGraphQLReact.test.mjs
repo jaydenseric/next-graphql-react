@@ -6,7 +6,7 @@ import { createServer } from "node:http";
 import { after, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import puppeteer from "puppeteer";
+import puppeteer, { PredefinedNetworkConditions } from "puppeteer";
 
 import execFilePromise from "./test/execFilePromise.mjs";
 import listen from "./test/listen.mjs";
@@ -330,11 +330,18 @@ describe("Function `withGraphQLReact`.", { concurrency: true }, async () => {
         ok(response);
         ok(response.ok());
 
+        // Simulate fast 3G network conditions for just this headless browser
+        // page, so when the second page is navigated to client side, the page’s
+        // GraphQL query loading state can render and be asserted.
+        await page.emulateNetworkConditions(
+          PredefinedNetworkConditions["Fast 3G"],
+        );
+
         await Promise.all([
           page.click('[href="/second"]'),
           page.waitForNavigation(),
-          page.waitForSelector("#loading", { timeout: 1000 }),
-          page.waitForSelector(`#${markerB}`, { timeout: 1000 }),
+          page.waitForSelector("#loading", { timeout: 10000 }),
+          page.waitForSelector(`#${markerB}`, { timeout: 20000 }),
         ]);
       } finally {
         await page.close();

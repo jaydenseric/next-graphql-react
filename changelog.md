@@ -24,6 +24,7 @@
 - Fixed the types for test fixture Next.js config.
 - In tests:
   - Use the new Puppeteer headless mode.
+  - For the client side page load test, simulate fast 3G network conditions to ensure GraphQL query loading state can render and be asserted.
   - Migrated use of the deprecated Next.js CLI `next export` to the new Next.js static export API.
 - Fixed bugs in the test helper function `startNext`.
 
