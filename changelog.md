@@ -32,6 +32,7 @@
   - Removed an apparently no longer necessary workaround that forced the process to exit after tests; older Next.js used to stay running after closing it’s server.
 - Fixed bugs in the test helper function `startNext`.
 - Added tests for the internal function `cjsDefaultImport`.
+- Updated link URLs in the readme.
 
 ## 15.0.2
 
