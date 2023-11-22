@@ -1,11 +1,14 @@
 // @ts-check
 
 import { createServer } from "node:http";
-import { createRequire } from "node:module";
 
+import next from "next";
+
+import cjsDefaultImport from "../cjsDefaultImport.mjs";
 import listen from "./listen.mjs";
 
-const require = createRequire(import.meta.url);
+// Workaround broken Next.js types.
+const nextCreateServer = cjsDefaultImport(next);
 
 /**
  * Starts Next.js.
@@ -14,10 +17,7 @@ const require = createRequire(import.meta.url);
  *   close the server.
  */
 export default async function startNext(dir) {
-  /** @type {import("next").default} */
-  const next = require(require.resolve("next", { paths: [dir] }));
-
-  const nextServer = next({ dir });
+  const nextServer = nextCreateServer({ dir });
   const nextRequestHandler = nextServer.getRequestHandler();
 
   await nextServer.prepare();
