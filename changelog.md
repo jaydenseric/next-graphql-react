@@ -31,6 +31,7 @@
   - Migrated use of the deprecated Next.js CLI `next export` to the new Next.js static export API.
   - Removed an apparently no longer necessary workaround that forced the process to exit after tests; older Next.js used to stay running after closing it’s server.
 - Fixed bugs in the test helper function `startNext`.
+- Added tests for the internal function `cjsDefaultImport`.
 
 ## 15.0.2
 
