@@ -65,27 +65,30 @@ if (!process.version.startsWith("v18."))
 
     process.env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${portGraphqlSever}`;
 
+    /** Test fixture Next.js project directory URL. */
     const nextProjectUrl = new URL(
       "./test/fixtures/next-project/",
       import.meta.url,
     );
-    const nextProjectPath = fileURLToPath(nextProjectUrl);
-    const buildOutput = await execFilePromise("npx", ["next", "build"], {
-      cwd: nextProjectPath,
-    });
-
-    ok(buildOutput.stdout.includes("Compiled successfully"));
-
-    after(async () => {
-      await rm(new URL(".next", nextProjectUrl), {
-        force: true,
-        recursive: true,
-      });
-    });
 
     describe("Served.", { concurrency: true }, async () => {
-      const { port: portNext, close: closeNext } =
-        await startNext(nextProjectPath);
+      const nextBuildOutput = await execFilePromise("npx", ["next", "build"], {
+        cwd: nextProjectUrl,
+      });
+
+      after(async () => {
+        // Cleanup the Next.js build artifacts.
+        await rm(new URL(".next", nextProjectUrl), {
+          force: true,
+          recursive: true,
+        });
+      });
+
+      ok(nextBuildOutput.stdout.includes("Compiled successfully"));
+
+      const { port: portNext, close: closeNext } = await startNext(
+        fileURLToPath(nextProjectUrl),
+      );
 
       after(() => {
         closeNext();
@@ -343,30 +346,29 @@ if (!process.version.startsWith("v18."))
     });
 
     it("Static HTML export.", async () => {
-      const nextExportOutput = await execFilePromise("npx", ["next", "build"], {
-        cwd: nextProjectPath,
+      /** Next.js static export directory URL. */
+      const nextExportUrl = new URL("out/", nextProjectUrl);
+
+      const nextBuildOutput = await execFilePromise("npx", ["next", "build"], {
+        cwd: nextProjectUrl,
         env: {
           ...process.env,
           TEST_FIXTURE_NEXT_CONFIG_OUTPUT: "export",
         },
       });
 
-      ok(nextExportOutput.stdout.includes("Compiled successfully"));
-
-      const nextExportOutDirUrl = new URL("out/", nextProjectUrl);
-
-      try {
-        const html = await readFile(
-          new URL(`index.html`, nextExportOutDirUrl),
-          "utf8",
-        );
-
-        ok(html.includes(`id="${markerA}"`));
-      } finally {
-        await rm(nextExportOutDirUrl, {
+      after(async () => {
+        // Cleanup the Next.js build artifacts.
+        await rm(nextExportUrl, {
           force: true,
           recursive: true,
         });
-      }
+      });
+
+      ok(nextBuildOutput.stdout.includes("Compiled successfully"));
+
+      const html = await readFile(new URL(`index.html`, nextExportUrl), "utf8");
+
+      ok(html.includes(`id="${markerA}"`));
     });
   });
